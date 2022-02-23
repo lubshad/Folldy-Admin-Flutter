@@ -30,16 +30,21 @@ class Home extends StatelessWidget {
                             icon: const Icon(Icons.notifications)),
                         IconButton(
                             onPressed: () {}, icon: const Icon(Icons.message)),
-                        const SizedBox(
+                        SizedBox(
                           width: 200,
-                          child: ListTile(
-                            dense: true,
-                            leading: CircleAvatar(
-                              backgroundImage: CachedNetworkImageProvider(
-                                  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"),
-                            ),
-                            title: Text("Lubshad"),
-                            // subtitle: Text("Lead Developer"),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              ListTile(
+                                dense: true,
+                                leading: CircleAvatar(
+                                  backgroundImage: CachedNetworkImageProvider(
+                                      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"),
+                                ),
+                                title: Text("Lubshad"),
+                                // subtitle: Text("Lead Developer"),
+                              ),
+                            ],
                           ),
                         ),
                         defaultSpacerHorizontal,

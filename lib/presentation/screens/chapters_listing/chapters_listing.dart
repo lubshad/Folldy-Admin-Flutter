@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:folldy_admin/presentation/screens/chapters_listing/chapter_listing_controller.dart';
 import 'package:folldy_admin/presentation/theme/app_theme.dart';
-import 'package:get/get.dart';
 
 class ChaptersListing extends StatelessWidget {
   const ChaptersListing({
@@ -9,6 +9,8 @@ class ChaptersListing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ChapterListingController chapterListingController =
+        ChapterListingController();
     return Column(
       children: [
         Row(
@@ -17,7 +19,7 @@ class ChaptersListing extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(defaultPadding),
               child: TextButton.icon(
-                onPressed: showAddChapterDialog,
+                onPressed: chapterListingController.showAddChapterDialog,
                 label: const Text("Add New Chapter"),
                 icon: const Icon(Icons.add),
               ),
@@ -25,31 +27,21 @@ class ChaptersListing extends StatelessWidget {
           ],
         ),
         Expanded(
-          child: ListView(
-            children: List.generate(
-                5,
-                (index) => ListTile(
-                      title: Text("Chapter $index"),
-                    )),
+          child: AnimatedBuilder(
+            animation: chapterListingController,
+            builder: (BuildContext context, Widget? child) {
+              return ListView(
+                  children: chapterListingController.chapters
+                      .map(
+                        (chapter) => ListTile(
+                          title: Text(chapter.name),
+                        ),
+                      )
+                      .toList());
+            },
           ),
         ),
       ],
-    );
-  }
-
-  void showAddChapterDialog() {
-    showDialog(
-      context: Get.context!,
-      builder: (context) => AlertDialog(
-          title: const Text("Add New Chapter"),
-          content: const TextField(
-            decoration: InputDecoration(
-              labelText: "Chapter Name",
-            ),
-          ),
-          actions: [
-            ElevatedButton(onPressed: () {}, child: const Text("Add")),
-          ]),
     );
   }
 }

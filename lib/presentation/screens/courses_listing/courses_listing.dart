@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:folldy_admin/presentation/screens/courses_listing/course_listing_controller.dart';
 import 'package:folldy_admin/presentation/theme/app_theme.dart';
-import 'package:get/get.dart';
 
 class CorusesListing extends StatelessWidget {
   const CorusesListing({
@@ -9,6 +9,7 @@ class CorusesListing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CourseListingController courseListingController = CourseListingController();
     return Column(
       children: [
         Row(
@@ -17,7 +18,7 @@ class CorusesListing extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(defaultPadding),
               child: TextButton.icon(
-                onPressed: showAddCourseDialog,
+                onPressed: courseListingController.showAddCourseDialog,
                 label: const Text("Add New course"),
                 icon: const Icon(Icons.add),
               ),
@@ -25,31 +26,20 @@ class CorusesListing extends StatelessWidget {
           ],
         ),
         Expanded(
-          child: ListView(
-            children: List.generate(
-                5,
-                (index) => ListTile(
-                      title: Text("course $index"),
-                    )),
+          child: AnimatedBuilder(
+            animation: courseListingController,
+            builder: (BuildContext context, Widget? child) {
+              return ListView(
+                children: courseListingController.courses
+                    .map((e) => ListTile(
+                          title: Text(e.name),
+                        ))
+                    .toList(),
+              );
+            },
           ),
         ),
       ],
-    );
-  }
-
-  void showAddCourseDialog() {
-    showDialog(
-      context: Get.context!,
-      builder: (context) => AlertDialog(
-          title: const Text("Add New course"),
-          content: const TextField(
-            decoration: InputDecoration(
-              labelText: "course Name",
-            ),
-          ),
-          actions: [
-            ElevatedButton(onPressed: () {}, child: const Text("Add")),
-          ]),
     );
   }
 }

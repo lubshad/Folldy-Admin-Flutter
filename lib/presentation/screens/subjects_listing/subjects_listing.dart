@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:folldy_admin/presentation/screens/subjects_listing/subjects_listing_controller.dart';
 import 'package:folldy_admin/presentation/theme/app_theme.dart';
-import 'package:get/get.dart';
 
 class SubjectsListing extends StatelessWidget {
   const SubjectsListing({
@@ -9,6 +9,8 @@ class SubjectsListing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SubjectListingController subjectListingController =
+        SubjectListingController();
     return Column(
       children: [
         Row(
@@ -17,7 +19,7 @@ class SubjectsListing extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(defaultPadding),
               child: TextButton.icon(
-                onPressed: showAddSubjectDialog,
+                onPressed: subjectListingController.showAddSubjectDialog,
                 label: const Text("Add New Subject"),
                 icon: const Icon(Icons.add),
               ),
@@ -25,31 +27,19 @@ class SubjectsListing extends StatelessWidget {
           ],
         ),
         Expanded(
-          child: ListView(
-            children: List.generate(
-                5,
-                (index) => ListTile(
-                      title: Text("Subject $index"),
-                    )),
+          child: AnimatedBuilder(
+            animation: subjectListingController,
+            builder: (BuildContext context, Widget? child) {
+              return ListView(
+                  children: subjectListingController.subjects
+                      .map((subject) => ListTile(
+                            title: Text(subject.name),
+                          ))
+                      .toList());
+            },
           ),
         ),
       ],
-    );
-  }
-
-  void showAddSubjectDialog() {
-    showDialog(
-      context: Get.context!,
-      builder: (context) => AlertDialog(
-          title: const Text("Add New Subject"),
-          content: const TextField(
-            decoration: InputDecoration(
-              labelText: "Subject Name",
-            ),
-          ),
-          actions: [
-            ElevatedButton(onPressed: () {}, child: const Text("Add")),
-          ]),
     );
   }
 }

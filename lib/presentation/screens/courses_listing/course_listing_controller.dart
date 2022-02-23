@@ -1,27 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:folldy_admin/data/models/institution_list_response.dart';
 import 'package:folldy_admin/data/remote_data_source.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/institution_list_response.dart';
+import '../../../data/models/course_list_response.dart';
 import '../../../data/models/university_list_response.dart';
 
-class InstitutionListingController extends ChangeNotifier {
-  InstitutionListingController() {
+class CourseListingController extends ChangeNotifier {
+  CourseListingController() {
     getUniversities();
+    // getInstitutes();
     getData();
   }
 
-  TextEditingController institutionNameController = TextEditingController();
-  List<Institution> institutions = [];
+  TextEditingController courseNameController = TextEditingController();
+  List<Course> courses = [];
   List<University> universities = [];
+  List<Institution> institutes = [];
 
   University? selectedUniversity;
+  Institution? selectedInstitution;
   bool? appError;
   bool isLoading = true;
 
   get universitiesItems => universities
       .map((e) => DropdownMenuItem<University>(value: e, child: Text(e.name)))
       .toList();
+
+  get institutesItems => selectedUniversity == null
+      ? null
+      : institutes
+          .where((element) =>
+              element.university == selectedUniversity!.name.toString())
+          .map((e) =>
+              DropdownMenuItem<Institution>(value: e, child: Text(e.name)))
+          .toList();
 
   makeLoading() {
     isLoading = true;
@@ -40,7 +53,7 @@ class InstitutionListingController extends ChangeNotifier {
   }
 
   getData() async {
-    institutions = await RemoteDataSource.getAllInstitutions();
+    courses = await RemoteDataSource.getAllCourses();
     notifyListeners();
   }
 
@@ -48,12 +61,16 @@ class InstitutionListingController extends ChangeNotifier {
     universities = await RemoteDataSource.getAllUnivresity();
   }
 
-  showAddinstitutionDialog() {
+  getInstitutes() async {
+    institutes = await RemoteDataSource.getAllInstitutions();
+  }
+
+  showAddCourseDialog() {
     showDialog(
         context: Get.context!,
         builder: (context) {
           return AlertDialog(
-              title: const Text("Add New institution"),
+              title: const Text("Add New Course"),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -63,34 +80,40 @@ class InstitutionListingController extends ChangeNotifier {
                       ),
                       items: universitiesItems,
                       onChanged: changeSelectedUniversity),
-                  TextField(
-                    controller: institutionNameController,
+                  TextFormField(
+                    controller: courseNameController,
                     decoration: const InputDecoration(
-                      labelText: "institution Name",
+                      labelText: "Course Name",
                     ),
+                    onFieldSubmitted: (val) => addNewCourse(),
                   ),
                 ],
               ),
               actions: [
                 ElevatedButton(
-                    onPressed: addNewinstitution, child: const Text("Add")),
+                    onPressed: addNewCourse, child: const Text("Add")),
               ]);
         });
   }
 
-  void addNewinstitution() async {
-    await RemoteDataSource.addInstitution(
-        institutionNameController.text, selectedUniversity!.id);
-    institutionNameController.clear();
+  void addNewCourse() async {
+    await RemoteDataSource.addCourse(
+        courseNameController.text, selectedUniversity!.id);
+    courseNameController.clear();
     getData();
   }
 
-  deleteInstitution(Institution e) async {
-    await RemoteDataSource.deleteInstitution(e.id);
+  deleteCourse(Course e) async {
+    await RemoteDataSource.deleteCourse(e.id);
     getData();
   }
 
   void changeSelectedUniversity(University? value) {
     selectedUniversity = value;
+    notifyListeners();
+  }
+
+  void changeSelectedInstitute(Institution? value) {
+    selectedInstitution = value;
   }
 }
