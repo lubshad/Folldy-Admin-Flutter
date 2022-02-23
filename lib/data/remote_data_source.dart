@@ -7,6 +7,7 @@ import 'models/chapter_list_response.dart';
 import 'models/course_list_response.dart';
 import 'models/institution_list_response.dart';
 import 'models/subject_list_response.dart';
+import 'models/topic_list_response.dart';
 
 class RemoteDataSource {
   static Future<http.Response> addUniversity(String name) {
@@ -150,6 +151,36 @@ class RemoteDataSource {
   static deleteChapter(int id) async {
     await http.delete(
       Uri.parse('http://localhost:8000/api/chapter/$id'),
+    );
+  }
+
+
+  static Future<http.Response> addTopic(String name, int chapter) {
+    return http.post(
+      Uri.parse('http://localhost:8000/api/topic_add'),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        'name': name,
+        "chapter": chapter,
+      }),
+    );
+  }
+
+  static Future<List<Topic>> getAllTopics() async {
+    final response = await http.get(
+      Uri.parse('http://localhost:8000/api/topic_list'),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+      },
+    );
+    return topicFromJson(response.body);
+  }
+
+  static deleteTopic(int id) async {
+    await http.delete(
+      Uri.parse('http://localhost:8000/api/topic/$id'),
     );
   }
 }

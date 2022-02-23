@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:folldy_admin/presentation/screens/topics_listing/topic_listing_controller.dart';
 import 'package:folldy_admin/presentation/theme/app_theme.dart';
-import 'package:get/get.dart';
 
 class TopicsListing extends StatelessWidget {
   const TopicsListing({
@@ -9,6 +9,7 @@ class TopicsListing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TopicListingController topiclistingController = TopicListingController();
     return Column(
       children: [
         Row(
@@ -17,7 +18,7 @@ class TopicsListing extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(defaultPadding),
               child: TextButton.icon(
-                onPressed: showAddTopicDialog,
+                onPressed: topiclistingController.showAddTopicDialog,
                 label: const Text("Add New Topic"),
                 icon: const Icon(Icons.add),
               ),
@@ -25,31 +26,17 @@ class TopicsListing extends StatelessWidget {
           ],
         ),
         Expanded(
-          child: ListView(
-            children: List.generate(
-                5,
-                (index) => ListTile(
-                      title: Text("Topic $index"),
-                    )),
+          child: AnimatedBuilder(
+            animation: topiclistingController,
+            builder: (BuildContext context, Widget? child) {
+              return ListView(
+                  children: topiclistingController.topics
+                      .map((e) => ListTile(title: Text(e.name)))
+                      .toList());
+            },
           ),
         ),
       ],
-    );
-  }
-
-  void showAddTopicDialog() {
-    showDialog(
-      context: Get.context!,
-      builder: (context) => AlertDialog(
-          title: const Text("Add New Topic"),
-          content: const TextField(
-            decoration: InputDecoration(
-              labelText: "Topic Name",
-            ),
-          ),
-          actions: [
-            ElevatedButton(onPressed: () {}, child: const Text("Add")),
-          ]),
     );
   }
 }
