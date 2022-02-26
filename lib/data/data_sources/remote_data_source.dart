@@ -9,14 +9,14 @@ import '../core/api_client.dart';
 import '../core/api_constants.dart';
 
 abstract class RemoteDataSource {
-  Future<University> addUniversity(Map<String, dynamic> params);
+  Future<Map<String, dynamic>> addUniversity(Map<String, dynamic> params);
 
   Future<List<Chapter>> listChapters(Map<String, dynamic> params);
   Future<List<Subject>> listSubjects(Map<String, dynamic> params);
 
-  Future<Chapter> addNewChapter(Map<String, dynamic> params);
+  Future<Map<String, dynamic>> addNewChapter(Map<String, dynamic> params);
 
-  Future<Chapter> deleteChapter(Map<String, dynamic> params);
+  Future<Map<String, dynamic>> deleteChapter(Map<String, dynamic> params);
 
   Future<List<University>> listUniversitys(Map<String, dynamic> params);
 
@@ -24,23 +24,23 @@ abstract class RemoteDataSource {
 
   Future<List<Course>> listCourses(Map<String, dynamic> params);
 
-  Future<Course> deleteCourse(Map<String, dynamic> params);
+  Future<Map<String, dynamic>> deleteCourse(Map<String, dynamic> params);
 
-  Future<Course> addNewCourse(Map<String, dynamic> params);
+  Future<Map<String, dynamic>> addNewCourse(Map<String, dynamic> params);
 
-  Future<Institution> deleteInstitution(Map<String, dynamic> params);
+  Future<Map<String, dynamic>> deleteInstitution(Map<String, dynamic> params);
 
-  Future<Institution> addNewInstitution(Map<String, dynamic> params);
+  Future<Map<String, dynamic>> addNewInstitution(Map<String, dynamic> params);
 
-  Future<Subject> addNewSubject(Map<String, dynamic> params);
+  Future<Map<String, dynamic>> addNewSubject(Map<String, dynamic> params);
 
-  Future<Subject> deleteSubject(Map<String, dynamic> params);
+  Future<Map<String, dynamic>> deleteSubject(Map<String, dynamic> params);
 
-  Future<Topic> addNewTopic(Map<String, dynamic> params);
+  Future<Map<String, dynamic>> addNewTopic(Map<String, dynamic> params);
 
   Future<List<Topic>> listTopicss(Map<String, dynamic> params);
 
-  Future<Topic> deleteTopic(Map<String, dynamic> params);
+  Future<Map<String, dynamic>> deleteTopic(Map<String, dynamic> params);
 
   Future<Map<String, dynamic>> deleteUniversity(Map<String, dynamic> params);
 }
@@ -51,9 +51,10 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   RemoteDataSourceImplementation(this._apiClient);
 
   @override
-  Future<University> addUniversity(Map<String, dynamic> params) async {
+  Future<Map<String, dynamic>> addUniversity(
+      Map<String, dynamic> params) async {
     final response = await _apiClient.post(ApiConstants.addUniversity, params);
-    return University.fromJson(response);
+    return response;
   }
 
   @override
@@ -69,15 +70,19 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
-  Future<Chapter> addNewChapter(Map<String, dynamic> params) async {
+  Future<Map<String, dynamic>> addNewChapter(
+      Map<String, dynamic> params) async {
     final response = await _apiClient.post(ApiConstants.addNewChapter, params);
-    return Chapter.fromJson(response);
-  }
+    return response;
+   
+      }
 
   @override
-  Future<Chapter> deleteChapter(Map<String, dynamic> params) async {
+  Future<Map<String, dynamic>> deleteChapter(
+      Map<String, dynamic> params) async {
     final response = await _apiClient.post(ApiConstants.deleteChapter, params);
-    return Chapter.fromJson(response);
+    return response;
+    
   }
 
   @override
@@ -101,47 +106,56 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
-  Future<Course> addNewCourse(Map<String, dynamic> params) async {
+  Future<Map<String, dynamic>> addNewCourse(Map<String, dynamic> params) async {
     final response = await _apiClient.post(ApiConstants.addNewCourse, params);
-    return Course.fromJson(response);
+    return response;
+    
   }
 
   @override
-  Future<Course> deleteCourse(Map<String, dynamic> params) async {
+  Future<Map<String, dynamic>> deleteCourse(Map<String, dynamic> params) async {
     final response = await _apiClient.post(ApiConstants.deleteCourse, params);
-    return Course.fromJson(response);
+    return response;
+    
   }
 
   @override
-  Future<Institution> addNewInstitution(Map<String, dynamic> params) async {
+  Future<Map<String, dynamic>> addNewInstitution(
+      Map<String, dynamic> params) async {
     final response =
         await _apiClient.post(ApiConstants.addNewInstitution, params);
-    return Institution.fromJson(response);
+    return response;
   }
 
   @override
-  Future<Institution> deleteInstitution(Map<String, dynamic> params) async {
+  Future<Map<String, dynamic>> deleteInstitution(
+      Map<String, dynamic> params) async {
     final response =
         await _apiClient.post(ApiConstants.deleteInstitution, params);
-    return Institution.fromJson(response);
+    return response;
   }
 
   @override
-  Future<Subject> addNewSubject(Map<String, dynamic> params) async {
+  Future<Map<String, dynamic>> addNewSubject(
+      Map<String, dynamic> params) async {
     final response = await _apiClient.post(ApiConstants.addNewSubject, params);
-    return Subject.fromJson(response);
+    return response;
+    
   }
 
   @override
-  Future<Subject> deleteSubject(Map<String, dynamic> params) async {
+  Future<Map<String, dynamic>> deleteSubject(
+      Map<String, dynamic> params) async {
     final response = await _apiClient.post(ApiConstants.deleteSubject, params);
-    return Subject.fromJson(response);
+    return response;
+    
   }
 
   @override
-  Future<Topic> addNewTopic(Map<String, dynamic> params) async {
+  Future<Map<String, dynamic>> addNewTopic(Map<String, dynamic> params) async {
     final response = await _apiClient.post(ApiConstants.addNewTopic, params);
-    return Topic.fromJson(response);
+    return response;
+    
   }
 
   @override
@@ -151,9 +165,10 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
-  Future<Topic> deleteTopic(Map<String, dynamic> params) async {
+  Future<Map<String, dynamic>> deleteTopic(Map<String, dynamic> params) async {
     final response = await _apiClient.post(ApiConstants.deleteTopic, params);
-    return Topic.fromJson(response);
+    return response;
+    
   }
 
   @override

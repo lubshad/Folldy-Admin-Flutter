@@ -5,12 +5,12 @@ import 'package:folldy_admin/domain/usecase/usecase.dart';
 
 import '../../data/models/course_list_response.dart';
 
-class DeleteCourse extends UseCase<Course, Course> {
+class DeleteCourse extends UseCase<Map<String, dynamic>, Course> {
   final DataRepository _dataRepository;
 
   DeleteCourse(this._dataRepository);
   @override
-  Future<Either<AppError, Course>> call(Course params) async {
+  Future<Either<AppError, Map<String, dynamic>>> call(Course params) async {
     return _dataRepository.deleteCourse(params.toJson());
   }
 }

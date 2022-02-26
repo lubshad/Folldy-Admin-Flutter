@@ -4,8 +4,8 @@
 
 import 'dart:convert';
 
-List<Institution> institutionFromJson(String str) => List<Institution>.from(
-    json.decode(str).map((x) => Institution.fromJson(x)));
+List<Institution> institutionFromJson(dynamic str) =>
+    List<Institution>.from(str.map((x) => Institution.fromJson(x)));
 
 String institutionToJson(List<Institution> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));

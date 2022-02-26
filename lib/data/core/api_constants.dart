@@ -9,7 +9,7 @@ class ApiConstants {
   static const String listChapters = "chapter_list";
   static const String listSubjects = "subject_list";
   static const String universityList = "university_list";
-  static const String institutionList = "instituton_list";
+  static const String institutionList = "institution_list";
   static const String deleteChapter = "chapter_delete";
   static const String addNewChapter = "chapter_add";
   static const String addNewCourse = "course_add";

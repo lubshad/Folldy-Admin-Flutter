@@ -8,7 +8,7 @@ import 'package:folldy_admin/data/models/university_list_response.dart';
 import 'package:folldy_admin/domain/entities/app_error.dart';
 
 abstract class DataRepository {
-  Future<Either<AppError, University>> addUniversity(
+  Future<Either<AppError, Map<String, dynamic>>> addUniversity(
       Map<String, dynamic> params);
 
   Future<Either<AppError, List<Chapter>>> listChapters(
@@ -16,9 +16,9 @@ abstract class DataRepository {
   Future<Either<AppError, List<Subject>>> listSubjects(
       Map<String, dynamic> params);
 
-  Future<Either<AppError, Chapter>> addNewChapter(Map<String, dynamic> params);
+  Future<Either<AppError, Map<String, dynamic>>> addNewChapter(Map<String, dynamic> params);
 
-  Future<Either<AppError, Chapter>> deleteChapter(Map<String, dynamic> params);
+  Future<Either<AppError, Map<String, dynamic>>> deleteChapter(Map<String, dynamic> params);
 
   Future<Either<AppError, List<University>>> listUniversitys(
       Map<String, dynamic> params);
@@ -29,25 +29,25 @@ abstract class DataRepository {
   Future<Either<AppError, List<Course>>> listCourses(
       Map<String, dynamic> params);
 
-  Future<Either<AppError, Course>> deleteCourse(Map<String, dynamic> params);
+  Future<Either<AppError, Map<String, dynamic>>> deleteCourse(Map<String, dynamic> params);
 
-  Future<Either<AppError, Course>> addNewCourse(Map<String, dynamic> params);
+  Future<Either<AppError, Map<String, dynamic>>> addNewCourse(Map<String, dynamic> params);
 
-  Future<Either<AppError, Institution>> addNewInstitution(
+  Future<Either<AppError, Map<String, dynamic>>> addNewInstitution(
       Map<String, dynamic> params);
 
-  Future<Either<AppError, Institution>> deleteInstitution(
+  Future<Either<AppError, Map<String, dynamic>>> deleteInstitution(
       Map<String, dynamic> params);
 
-  Future<Either<AppError, Subject>> deleteSubject(Map<String, dynamic> params);
+  Future<Either<AppError, Map<String, dynamic>>> deleteSubject(Map<String, dynamic> params);
 
-  Future<Either<AppError, Subject>> addNewSubject(Map<String, dynamic> params);
+  Future<Either<AppError, Map<String, dynamic>>> addNewSubject(Map<String, dynamic> params);
 
   Future<Either<AppError, List<Topic>>> listTopics(Map<String, dynamic> params);
 
-  Future<Either<AppError, Topic>> addNewTopic(Map<String, dynamic> params);
+  Future<Either<AppError, Map<String, dynamic>>> addNewTopic(Map<String, dynamic> params);
 
-  Future<Either<AppError, Topic>> deleteTopic(Map<String, dynamic> params);
+  Future<Either<AppError, Map<String, dynamic>>> deleteTopic(Map<String, dynamic> params);
 
   Future<Either<AppError, Map<String, dynamic>>> deleteUniversity(
       Map<String, dynamic> params);

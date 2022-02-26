@@ -4,7 +4,6 @@ import 'package:folldy_admin/domain/entities/no_params.dart';
 import 'package:folldy_admin/domain/usecase/add_new_university.dart';
 import 'package:folldy_admin/domain/usecase/delete_university.dart';
 import 'package:folldy_admin/domain/usecase/get_all_universities.dart';
-import 'package:folldy_admin/utils/utils.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/university_list_response.dart';

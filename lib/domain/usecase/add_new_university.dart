@@ -4,12 +4,12 @@ import 'package:folldy_admin/domain/entities/app_error.dart';
 import 'package:folldy_admin/domain/repositories/data_repository.dart';
 import 'package:folldy_admin/domain/usecase/usecase.dart';
 
-class AddNewUniversity extends UseCase<University, University> {
+class AddNewUniversity extends UseCase<Map<String,dynamic>, University> {
   final DataRepository _dataRepository;
 
   AddNewUniversity(this._dataRepository);
   @override
-  Future<Either<AppError, University>> call(University params) async {
+  Future<Either<AppError, Map<String,dynamic>>> call(University params) async {
     return _dataRepository.addUniversity(params.toJson());
   }
 }

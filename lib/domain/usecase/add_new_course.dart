@@ -5,12 +5,12 @@ import 'package:folldy_admin/domain/usecase/usecase.dart';
 
 import '../../data/models/course_list_response.dart';
 
-class AddNewCourse extends UseCase<Course, Course> {
+class AddNewCourse extends UseCase<Map<String, dynamic>, Course> {
   final DataRepository _dataRepository;
 
   AddNewCourse(this._dataRepository);
   @override
-  Future<Either<AppError, Course>> call(Course params) async{
+  Future<Either<AppError, Map<String, dynamic>>> call(Course params) async{
     return _dataRepository.addNewCourse(params.toJson());
   }
 }

@@ -18,7 +18,7 @@ class DataRepositoryImplementation extends DataRepository {
   DataRepositoryImplementation(this._remoteDataSource);
 
   @override
-  Future<Either<AppError, University>> addUniversity(
+  Future<Either<AppError, Map<String, dynamic>>> addUniversity(
       Map<String, dynamic> params) async {
     try {
       final response = await _remoteDataSource.addUniversity(params);
@@ -57,10 +57,10 @@ class DataRepositoryImplementation extends DataRepository {
   }
 
   @override
-  Future<Either<AppError, Chapter>> addNewChapter(
+  Future<Either<AppError, Map<String, dynamic>>> addNewChapter(
       Map<String, dynamic> params) async {
     try {
-      Chapter response = await _remoteDataSource.addNewChapter(params);
+      Map<String,dynamic> response = await _remoteDataSource.addNewChapter(params);
       return Right(response);
     } on SocketException {
       return const Left(AppError(AppErrorType.network));
@@ -70,10 +70,10 @@ class DataRepositoryImplementation extends DataRepository {
   }
 
   @override
-  Future<Either<AppError, Chapter>> deleteChapter(
+  Future<Either<AppError, Map<String, dynamic>>> deleteChapter(
       Map<String, dynamic> params) async {
     try {
-      Chapter response = await _remoteDataSource.deleteChapter(params);
+      Map<String,dynamic> response = await _remoteDataSource.deleteChapter(params);
       return Right(response);
     } on SocketException {
       return const Left(AppError(AppErrorType.network));
@@ -124,10 +124,10 @@ class DataRepositoryImplementation extends DataRepository {
   }
 
   @override
-  Future<Either<AppError, Course>> addNewCourse(
+  Future<Either<AppError, Map<String, dynamic>>> addNewCourse(
       Map<String, dynamic> params) async {
     try {
-      Course response = await _remoteDataSource.addNewCourse(params);
+      Map<String,dynamic> response = await _remoteDataSource.addNewCourse(params);
       return Right(response);
     } on SocketException {
       return const Left(AppError(AppErrorType.network));
@@ -137,10 +137,10 @@ class DataRepositoryImplementation extends DataRepository {
   }
 
   @override
-  Future<Either<AppError, Course>> deleteCourse(
+  Future<Either<AppError, Map<String, dynamic>>> deleteCourse(
       Map<String, dynamic> params) async {
     try {
-      Course response = await _remoteDataSource.deleteCourse(params);
+      Map<String,dynamic> response = await _remoteDataSource.deleteCourse(params);
       return Right(response);
     } on SocketException {
       return const Left(AppError(AppErrorType.network));
@@ -150,10 +150,10 @@ class DataRepositoryImplementation extends DataRepository {
   }
 
   @override
-  Future<Either<AppError, Institution>> addNewInstitution(
+  Future<Either<AppError, Map<String, dynamic>>> addNewInstitution(
       Map<String, dynamic> params) async {
     try {
-      Institution response = await _remoteDataSource.addNewInstitution(params);
+      Map<String, dynamic> response = await _remoteDataSource.addNewInstitution(params);
       return Right(response);
     } on SocketException {
       return const Left(AppError(AppErrorType.network));
@@ -163,10 +163,10 @@ class DataRepositoryImplementation extends DataRepository {
   }
 
   @override
-  Future<Either<AppError, Institution>> deleteInstitution(
+  Future<Either<AppError, Map<String, dynamic>>> deleteInstitution(
       Map<String, dynamic> params) async {
     try {
-      Institution response = await _remoteDataSource.deleteInstitution(params);
+      Map<String, dynamic> response = await _remoteDataSource.deleteInstitution(params);
       return Right(response);
     } on SocketException {
       return const Left(AppError(AppErrorType.network));
@@ -176,10 +176,10 @@ class DataRepositoryImplementation extends DataRepository {
   }
 
   @override
-  Future<Either<AppError, Subject>> addNewSubject(
+  Future<Either<AppError, Map<String, dynamic>>> addNewSubject(
       Map<String, dynamic> params) async {
     try {
-      Subject response = await _remoteDataSource.addNewSubject(params);
+      Map<String,dynamic> response = await _remoteDataSource.addNewSubject(params);
       return Right(response);
     } on SocketException {
       return const Left(AppError(AppErrorType.network));
@@ -189,10 +189,10 @@ class DataRepositoryImplementation extends DataRepository {
   }
 
   @override
-  Future<Either<AppError, Subject>> deleteSubject(
+  Future<Either<AppError, Map<String, dynamic>>> deleteSubject(
       Map<String, dynamic> params) async {
     try {
-      Subject response = await _remoteDataSource.deleteSubject(params);
+      Map<String,dynamic> response = await _remoteDataSource.deleteSubject(params);
       return Right(response);
     } on SocketException {
       return const Left(AppError(AppErrorType.network));
@@ -202,10 +202,10 @@ class DataRepositoryImplementation extends DataRepository {
   }
 
   @override
-  Future<Either<AppError, Topic>> addNewTopic(
+  Future<Either<AppError, Map<String, dynamic>>> addNewTopic(
       Map<String, dynamic> params) async {
     try {
-      Topic response = await _remoteDataSource.addNewTopic(params);
+      Map<String,dynamic> response = await _remoteDataSource.addNewTopic(params);
       return Right(response);
     } on SocketException {
       return const Left(AppError(AppErrorType.network));
@@ -228,10 +228,10 @@ class DataRepositoryImplementation extends DataRepository {
   }
 
   @override
-  Future<Either<AppError, Topic>> deleteTopic(
+  Future<Either<AppError, Map<String, dynamic>>> deleteTopic(
       Map<String, dynamic> params) async {
     try {
-      Topic response = await _remoteDataSource.deleteTopic(params);
+      Map<String,dynamic> response = await _remoteDataSource.deleteTopic(params);
       return Right(response);
     } on SocketException {
       return const Left(AppError(AppErrorType.network));
