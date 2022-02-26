@@ -46,7 +46,7 @@ class UniversitiesListing extends StatelessWidget {
                                   ),
                                   IconButton(
                                     onPressed: () => universityListingController
-                                        .deleteUniversity(e),
+                                        .deleteSelectedUniversity(e),
                                     icon: const Icon(Icons.delete),
                                   ),
                                 ],

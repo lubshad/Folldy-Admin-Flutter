@@ -11,6 +11,6 @@ class GetAllSubjects extends UseCase<List<Subject>, NoParams> {
   GetAllSubjects(this._dataRepository);
   @override
   Future<Either<AppError, List<Subject>>> call(NoParams params) async{
-    return _dataRepository.listSubjects(params);
+    return _dataRepository.listSubjects(params.toJson());
   }
 }

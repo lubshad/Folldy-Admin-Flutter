@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:folldy_admin/domain/entities/app_error.dart';
 import 'package:folldy_admin/domain/entities/no_params.dart';
 import 'package:folldy_admin/domain/usecase/add_new_university.dart';
 import 'package:folldy_admin/domain/usecase/delete_university.dart';
 import 'package:folldy_admin/domain/usecase/get_all_universities.dart';
+import 'package:folldy_admin/utils/utils.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/university_list_response.dart';
@@ -18,7 +20,7 @@ class UniversityListingController extends ChangeNotifier {
 
   TextEditingController universityNameController = TextEditingController();
   List<University> universities = [];
-  bool? appError;
+  AppError? appError;
   bool isLoading = true;
 
   makeLoading() {
@@ -39,7 +41,7 @@ class UniversityListingController extends ChangeNotifier {
 
   getData() async {
     final response = await getAllUniversitys(NoParams());
-    response.fold((l) => l.handleError(), (r) => null);
+    response.fold((l) => appError = l, (r) => universities = r);
     notifyListeners();
   }
 
@@ -71,7 +73,7 @@ class UniversityListingController extends ChangeNotifier {
   }
 
   deleteSelectedUniversity(University e) async {
-    await deleteUniversity(e);
-    getData();
+    final response = await deleteUniversity(e);
+    response.fold((l) => l.handleError(), (r) => getData());
   }
 }

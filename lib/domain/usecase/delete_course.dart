@@ -10,7 +10,7 @@ class DeleteCourse extends UseCase<Course, Course> {
 
   DeleteCourse(this._dataRepository);
   @override
-  Future<Either<AppError, Course>> call(Course params) async{
-    return _dataRepository.deleteCourse(params);
+  Future<Either<AppError, Course>> call(Course params) async {
+    return _dataRepository.deleteCourse(params.toJson());
   }
 }

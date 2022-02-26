@@ -11,6 +11,6 @@ class DeleteTopic extends UseCase<Topic, Topic> {
   DeleteTopic(this._dataRepository);
   @override
   Future<Either<AppError, Topic>> call(Topic params) async{
-    return _dataRepository.deleteTopic(params);
+    return _dataRepository.deleteTopic(params.toJson());
   }
 }

@@ -9,7 +9,7 @@ class AddNewUniversity extends UseCase<University, University> {
 
   AddNewUniversity(this._dataRepository);
   @override
-  Future<Either<AppError, University>> call(University params) async{
-    return _dataRepository.addUniversity(params);
+  Future<Either<AppError, University>> call(University params) async {
+    return _dataRepository.addUniversity(params.toJson());
   }
 }

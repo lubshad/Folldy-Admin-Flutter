@@ -11,6 +11,6 @@ class AddNewTopic extends UseCase<Topic, Topic> {
   AddNewTopic(this._dataRepository);
   @override
   Future<Either<AppError, Topic>> call(Topic params) async{
-    return _dataRepository.addNewTopic(params);
+    return _dataRepository.addNewTopic(params.toJson());
   }
 }

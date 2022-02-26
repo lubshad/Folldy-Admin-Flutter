@@ -27,9 +27,9 @@ class ApiClient {
     }
   }
 
-  dynamic post(String path, {Map<dynamic, dynamic>? params}) async {
+  dynamic post(String path, Map<dynamic, dynamic>? params) async {
     try {
-      consolelog(getPath(path, params));
+      consolelog(getPath(path, null));
       consolelog(params);
       final response = await _client.post(
         getPath(path, null),
@@ -39,11 +39,7 @@ class ApiClient {
         },
       );
       consolelog(json.decode(response.body));
-      try {
-        return json.decode(response.body);
-      } catch (e) {
-        throw Exception(response.reasonPhrase);
-      }
+      return json.decode(response.body);
     } catch (e) {
       throw Exception(e.toString());
     }

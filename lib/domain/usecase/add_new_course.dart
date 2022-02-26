@@ -11,6 +11,6 @@ class AddNewCourse extends UseCase<Course, Course> {
   AddNewCourse(this._dataRepository);
   @override
   Future<Either<AppError, Course>> call(Course params) async{
-    return _dataRepository.addNewCourse(params);
+    return _dataRepository.addNewCourse(params.toJson());
   }
 }

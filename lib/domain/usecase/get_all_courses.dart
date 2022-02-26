@@ -11,6 +11,6 @@ class GetAllCourses extends UseCase<List<Course>, NoParams> {
   GetAllCourses(this._dataRepository);
   @override
   Future<Either<AppError, List<Course>>> call(NoParams params) async{
-    return _dataRepository.listCourses(params);
+    return _dataRepository.listCourses(params.toJson());
   }
 }

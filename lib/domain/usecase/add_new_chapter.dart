@@ -10,6 +10,6 @@ class AddNewChapter extends UseCase<Chapter, Chapter> {
   AddNewChapter(this._dataRepository);
   @override
   Future<Either<AppError, Chapter>> call(Chapter params) async{
-    return _dataRepository.addNewChapter(params);
+    return _dataRepository.addNewChapter(params.toJson());
   }
 }

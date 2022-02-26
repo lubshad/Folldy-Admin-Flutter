@@ -11,6 +11,6 @@ class DeleteInstitution extends UseCase<Institution, Institution> {
   DeleteInstitution(this._dataRepository);
   @override
   Future<Either<AppError, Institution>> call(Institution params) async{
-    return _dataRepository.deleteInstitution(params);
+    return _dataRepository.deleteInstitution(params.toJson());
   }
 }

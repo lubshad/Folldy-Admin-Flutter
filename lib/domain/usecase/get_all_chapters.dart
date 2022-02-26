@@ -11,6 +11,6 @@ class GetAllChapters extends UseCase<List<Chapter>, NoParams> {
   GetAllChapters(this._dataRepository);
   @override
   Future<Either<AppError, List<Chapter>>> call(NoParams params) async{
-    return _dataRepository.listChapters(params);
+    return _dataRepository.listChapters(params.toJson());
   }
 }

@@ -11,6 +11,6 @@ class AddNewInstitution extends UseCase<Institution, Institution> {
   AddNewInstitution(this._dataRepository);
   @override
   Future<Either<AppError, Institution>> call(Institution params) async{
-    return _dataRepository.addNewInstitution(params);
+    return _dataRepository.addNewInstitution(params.toJson());
   }
 }

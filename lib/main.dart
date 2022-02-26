@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:folldy_admin/di/di.dart';
 import 'package:folldy_admin/presentation/theme/app_theme.dart';
 import 'package:get/get.dart';
 
 import 'presentation/screens/home_screen/home_screen.dart';
 
 void main() {
+  setupApp();
   runApp(const MyApp());
+}
+
+void setupApp() {
+  DependencyInjection.inject();
 }
 
 class MyApp extends StatelessWidget {

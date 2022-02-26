@@ -10,6 +10,6 @@ class AddNewSubject extends UseCase<Subject, Subject> {
   AddNewSubject(this._dataRepository);
   @override
   Future<Either<AppError, Subject>> call(Subject params) async{
-    return _dataRepository.addNewSubject(params);
+    return _dataRepository.addNewSubject(params.toJson());
   }
 }

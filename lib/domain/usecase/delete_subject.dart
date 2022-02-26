@@ -10,6 +10,6 @@ class DeleteSubject extends UseCase<Subject, Subject> {
   DeleteSubject(this._dataRepository);
   @override
   Future<Either<AppError, Subject>> call(Subject params) async{
-    return _dataRepository.deleteSubject(params);
+    return _dataRepository.deleteSubject(params.toJson());
   }
 }

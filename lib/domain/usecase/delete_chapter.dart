@@ -10,6 +10,6 @@ class DeleteChapter extends UseCase<Chapter, Chapter> {
   DeleteChapter(this._dataRepository);
   @override
   Future<Either<AppError, Chapter>> call(Chapter params) async{
-    return _dataRepository.deleteChapter(params);
+    return _dataRepository.deleteChapter(params.toJson());
   }
 }
