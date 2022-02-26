@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/models/course_list_response.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
-import 'package:folldy_admin/data/remote_data_source.dart';
+import 'package:folldy_admin/domain/entities/no_params.dart';
+import 'package:folldy_admin/domain/usecase/add_subject.dart';
+import 'package:folldy_admin/domain/usecase/get_all_courses.dart';
+import 'package:folldy_admin/domain/usecase/get_all_subjects.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/subject_list_response.dart';
@@ -12,7 +15,11 @@ class SubjectListingController extends ChangeNotifier {
     getData();
   }
 
-  TextEditingController courseNameController = TextEditingController();
+  GetAllSubjects getAllSubjects = GetAllSubjects(Get.find());
+  GetAllCourses getAllCourses = GetAllCourses(Get.find());
+  AddNewSubject addNewSubject = AddNewSubject(Get.find());
+
+  TextEditingController subjectNameController = TextEditingController();
   List<Subject> subjects = [];
   List<Course> cources = [];
   // List<Institution> institutes = [];
@@ -42,13 +49,21 @@ class SubjectListingController extends ChangeNotifier {
     makeNotLoading();
   }
 
-  getData() async {
-    subjects = await RemoteDataSource.getAllSubjects();
+  getData() {
+    getSubjects();
+    getCourses();
+  }
+
+  getSubjects() async {
+    final response = await getAllSubjects(NoParams());
+    response.fold((l) => l.handleError(), (r) => subjects = r);
     notifyListeners();
   }
 
   getCourses() async {
-    cources = await RemoteDataSource.getAllCourses();
+    final response = await getAllCourses(NoParams());
+    response.fold((l) => l.handleError(), (r) => cources = r);
+    notifyListeners();
   }
 
   showAddSubjectDialog() {
@@ -67,30 +82,31 @@ class SubjectListingController extends ChangeNotifier {
                       items: courcesItems,
                       onChanged: changeSelectedCourse),
                   TextFormField(
-                    controller: courseNameController,
+                    controller: subjectNameController,
                     decoration: const InputDecoration(
                       labelText: "Subject Name",
                     ),
-                    onFieldSubmitted: (val) => addNewSubject(),
+                    onFieldSubmitted: (val) => addSubject(),
                   ),
                 ],
               ),
               actions: [
-                ElevatedButton(
-                    onPressed: addNewSubject, child: const Text("Add")),
+                ElevatedButton(onPressed: addSubject, child: const Text("Add")),
               ]);
         });
   }
 
-  void addNewSubject() async {
-    await RemoteDataSource.addSubject(
-        courseNameController.text, selectedCourse!.id);
-    courseNameController.clear();
+  void addSubject() async {
+    await addNewSubject(Subject(
+        course: selectedCourse!.id.toString(),
+        name: subjectNameController.text,
+        id: 1));
+    subjectNameController.clear();
     getData();
   }
 
   deleteSubject(Subject e) async {
-    await RemoteDataSource.deleteSubject(e.id);
+    await deleteSubject(e);
     getData();
   }
 

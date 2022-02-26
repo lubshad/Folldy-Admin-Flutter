@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
-import 'package:folldy_admin/data/remote_data_source.dart';
+import 'package:folldy_admin/domain/entities/no_params.dart';
+import 'package:folldy_admin/domain/usecase/add_topic.dart';
+import 'package:folldy_admin/domain/usecase/delete_topic.dart';
+import 'package:folldy_admin/domain/usecase/get_all_chapters.dart';
+import 'package:folldy_admin/domain/usecase/get_all_topics.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/chapter_list_response.dart';
@@ -8,11 +12,15 @@ import '../../../data/models/topic_list_response.dart';
 
 class TopicListingController extends ChangeNotifier {
   TopicListingController() {
-    getChapters();
     getData();
   }
 
-  TextEditingController courseNameController = TextEditingController();
+  GetAllTopics getAllTopics = GetAllTopics(Get.find());
+  GetAllChapters getAllChapters = GetAllChapters(Get.find());
+  AddNewTopic addNewTopic = AddNewTopic(Get.find());
+  DeleteTopic deleteTopic = DeleteTopic(Get.find());
+
+  TextEditingController topicNameController = TextEditingController();
   List<Topic> topics = [];
   List<Chapter> chapters = [];
   // List<Institution> institutes = [];
@@ -42,13 +50,16 @@ class TopicListingController extends ChangeNotifier {
     makeNotLoading();
   }
 
-  getData() async {
-    topics = await RemoteDataSource.getAllTopics();
+  getTopics() async {
+    final response = await getAllTopics(NoParams());
+    response.fold((l) => l.handleError(), (r) => topics = r);
     notifyListeners();
   }
 
   getChapters() async {
-    chapters = await RemoteDataSource.getAllChapters();
+    final response = await getAllChapters(NoParams());
+    response.fold((l) => l.handleError(), (r) => chapters = r);
+    notifyListeners();
   }
 
   showAddTopicDialog() {
@@ -67,30 +78,31 @@ class TopicListingController extends ChangeNotifier {
                       items: chaptersItems,
                       onChanged: changeSelectedChapter),
                   TextFormField(
-                    controller: courseNameController,
+                    controller: topicNameController,
                     decoration: const InputDecoration(
                       labelText: "Topic Name",
                     ),
-                    onFieldSubmitted: (val) => addNewTopic(),
+                    onFieldSubmitted: (val) => addTopic(),
                   ),
                 ],
               ),
               actions: [
-                ElevatedButton(
-                    onPressed: addNewTopic, child: const Text("Add")),
+                ElevatedButton(onPressed: addTopic, child: const Text("Add")),
               ]);
         });
   }
 
-  void addNewTopic() async {
-    await RemoteDataSource.addTopic(
-        courseNameController.text, selectedChapter!.id);
-    courseNameController.clear();
+  void addTopic() async {
+    await addNewTopic(Topic(
+        chapter: selectedChapter!.id.toString(),
+        name: topicNameController.text,
+        id: 1));
+    topicNameController.clear();
     getData();
   }
 
-  deleteTopic(Topic e) async {
-    await RemoteDataSource.deleteTopic(e.id);
+  deleteSelectedTopic(Topic e) async {
+    await deleteTopic(e);
     getData();
   }
 
@@ -101,5 +113,10 @@ class TopicListingController extends ChangeNotifier {
 
   void changeSelectedInstitute(Institution? value) {
     selectedInstitution = value;
+  }
+
+  void getData() {
+    getChapters();
+    getTopics();
   }
 }

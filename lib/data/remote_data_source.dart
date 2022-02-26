@@ -9,7 +9,7 @@ import 'models/institution_list_response.dart';
 import 'models/subject_list_response.dart';
 import 'models/topic_list_response.dart';
 
-class RemoteDataSource {
+class RemoteDataSourcee {
   static Future<http.Response> addUniversity(String name) {
     return http.post(
       Uri.parse('http://localhost:8000/folldy_admin/api/university_add'),

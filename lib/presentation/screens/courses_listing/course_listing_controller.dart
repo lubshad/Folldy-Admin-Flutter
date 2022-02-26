@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
-import 'package:folldy_admin/data/remote_data_source.dart';
+import 'package:folldy_admin/domain/entities/no_params.dart';
+import 'package:folldy_admin/domain/usecase/add_new_course.dart';
+import 'package:folldy_admin/domain/usecase/delete_course.dart';
+import 'package:folldy_admin/domain/usecase/get_all_courses.dart';
+import 'package:folldy_admin/domain/usecase/get_all_institutions.dart';
+import 'package:folldy_admin/domain/usecase/get_all_universities.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/course_list_response.dart';
@@ -12,6 +17,12 @@ class CourseListingController extends ChangeNotifier {
     // getInstitutes();
     getData();
   }
+
+  GetAllUniversitys getAllUniversitys = GetAllUniversitys(Get.find());
+  GetAllCourses getAllCourses = GetAllCourses(Get.find());
+  GetAllInstitutions getAllInstitutions = GetAllInstitutions(Get.find());
+  AddNewCourse addNewCourse = AddNewCourse(Get.find());
+  DeleteCourse deleteCourse = DeleteCourse(Get.find());
 
   TextEditingController courseNameController = TextEditingController();
   List<Course> courses = [];
@@ -52,17 +63,28 @@ class CourseListingController extends ChangeNotifier {
     makeNotLoading();
   }
 
-  getData() async {
-    courses = await RemoteDataSource.getAllCourses();
+  getData() {
+    getCourses();
+    getUniversities();
+    getInstitutes();
+  }
+
+  getCourses() async {
+    final response = await getAllCourses(NoParams());
+    response.fold((l) => l.handleError(), (r) => courses = r);
     notifyListeners();
   }
 
   getUniversities() async {
-    universities = await RemoteDataSource.getAllUnivresity();
+    final response = await getAllUniversitys(NoParams());
+    response.fold((l) => l.handleError(), (r) => universities = r);
+    notifyListeners();
   }
 
   getInstitutes() async {
-    institutes = await RemoteDataSource.getAllInstitutions();
+    final response = await getAllInstitutions(NoParams());
+    response.fold((l) => l.handleError(), (r) => institutes = r);
+    notifyListeners();
   }
 
   showAddCourseDialog() {
@@ -85,26 +107,24 @@ class CourseListingController extends ChangeNotifier {
                     decoration: const InputDecoration(
                       labelText: "Course Name",
                     ),
-                    onFieldSubmitted: (val) => addNewCourse(),
+                    onFieldSubmitted: (val) => addCourse(),
                   ),
                 ],
               ),
               actions: [
-                ElevatedButton(
-                    onPressed: addNewCourse, child: const Text("Add")),
+                ElevatedButton(onPressed: addCourse, child: const Text("Add")),
               ]);
         });
   }
 
-  void addNewCourse() async {
-    await RemoteDataSource.addCourse(
-        courseNameController.text, selectedUniversity!.id);
+  void addCourse() async {
+    await addNewCourse(Course(university: selectedUniversity!.id.toString(), name: courseNameController.text , id: 1));
     courseNameController.clear();
     getData();
   }
 
-  deleteCourse(Course e) async {
-    await RemoteDataSource.deleteCourse(e.id);
+  deleteSelectedCourse(Course e) async {
+    await deleteCourse(e);
     getData();
   }
 

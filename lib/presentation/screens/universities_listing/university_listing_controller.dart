@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:folldy_admin/data/remote_data_source.dart';
+import 'package:folldy_admin/domain/entities/no_params.dart';
+import 'package:folldy_admin/domain/usecase/add_new_university.dart';
+import 'package:folldy_admin/domain/usecase/delete_university.dart';
+import 'package:folldy_admin/domain/usecase/get_all_universities.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/university_list_response.dart';
@@ -8,6 +11,10 @@ class UniversityListingController extends ChangeNotifier {
   UniversityListingController() {
     getData();
   }
+
+  GetAllUniversitys getAllUniversitys = GetAllUniversitys(Get.find());
+  DeleteUniversity deleteUniversity = DeleteUniversity(Get.find());
+  AddNewUniversity addNewUniversity = AddNewUniversity(Get.find());
 
   TextEditingController universityNameController = TextEditingController();
   List<University> universities = [];
@@ -31,7 +38,8 @@ class UniversityListingController extends ChangeNotifier {
   }
 
   getData() async {
-    universities = await RemoteDataSource.getAllUnivresity();
+    final response = await getAllUniversitys(NoParams());
+    response.fold((l) => l.handleError(), (r) => null);
     notifyListeners();
   }
 
@@ -42,7 +50,7 @@ class UniversityListingController extends ChangeNotifier {
           return AlertDialog(
               title: const Text("Add New University"),
               content: TextField(
-                onSubmitted: (value) => addNewUniversity(),
+                onSubmitted: (value) => addUniversity(),
                 controller: universityNameController,
                 decoration: const InputDecoration(
                   labelText: "University Name",
@@ -50,19 +58,20 @@ class UniversityListingController extends ChangeNotifier {
               ),
               actions: [
                 ElevatedButton(
-                    onPressed: addNewUniversity, child: const Text("Add")),
+                    onPressed: addUniversity, child: const Text("Add")),
               ]);
         });
   }
 
-  void addNewUniversity() async {
-    await RemoteDataSource.addUniversity(universityNameController.text);
+  void addUniversity() async {
+    await addNewUniversity(
+        University(name: universityNameController.text, id: 1));
     universityNameController.clear();
     getData();
   }
 
-  deleteUniversity(University e) async {
-    await RemoteDataSource.deleteUniversity(e.id);
+  deleteSelectedUniversity(University e) async {
+    await deleteUniversity(e);
     getData();
   }
 }

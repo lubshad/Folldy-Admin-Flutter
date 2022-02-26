@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
-import 'package:folldy_admin/data/remote_data_source.dart';
+import 'package:folldy_admin/domain/entities/no_params.dart';
+import 'package:folldy_admin/domain/usecase/add_new_chapter.dart';
+import 'package:folldy_admin/domain/usecase/delete_chapter.dart';
+import 'package:folldy_admin/domain/usecase/get_all_chapters.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/chapter_list_response.dart';
 import '../../../data/models/subject_list_response.dart';
+import '../../../domain/usecase/get_all_subjects.dart';
 
 class ChapterListingController extends ChangeNotifier {
+  GetAllChapters getAllChapters = GetAllChapters(Get.find());
+  GetAllSubjects getAllSubjects = GetAllSubjects(Get.find());
+  AddNewChapter addNewChapter = AddNewChapter(Get.find());
+  DeleteChapter deleteChapter = DeleteChapter(Get.find());
+
   ChapterListingController() {
-    getSubjects();
     getData();
   }
 
-  TextEditingController courseNameController = TextEditingController();
+  TextEditingController chapterNameController = TextEditingController();
   List<Chapter> chapters = [];
   List<Subject> subjects = [];
   // List<Institution> institutes = [];
@@ -42,15 +50,6 @@ class ChapterListingController extends ChangeNotifier {
     makeNotLoading();
   }
 
-  getData() async {
-    chapters = await RemoteDataSource.getAllChapters();
-    notifyListeners();
-  }
-
-  getSubjects() async {
-    subjects = await RemoteDataSource.getAllSubjects();
-  }
-
   showAddChapterDialog() {
     showDialog(
         context: Get.context!,
@@ -67,30 +66,29 @@ class ChapterListingController extends ChangeNotifier {
                       items: subjectsItems,
                       onChanged: changeSelectedSubject),
                   TextFormField(
-                    controller: courseNameController,
+                    controller: chapterNameController,
                     decoration: const InputDecoration(
                       labelText: "Chapter Name",
                     ),
-                    onFieldSubmitted: (val) => addNewChapter(),
+                    onFieldSubmitted: (val) => addChapter(),
                   ),
                 ],
               ),
               actions: [
                 ElevatedButton(
-                    onPressed: addNewChapter, child: const Text("Add")),
+                    onPressed: addChapter, child: const Text("Add")),
               ]);
         });
   }
 
-  void addNewChapter() async {
-    await RemoteDataSource.addChapter(
-        courseNameController.text, selectedSubject!.id);
-    courseNameController.clear();
+  void addChapter() async {
+    await addNewChapter(Chapter(subject: selectedSubject!.id.toString(), name: chapterNameController.text, id: 1));
+    chapterNameController.clear();
     getData();
   }
 
-  deleteChapter(Chapter e) async {
-    await RemoteDataSource.deleteChapter(e.id);
+  deleteSelectedChapter(Chapter e) async {
+    await deleteChapter(e);
     getData();
   }
 
@@ -101,5 +99,22 @@ class ChapterListingController extends ChangeNotifier {
 
   void changeSelectedInstitute(Institution? value) {
     selectedInstitution = value;
+  }
+
+  void getData() {
+    getChapters();
+    getSubjects();
+  }
+
+  void getChapters() async {
+    final response = await getAllChapters(NoParams());
+    response.fold((l) => l.handleError(), (r) => chapters = r);
+    notifyListeners();
+  }
+
+  void getSubjects() async {
+    final response = await getAllSubjects(NoParams());
+    response.fold((l) => l.handleError(), (r) => subjects = r);
+    notifyListeners();
   }
 }

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:folldy_admin/data/remote_data_source.dart';
+import 'package:folldy_admin/domain/entities/no_params.dart';
+import 'package:folldy_admin/domain/usecase/add_new_institution.dart';
+import 'package:folldy_admin/domain/usecase/delete_institution.dart';
+import 'package:folldy_admin/domain/usecase/get_all_institutions.dart';
+import 'package:folldy_admin/domain/usecase/get_all_universities.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/institution_list_response.dart';
@@ -7,9 +11,13 @@ import '../../../data/models/university_list_response.dart';
 
 class InstitutionListingController extends ChangeNotifier {
   InstitutionListingController() {
-    getUniversities();
     getData();
   }
+
+  GetAllInstitutions getAllInstitutions = GetAllInstitutions(Get.find());
+  GetAllUniversitys getAllUniversitys = GetAllUniversitys(Get.find());
+  AddNewInstitution addNewInstitution = AddNewInstitution(Get.find());
+  DeleteInstitution deleteInstitution = DeleteInstitution(Get.find());
 
   TextEditingController institutionNameController = TextEditingController();
   List<Institution> institutions = [];
@@ -40,12 +48,20 @@ class InstitutionListingController extends ChangeNotifier {
   }
 
   getData() async {
-    institutions = await RemoteDataSource.getAllInstitutions();
+    getInstitutions();
+    getUniversities();
+  }
+
+  getInstitutions() async {
+    final response = await getAllInstitutions(NoParams());
+    response.fold((l) => l.handleError(), (r) => institutions = r);
     notifyListeners();
   }
 
   getUniversities() async {
-    universities = await RemoteDataSource.getAllUnivresity();
+    final response = await getAllUniversitys(NoParams());
+    response.fold((l) => l.handleError(), (r) => universities = r);
+    notifyListeners();
   }
 
   showAddinstitutionDialog() {
@@ -64,7 +80,7 @@ class InstitutionListingController extends ChangeNotifier {
                       items: universitiesItems,
                       onChanged: changeSelectedUniversity),
                   TextField(
-                    onSubmitted: (value) => addNewinstitution(),
+                    onSubmitted: (value) => addInstitution(),
                     controller: institutionNameController,
                     decoration: const InputDecoration(
                       labelText: "institution Name",
@@ -74,20 +90,22 @@ class InstitutionListingController extends ChangeNotifier {
               ),
               actions: [
                 ElevatedButton(
-                    onPressed: addNewinstitution, child: const Text("Add")),
+                    onPressed: addInstitution, child: const Text("Add")),
               ]);
         });
   }
 
-  void addNewinstitution() async {
-    await RemoteDataSource.addInstitution(
-        institutionNameController.text, selectedUniversity!.id);
+  void addInstitution() async {
+    await addNewInstitution(Institution(
+        university: selectedUniversity!.id.toString(),
+        name: institutionNameController.text,
+        id: 1));
     institutionNameController.clear();
     getData();
   }
 
-  deleteInstitution(Institution e) async {
-    await RemoteDataSource.deleteInstitution(e.id);
+  deleteSelectedInstitution(Institution e) async {
+    await deleteInstitution(e);
     getData();
   }
 
