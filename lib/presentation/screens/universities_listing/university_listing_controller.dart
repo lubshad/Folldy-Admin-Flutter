@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/remote_data_source.dart';
 import 'package:get/get.dart';
@@ -43,6 +42,7 @@ class UniversityListingController extends ChangeNotifier {
           return AlertDialog(
               title: const Text("Add New University"),
               content: TextField(
+                onSubmitted: (value) => addNewUniversity(),
                 controller: universityNameController,
                 decoration: const InputDecoration(
                   labelText: "University Name",

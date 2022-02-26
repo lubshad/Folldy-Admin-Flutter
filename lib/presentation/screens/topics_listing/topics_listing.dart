@@ -31,7 +31,21 @@ class TopicsListing extends StatelessWidget {
             builder: (BuildContext context, Widget? child) {
               return ListView(
                   children: topiclistingController.topics
-                      .map((e) => ListTile(title: Text(e.name)))
+                      .map((e) => ListTile(
+                            title: Row(
+                              children: [
+                                Text(e.name),
+                                const Spacer(),
+                                IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(Icons.edit)),
+                                IconButton(
+                                    onPressed: () =>
+                                        topiclistingController.deleteTopic(e),
+                                    icon: const Icon(Icons.delete)),
+                              ],
+                            ),
+                          ))
                       .toList());
             },
           ),

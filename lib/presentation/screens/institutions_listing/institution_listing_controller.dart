@@ -64,6 +64,7 @@ class InstitutionListingController extends ChangeNotifier {
                       items: universitiesItems,
                       onChanged: changeSelectedUniversity),
                   TextField(
+                    onSubmitted: (value) => addNewinstitution(),
                     controller: institutionNameController,
                     decoration: const InputDecoration(
                       labelText: "institution Name",

@@ -12,7 +12,7 @@ import 'models/topic_list_response.dart';
 class RemoteDataSource {
   static Future<http.Response> addUniversity(String name) {
     return http.post(
-      Uri.parse('http://localhost:8000/api/university_add'),
+      Uri.parse('http://localhost:8000/folldy_admin/api/university_add'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
@@ -24,7 +24,7 @@ class RemoteDataSource {
 
   static Future<List<University>> getAllUnivresity() async {
     final response = await http.get(
-      Uri.parse('http://localhost:8000/api/university_list'),
+      Uri.parse('http://localhost:8000/folldy_admin/api/university_list'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
@@ -34,13 +34,13 @@ class RemoteDataSource {
 
   static deleteUniversity(int id) async {
     await http.delete(
-      Uri.parse('http://localhost:8000/api/university/$id'),
+      Uri.parse('http://localhost:8000/folldy_admin/api/university/$id'),
     );
   }
 
   static Future<http.Response> addInstitution(String name, int institution) {
     return http.post(
-      Uri.parse('http://localhost:8000/api/institution_add'),
+      Uri.parse('http://localhost:8000/folldy_admin/api/institution_add'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
@@ -53,7 +53,7 @@ class RemoteDataSource {
 
   static Future<List<Institution>> getAllInstitutions() async {
     final response = await http.get(
-      Uri.parse('http://localhost:8000/api/institution_list'),
+      Uri.parse('http://localhost:8000/folldy_admin/api/institution_list'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
@@ -63,13 +63,13 @@ class RemoteDataSource {
 
   static deleteInstitution(int id) async {
     await http.delete(
-      Uri.parse('http://localhost:8000/api/institution/$id'),
+      Uri.parse('http://localhost:8000/folldy_admin/api/institution/$id'),
     );
   }
 
   static Future<http.Response> addCourse(String name, int course) {
     return http.post(
-      Uri.parse('http://localhost:8000/api/course_add'),
+      Uri.parse('http://localhost:8000/folldy_admin/api/course_add'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
@@ -82,7 +82,7 @@ class RemoteDataSource {
 
   static Future<List<Course>> getAllCourses() async {
     final response = await http.get(
-      Uri.parse('http://localhost:8000/api/course_list'),
+      Uri.parse('http://localhost:8000/folldy_admin/api/course_list'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
@@ -92,13 +92,13 @@ class RemoteDataSource {
 
   static deleteCourse(int id) async {
     await http.delete(
-      Uri.parse('http://localhost:8000/api/course/$id'),
+      Uri.parse('http://localhost:8000/folldy_admin/api/course/$id'),
     );
   }
 
   static Future<http.Response> addSubject(String name, int course) {
     return http.post(
-      Uri.parse('http://localhost:8000/api/subject_add'),
+      Uri.parse('http://localhost:8000/folldy_admin/api/subject_add'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
@@ -111,7 +111,7 @@ class RemoteDataSource {
 
   static Future<List<Subject>> getAllSubjects() async {
     final response = await http.get(
-      Uri.parse('http://localhost:8000/api/subject_list'),
+      Uri.parse('http://localhost:8000/folldy_admin/api/subject_list'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
@@ -121,13 +121,13 @@ class RemoteDataSource {
 
   static deleteSubject(int id) async {
     await http.delete(
-      Uri.parse('http://localhost:8000/api/subject/$id'),
+      Uri.parse('http://localhost:8000/folldy_admin/api/subject/$id'),
     );
   }
 
   static Future<http.Response> addChapter(String name, int subject) {
     return http.post(
-      Uri.parse('http://localhost:8000/api/chapter_add'),
+      Uri.parse('http://localhost:8000/folldy_admin/api/chapter_add'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
@@ -140,7 +140,7 @@ class RemoteDataSource {
 
   static Future<List<Chapter>> getAllChapters() async {
     final response = await http.get(
-      Uri.parse('http://localhost:8000/api/chapter_list'),
+      Uri.parse('http://localhost:8000/folldy_admin/api/chapter_list'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
@@ -150,14 +150,13 @@ class RemoteDataSource {
 
   static deleteChapter(int id) async {
     await http.delete(
-      Uri.parse('http://localhost:8000/api/chapter/$id'),
+      Uri.parse('http://localhost:8000/folldy_admin/api/chapter/$id'),
     );
   }
 
-
   static Future<http.Response> addTopic(String name, int chapter) {
     return http.post(
-      Uri.parse('http://localhost:8000/api/topic_add'),
+      Uri.parse('http://localhost:8000/folldy_admin/api/topic_add'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
@@ -170,7 +169,7 @@ class RemoteDataSource {
 
   static Future<List<Topic>> getAllTopics() async {
     final response = await http.get(
-      Uri.parse('http://localhost:8000/api/topic_list'),
+      Uri.parse('http://localhost:8000/folldy_admin/api/topic_list'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
@@ -180,7 +179,7 @@ class RemoteDataSource {
 
   static deleteTopic(int id) async {
     await http.delete(
-      Uri.parse('http://localhost:8000/api/topic/$id'),
+      Uri.parse('http://localhost:8000/folldy_admin/api/topic/$id'),
     );
   }
 }
