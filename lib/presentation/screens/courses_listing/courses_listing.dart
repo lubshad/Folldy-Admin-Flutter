@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/presentation/screens/courses_listing/course_listing_controller.dart';
-import 'package:folldy_admin/presentation/theme/app_theme.dart';
+import 'package:folldy_admin/presentation/theme/theme.dart';
 
 class CorusesListing extends StatelessWidget {
   const CorusesListing({

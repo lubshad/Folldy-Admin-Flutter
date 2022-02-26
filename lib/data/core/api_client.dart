@@ -1,7 +1,12 @@
 import 'dart:convert';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:get/get_connect/http/src/exceptions/exceptions.dart';
 import 'package:http/http.dart';
+// import "package:http/src/multipart_file.dart" as multipart;
+import 'package:http_parser/http_parser.dart';
+
+// import 'package:http/src/response.dart' as res;
 
 import '../../utils/utils.dart';
 import 'api_constants.dart';
@@ -25,6 +30,61 @@ class ApiClient {
     } else {
       throw Exception(response.reasonPhrase);
     }
+  }
+
+  dynamic formData(
+      {required Map<String, dynamic> data,
+      required Map<String, PlatformFile> files,
+      required String path}) async {
+    consolelog(ApiConstants.baseUrl + path);
+    consolelog(jsonEncode(data));
+    consolelog(files);
+    var request =
+        MultipartRequest("POST", Uri.parse(ApiConstants.baseUrl + path));
+
+    data.forEach((key, value) {
+      if (value is List) {
+        for (var element in value) {
+          final index = value.indexOf(element);
+          final fieldString = key + "[$index]";
+          request.fields[fieldString] = element;
+        }
+      } else {
+        request.fields[key] = value.toString();
+      }
+    });
+
+    consolelog(request.fields);
+
+    // ignore: avoid_function_literals_in_foreach_calls
+    // images.forEach((image) async {
+    //   final index = images.indexOf(image);
+    //   var multipartFile = await MultipartFile.fromPath(
+    //     "images[$index]",
+    //     image.path,
+    //     filename: "images[$index]",
+    //     contentType: MediaType("image", "jpeg"),
+    //   );
+    //   request.files.add(multipartFile);
+    // });
+    files.forEach((key, value) async {
+      var multipartFile = MultipartFile.fromBytes(key, value.bytes!.cast(),
+          contentType: MediaType("image", "jpeg"));
+      request.files.add(multipartFile);
+    });
+    // var multipartFile = await http.MultipartFile.fromPath(
+    //   "finished_image",
+    //   file.path,
+    //   filename: basename(file.path),
+    //   contentType: MediaType("image", "jpeg"),
+    // );
+
+    // request.files.add(multipartFile);
+    final response = await request.send();
+    var httpResponse = await Response.fromStream(response);
+    final jsonresposne = json.decode(httpResponse.body);
+    consolelog(jsonresposne);
+    return jsonresposne;
   }
 
   dynamic post(String path, Map<dynamic, dynamic>? params) async {

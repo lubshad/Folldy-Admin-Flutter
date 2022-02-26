@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/presentation/screens/universities_listing/university_listing_controller.dart';
-import 'package:folldy_admin/presentation/theme/app_theme.dart';
+import 'package:folldy_admin/presentation/theme/theme.dart';
 
 class UniversitiesListing extends StatelessWidget {
   const UniversitiesListing({

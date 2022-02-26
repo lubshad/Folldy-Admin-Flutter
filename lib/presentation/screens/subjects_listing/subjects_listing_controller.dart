@@ -11,7 +11,6 @@ import '../../../data/models/subject_list_response.dart';
 
 class SubjectListingController extends ChangeNotifier {
   SubjectListingController() {
-    getCourses();
     getData();
   }
 

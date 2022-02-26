@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:folldy_admin/presentation/app_route.dart';
 import 'package:folldy_admin/presentation/screens/topics_listing/topic_listing_controller.dart';
-import 'package:folldy_admin/presentation/theme/app_theme.dart';
+import 'package:folldy_admin/presentation/theme/theme.dart';
+import 'package:get/get.dart';
 
 class TopicsListing extends StatelessWidget {
   const TopicsListing({
@@ -32,6 +34,8 @@ class TopicsListing extends StatelessWidget {
               return ListView(
                   children: topiclistingController.topics
                       .map((e) => ListTile(
+                            onTap: () =>
+                                Get.toNamed(AppRoute.topicDetailsScreen),
                             title: Row(
                               children: [
                                 Text(e.name),

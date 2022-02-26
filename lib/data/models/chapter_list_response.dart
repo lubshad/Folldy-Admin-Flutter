@@ -4,8 +4,8 @@
 
 import 'dart:convert';
 
-List<Chapter> chapterFromJson(String str) =>
-    List<Chapter>.from(json.decode(str).map((x) => Chapter.fromJson(x)));
+List<Chapter> chapterFromJson(dynamic str) =>
+    List<Chapter>.from(str.map((x) => Chapter.fromJson(x)));
 
 String chapterToJson(List<Chapter> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));

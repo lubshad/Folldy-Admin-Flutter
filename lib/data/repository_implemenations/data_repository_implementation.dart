@@ -6,6 +6,7 @@ import 'package:folldy_admin/data/models/course_list_response.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
 import 'package:folldy_admin/data/models/subject_list_response.dart';
 import 'package:folldy_admin/data/models/topic_list_response.dart';
+import 'package:folldy_admin/domain/usecase/upload_topic_images.dart';
 
 import '../../domain/entities/app_error.dart';
 import '../../domain/repositories/data_repository.dart';
@@ -245,6 +246,18 @@ class DataRepositoryImplementation extends DataRepository {
       Map<String, dynamic> params) async {
     try {
       final response = await _remoteDataSource.deleteUniversity(params);
+      return Right(response);
+    } on SocketException {
+      return const Left(AppError(AppErrorType.network));
+    } on Exception {
+      return const Left(AppError(AppErrorType.api));
+    }
+  }
+
+  @override
+  Future<Either<AppError, Map<String, dynamic>>> uploadImages(UploadImageParams params) async {
+    try {
+      final response = await _remoteDataSource.uploadImages(params);
       return Right(response);
     } on SocketException {
       return const Left(AppError(AppErrorType.network));

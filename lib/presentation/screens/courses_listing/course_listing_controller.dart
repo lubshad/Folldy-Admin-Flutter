@@ -14,7 +14,7 @@ import '../../../data/models/university_list_response.dart';
 class CourseListingController extends ChangeNotifier {
   CourseListingController() {
     getUniversities();
-    // getInstitutes();
+    getInstitutes();
     getData();
   }
 

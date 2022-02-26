@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/presentation/screens/home_screen/home_controller.dart';
 
-import '../../theme/app_theme.dart';
+import '../../theme/theme.dart';
 import 'components/home_drawer.dart';
 
 class Home extends StatelessWidget {
