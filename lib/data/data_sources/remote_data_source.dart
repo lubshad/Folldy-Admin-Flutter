@@ -177,7 +177,7 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   @override
   Future<Map<String, dynamic>> uploadImages(UploadImageParams params) async {
     final response =
-        await _apiClient.formData(data: params.data, files: params.files , path: params.path);
+        await _apiClient.formData(data: params.data, files: params.images , path: params.path);
     return response;
   }
 }

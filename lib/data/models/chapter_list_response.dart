@@ -27,8 +27,5 @@ class Chapter {
         id: json["id"],
       );
 
-  Map<String, dynamic> toJson() => {
-        "name": name,
-        "id": id,
-      };
+  Map<String, dynamic> toJson() => {"name": name, "id": id, "subject": subject};
 }

@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:folldy_admin/domain/entities/app_error.dart';
 import 'package:folldy_admin/domain/repositories/data_repository.dart';
 import 'package:folldy_admin/domain/usecase/usecase.dart';
+import 'package:http/http.dart';
 
 class UploadTopicImages
     extends UseCase<Map<String, dynamic>, UploadImageParams> {
@@ -18,8 +18,8 @@ class UploadTopicImages
 
 class UploadImageParams {
   final Map<String, dynamic> data;
-  final Map<String, PlatformFile> files;
+  final List<MultipartFile> images;
   final String path;
 
-  UploadImageParams(this.data, this.files, this.path);
+  UploadImageParams(this.data, this.images, this.path);
 }
