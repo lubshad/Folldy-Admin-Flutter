@@ -24,4 +24,5 @@ class ApiConstants {
   static const String deleteTopic = "topic_delete";
   static const String deleteUniversity = "university_delete";
   static const String uploadImage = "upload_images";
+  static const String topicDetails = "topic_details";
 }

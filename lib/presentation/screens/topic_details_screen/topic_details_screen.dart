@@ -29,11 +29,11 @@ class TopicDetailsScreen extends StatelessWidget {
                               crossAxisSpacing: defaultPadding,
                               mainAxisSpacing: defaultPadding),
                       children: [
-                        ...topicDetailsController.pickedImages.map((e) =>
+                        ...topicDetailsController.images.map((e) =>
                             ClipRRect(
                                 borderRadius:
                                     BorderRadius.circular(defaultPaddingSmall),
-                                child: Image.memory(e.bytes!))),
+                                child: Image.network(e))),
                         TextButton(
                             onPressed: topicDetailsController.pickFile,
                             child: Column(

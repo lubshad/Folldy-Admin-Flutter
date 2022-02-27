@@ -34,8 +34,9 @@ class TopicsListing extends StatelessWidget {
               return ListView(
                   children: topiclistingController.topics
                       .map((e) => ListTile(
-                            onTap: () =>
-                                Get.toNamed(AppRoute.topicDetailsScreen),
+                            onTap: () => Get.toNamed(
+                                AppRoute.topicDetailsScreen,
+                                arguments: e),
                             title: Row(
                               children: [
                                 Text(e.name),

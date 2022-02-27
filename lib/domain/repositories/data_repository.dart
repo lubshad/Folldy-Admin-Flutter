@@ -3,6 +3,7 @@ import 'package:folldy_admin/data/models/chapter_list_response.dart';
 import 'package:folldy_admin/data/models/course_list_response.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
 import 'package:folldy_admin/data/models/subject_list_response.dart';
+import 'package:folldy_admin/data/models/topic_details_response.dart';
 import 'package:folldy_admin/data/models/topic_list_response.dart';
 import 'package:folldy_admin/data/models/university_list_response.dart';
 import 'package:folldy_admin/domain/entities/app_error.dart';
@@ -63,4 +64,7 @@ abstract class DataRepository {
 
   Future<Either<AppError, Map<String, dynamic>>> uploadImages(
       UploadImageParams params);
+
+  Future<Either<AppError, TopicDetailsResponse>> getTopicDetails(
+      Map<String, dynamic> params);
 }
