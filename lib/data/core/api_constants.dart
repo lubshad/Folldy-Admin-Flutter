@@ -1,4 +1,6 @@
 class ApiConstants {
+
+
   ApiConstants._();
 
   static const String baseUrl = domainUrl + slugUrl;
@@ -25,4 +27,7 @@ class ApiConstants {
   static const String deleteUniversity = "university_delete";
   static const String uploadImage = "upload_images";
   static const String topicDetails = "topic_details";
+  static const String listAllTeachers = "teacher_list";
+  static const String addNewTeacher = "teacher_add";
+  static const String deleteTeacher = "teacher_delete";
 }

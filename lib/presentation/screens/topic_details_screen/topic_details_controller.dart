@@ -69,7 +69,7 @@ class TopicDetailsController extends ChangeNotifier {
           .toList();
 
       final response = await uploadTopicImages(
-          UploadImageParams({"topic": "3"}, images, ApiConstants.uploadImage));
+          UploadFileParams({"topic": "3"}, images, ApiConstants.uploadImage));
       response.fold((l) => l.handleError(), (r) => getData());
     }
   }

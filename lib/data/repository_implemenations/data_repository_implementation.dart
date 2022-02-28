@@ -5,6 +5,7 @@ import 'package:folldy_admin/data/models/chapter_list_response.dart';
 import 'package:folldy_admin/data/models/course_list_response.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
 import 'package:folldy_admin/data/models/subject_list_response.dart';
+import 'package:folldy_admin/data/models/teacher_list_response.dart';
 import 'package:folldy_admin/data/models/topic_details_response.dart';
 import 'package:folldy_admin/data/models/topic_list_response.dart';
 import 'package:folldy_admin/domain/usecase/upload_topic_images.dart';
@@ -256,9 +257,9 @@ class DataRepositoryImplementation extends DataRepository {
   }
 
   @override
-  Future<Either<AppError, Map<String, dynamic>>> uploadImages(UploadImageParams params) async {
+  Future<Either<AppError, Map<String, dynamic>>> uploadFile(UploadFileParams params) async {
     try {
-      final response = await _remoteDataSource.uploadImages(params);
+      final response = await _remoteDataSource.uploadFile(params);
       return Right(response);
     } on SocketException {
       return const Left(AppError(AppErrorType.network));
@@ -271,6 +272,30 @@ class DataRepositoryImplementation extends DataRepository {
   Future<Either<AppError, TopicDetailsResponse>> getTopicDetails(Map<String, dynamic> params) async {
     try {
       TopicDetailsResponse response = await _remoteDataSource.getTopicDetails(params);
+      return Right(response);
+    } on SocketException {
+      return const Left(AppError(AppErrorType.network));
+    } on Exception {
+      return const Left(AppError(AppErrorType.api));
+    }
+  }
+
+  @override
+  Future<Either<AppError, List<Teacher>>> listTeachers(Map<String, dynamic> params) async {
+    try {
+      List<Teacher> response = await _remoteDataSource.listTeachers(params);
+      return Right(response);
+    } on SocketException {
+      return const Left(AppError(AppErrorType.network));
+    } on Exception {
+      return const Left(AppError(AppErrorType.api));
+    }
+  }
+
+  @override
+  Future<Either<AppError, Map<String, dynamic>>> deleteTeacher(Map<String, dynamic> params) async {
+     try {
+      Map<String, dynamic> response = await _remoteDataSource.deleteTeacher(params);
       return Right(response);
     } on SocketException {
       return const Left(AppError(AppErrorType.network));

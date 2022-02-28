@@ -3,6 +3,7 @@ import 'package:folldy_admin/presentation/screens/chapters_listing/chapters_list
 import 'package:folldy_admin/presentation/screens/courses_listing/courses_listing.dart';
 import 'package:folldy_admin/presentation/screens/institutions_listing/institutions_listing.dart';
 import 'package:folldy_admin/presentation/screens/subjects_listing/subjects_listing.dart';
+import 'package:folldy_admin/presentation/screens/teachers_listing%20copy/teachers_listing.dart';
 import 'package:folldy_admin/presentation/screens/topics_listing/topics_listing.dart';
 
 import '../universities_listing/universities_listing.dart';
@@ -62,6 +63,13 @@ final drawerItems = [
     icon: Icons.library_books,
     body: const Center(
       child: TopicsListing(),
+    ),
+  ),
+  DrawerItem(
+    text: "Teachers",
+    icon: Icons.person,
+    body: const Center(
+      child: TeachersListing(),
     ),
   ),
 ];

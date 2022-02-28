@@ -2,6 +2,7 @@ import 'package:folldy_admin/data/models/chapter_list_response.dart';
 import 'package:folldy_admin/data/models/course_list_response.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
 import 'package:folldy_admin/data/models/subject_list_response.dart';
+import 'package:folldy_admin/data/models/teacher_list_response.dart';
 import 'package:folldy_admin/data/models/topic_details_response.dart';
 import 'package:folldy_admin/data/models/topic_list_response.dart';
 import 'package:folldy_admin/data/models/university_list_response.dart';
@@ -46,9 +47,15 @@ abstract class RemoteDataSource {
 
   Future<Map<String, dynamic>> deleteUniversity(Map<String, dynamic> params);
 
-  Future<Map<String, dynamic>> uploadImages(UploadImageParams params);
+  Future<Map<String, dynamic>> uploadFile(UploadFileParams params);
 
   Future<TopicDetailsResponse> getTopicDetails(Map<String, dynamic> params);
+
+  Future<List<Teacher>> listTeachers(Map<String, dynamic> params);
+
+  Future<Map<String, dynamic>> addNewTeacher(UploadFileParams params);
+
+  Future<Map<String, dynamic>> deleteTeacher(Map<String, dynamic> params);
 }
 
 class RemoteDataSourceImplementation implements RemoteDataSource {
@@ -178,18 +185,37 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
-  Future<Map<String, dynamic>> uploadImages(UploadImageParams params) async {
+  Future<Map<String, dynamic>> uploadFile(UploadFileParams params) async {
     final response = await _apiClient.formData(
-        data: params.data, files: params.images, path: params.path);
+        data: params.data, files: params.files, path: params.path);
     return response;
   }
 
   @override
-  Future<TopicDetailsResponse> getTopicDetails(Map<String, dynamic> params) async {
-    final response =
-        await _apiClient.post(ApiConstants.topicDetails, params);
+  Future<TopicDetailsResponse> getTopicDetails(
+      Map<String, dynamic> params) async {
+    final response = await _apiClient.post(ApiConstants.topicDetails, params);
     return TopicDetailsResponse.fromJson(response);
   }
 
+  @override
+  Future<List<Teacher>> listTeachers(params) async {
+    final response =
+        await _apiClient.post(ApiConstants.listAllTeachers, params);
+    return teacherListResponseFromJson(response);
+  }
 
+  @override
+  Future<Map<String, dynamic>> addNewTeacher(
+      UploadFileParams params) async {
+    final response = await _apiClient.formData(data: params.data, files: params.files, path: ApiConstants.addNewTeacher);
+    return response;
+  }
+
+  @override
+  Future<Map<String, dynamic>> deleteTeacher(
+      Map<String, dynamic> params) async {
+    final response = await _apiClient.post(ApiConstants.deleteTeacher, params);
+    return response;
+  }
 }
