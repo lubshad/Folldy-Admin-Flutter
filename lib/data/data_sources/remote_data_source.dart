@@ -56,6 +56,8 @@ abstract class RemoteDataSource {
   Future<Map<String, dynamic>> addNewTeacher(UploadFileParams params);
 
   Future<Map<String, dynamic>> deleteTeacher(Map<String, dynamic> params);
+
+  Future<Map<String, dynamic>> addNewPresentation(Map<String, dynamic> params);
 }
 
 class RemoteDataSourceImplementation implements RemoteDataSource {
@@ -167,7 +169,7 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   @override
   Future<List<Topic>> listTopicss(Map<String, dynamic> params) async {
     final response = await _apiClient.post(ApiConstants.listAllTopic, params);
-    return topicFromJson(response);
+    return topicListResponseFromJson(response);
   }
 
   @override
@@ -206,9 +208,11 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
-  Future<Map<String, dynamic>> addNewTeacher(
-      UploadFileParams params) async {
-    final response = await _apiClient.formData(data: params.data, files: params.files, path: ApiConstants.addNewTeacher);
+  Future<Map<String, dynamic>> addNewTeacher(UploadFileParams params) async {
+    final response = await _apiClient.formData(
+        data: params.data,
+        files: params.files,
+        path: ApiConstants.addNewTeacher);
     return response;
   }
 
@@ -216,6 +220,12 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   Future<Map<String, dynamic>> deleteTeacher(
       Map<String, dynamic> params) async {
     final response = await _apiClient.post(ApiConstants.deleteTeacher, params);
+    return response;
+  }
+
+  @override
+  Future<Map<String, dynamic>> addNewPresentation(Map<String, dynamic> params) async {
+    final response = await _apiClient.post(ApiConstants.addNewPresentation, params);
     return response;
   }
 }

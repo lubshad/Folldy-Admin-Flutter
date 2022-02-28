@@ -74,4 +74,7 @@ abstract class DataRepository {
 
   Future<Either<AppError, Map<String, dynamic>>> deleteTeacher(
       Map<String, dynamic> params);
+
+  Future<Either<AppError, Map<String, dynamic>>> addNewPresentation(
+      Map<String, dynamic> params);
 }

@@ -29,23 +29,116 @@ class TopicDetailsScreen extends StatelessWidget {
                               crossAxisSpacing: defaultPadding,
                               mainAxisSpacing: defaultPadding),
                       children: [
-                        ...topicDetailsController.images.map((e) =>
-                            ClipRRect(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPaddingSmall),
-                                child: Image.network(e))),
+                        ...topicDetailsController.presentations
+                            .map((e) => GestureDetector(
+                                  onTap: () => topicDetailsController
+                                      .changePresentation(e),
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(
+                                          defaultPaddingSmall),
+                                      child: Image.network(
+                                          "http://127.0.0.1:8000" +
+                                              e.teacher.profile)),
+                                )),
                         TextButton(
-                            onPressed: topicDetailsController.pickFile,
+                            onPressed: topicDetailsController
+                                .showAddPresentationDialog,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: const [
                                 Icon(Icons.add),
-                                Text("Add New Slide"),
+                                Text("Add New Presentation"),
                               ],
                             ))
                       ]),
                 ),
-                Expanded(child: Container())
+                Expanded(
+                  child: Builder(builder: (context) {
+                    return topicDetailsController.selectedPresentation == null
+                        ? Container()
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SingleChildScrollView(
+                                child: Row(
+                                  children: [
+                                    ...topicDetailsController
+                                        .selectedPresentation!.slides
+                                        .map((e) => SizedBox(
+                                              width: 200,
+                                              child: AspectRatio(
+                                                aspectRatio: slideAspectRatio,
+                                                child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            defaultPaddingSmall),
+                                                    child: Image.network(
+                                                        "http://127.0.0.1:8000" +
+                                                            e.slide)),
+                                              ),
+                                            )),
+                                    TextButton(
+                                        onPressed:
+                                            topicDetailsController.pickFile,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: const [
+                                            Icon(Icons.add),
+                                            Text("Add New Slide"),
+                                          ],
+                                        ))
+                                  ],
+                                ),
+                              ),
+                              defaultSpacerLarge,
+                              ...topicDetailsController
+                                  .selectedPresentation!.audios
+                                  .map((e) => ListTile(
+                                      leading: Text(e.id.toString()),
+                                      title: Text("Audio: " + e.audio))),
+                              TextButton(
+                                  onPressed: topicDetailsController.pickAudio,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Icon(Icons.add),
+                                      Text("Add New Audio"),
+                                    ],
+                                  ))
+                            ],
+                          );
+                    // : GridView(
+                    //     scrollDirection: Axis.horizontal,
+                    //     padding: const EdgeInsets.all(defaultPadding),
+                    //     gridDelegate:
+                    //         const SliverGridDelegateWithFixedCrossAxisCount(
+                    //             childAspectRatio: slideAspectRatio,
+                    //             crossAxisCount: 1,
+                    //             crossAxisSpacing: defaultPadding,
+                    //             mainAxisSpacing: defaultPadding),
+                    //     children: [
+                    //         ...topicDetailsController
+                    //             .selectedPresentation!.slides
+                    //             .map((e) => ClipRRect(
+                    //                 borderRadius: BorderRadius.circular(
+                    //                     defaultPaddingSmall),
+                    //                 child: Image.network(
+                    //                     "http://127.0.0.1:8000" +
+                    //                         e.slide))),
+                    //         TextButton(
+                    //             onPressed: topicDetailsController.pickFile,
+                    //             child: Column(
+                    //               mainAxisAlignment:
+                    //                   MainAxisAlignment.center,
+                    //               children: const [
+                    //                 Icon(Icons.add),
+                    //                 Text("Add New Slide"),
+                    //               ],
+                    //             ))
+                    //       ]);
+                  }),
+                ),
               ],
             );
           }),

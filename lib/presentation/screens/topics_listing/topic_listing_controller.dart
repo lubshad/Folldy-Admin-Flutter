@@ -94,9 +94,7 @@ class TopicListingController extends ChangeNotifier {
 
   void addTopic() async {
     await addNewTopic(Topic(
-        chapter: selectedChapter!.id.toString(),
-        name: topicNameController.text,
-        id: 1));
+        chapter: selectedChapter!.id, name: topicNameController.text, id: 1));
     topicNameController.clear();
     getData();
   }
