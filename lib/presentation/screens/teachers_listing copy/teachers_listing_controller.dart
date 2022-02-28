@@ -4,6 +4,7 @@ import 'package:folldy_admin/data/core/api_constants.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
 import 'package:folldy_admin/domain/entities/no_params.dart';
 import 'package:folldy_admin/domain/usecase/upload_topic_images.dart';
+import 'package:folldy_admin/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
@@ -129,8 +130,8 @@ class TeacherListingController extends ChangeNotifier {
   }
 
   deleteSelectedTeacher(Teacher e) async {
-    await deleteTeacher(e);
-    getData();
+    final response = await deleteTeacher(e);
+    response.fold((l) => l.handleError(), (r) => getTeachers());
   }
 
   void changeSelectedChapter(Chapter? value) {

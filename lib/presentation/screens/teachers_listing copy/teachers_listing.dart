@@ -45,7 +45,7 @@ class TeachersListing extends StatelessWidget {
                                     icon: const Icon(Icons.edit)),
                                 IconButton(
                                     onPressed: () => teacherlistingController
-                                        .deleteTeacher(e),
+                                        .deleteSelectedTeacher(e),
                                     icon: const Icon(Icons.delete)),
                               ],
                             ),
