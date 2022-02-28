@@ -18,7 +18,7 @@ class Chapter {
   });
 
   String name;
-  String subject;
+  int subject;
   int id;
 
   factory Chapter.fromJson(Map<String, dynamic> json) => Chapter(

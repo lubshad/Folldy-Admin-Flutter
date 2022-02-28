@@ -18,7 +18,7 @@ class Institution {
   });
 
   String name;
-  String university;
+  int university;
   int id;
 
   factory Institution.fromJson(Map<String, dynamic> json) => Institution(

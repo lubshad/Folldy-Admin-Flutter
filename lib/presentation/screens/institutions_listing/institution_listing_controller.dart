@@ -97,7 +97,7 @@ class InstitutionListingController extends ChangeNotifier {
 
   void addInstitution() async {
     await addNewInstitution(Institution(
-        university: selectedUniversity!.id.toString(),
+        university: selectedUniversity!.id,
         name: institutionNameController.text,
         id: 1));
     institutionNameController.clear();

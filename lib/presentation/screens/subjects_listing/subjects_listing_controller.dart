@@ -97,9 +97,7 @@ class SubjectListingController extends ChangeNotifier {
 
   void addSubject() async {
     await addNewSubject(Subject(
-        course: selectedCourse!.id.toString(),
-        name: subjectNameController.text,
-        id: 1));
+        course: selectedCourse!.id, name: subjectNameController.text, id: 1));
     subjectNameController.clear();
     getData();
   }

@@ -18,7 +18,7 @@ class Subject {
   });
 
   String name;
-  String course;
+  int course;
   int id;
 
   factory Subject.fromJson(Map<String, dynamic> json) => Subject(

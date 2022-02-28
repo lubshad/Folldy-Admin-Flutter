@@ -75,6 +75,7 @@ class TopicDetailsController extends ChangeNotifier {
   TopicDetailsResponse? topicDetailsResponse;
 
   getData() async {
+    selectedPresentation = null;
     final response = await getTopicDetails(topic!);
     response.fold((l) => consolelog("error"), (r) => topicDetailsResponse = r);
     notifyListeners();

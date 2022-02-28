@@ -75,14 +75,14 @@ class ChapterListingController extends ChangeNotifier {
                 ],
               ),
               actions: [
-                ElevatedButton(
-                    onPressed: addChapter, child: const Text("Add")),
+                ElevatedButton(onPressed: addChapter, child: const Text("Add")),
               ]);
         });
   }
 
   void addChapter() async {
-    await addNewChapter(Chapter(subject: selectedSubject!.id.toString(), name: chapterNameController.text, id: 1));
+    await addNewChapter(Chapter(
+        subject: selectedSubject!.id, name: chapterNameController.text, id: 1));
     chapterNameController.clear();
     getData();
   }

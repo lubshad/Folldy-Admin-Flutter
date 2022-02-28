@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:folldy_admin/data/core/api_constants.dart';
 import 'package:folldy_admin/presentation/screens/topic_details_screen/topic_details_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
 
@@ -30,15 +31,18 @@ class TopicDetailsScreen extends StatelessWidget {
                               mainAxisSpacing: defaultPadding),
                       children: [
                         ...topicDetailsController.presentations
-                            .map((e) => GestureDetector(
-                                  onTap: () => topicDetailsController
-                                      .changePresentation(e),
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(
-                                          defaultPaddingSmall),
-                                      child: Image.network(
-                                          "http://127.0.0.1:8000" +
-                                              e.teacher.profile)),
+                            .map((e) => MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: GestureDetector(
+                                    onTap: () => topicDetailsController
+                                        .changePresentation(e),
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(
+                                            defaultPaddingSmall),
+                                        child: Image.network(
+                                            ApiConstants.domainUrl +
+                                                e.teacher.profile)),
+                                  ),
                                 )),
                         TextButton(
                             onPressed: topicDetailsController
@@ -73,7 +77,7 @@ class TopicDetailsScreen extends StatelessWidget {
                                                         BorderRadius.circular(
                                                             defaultPaddingSmall),
                                                     child: Image.network(
-                                                        "http://127.0.0.1:8000" +
+                                                        ApiConstants.domainUrl +
                                                             e.slide)),
                                               ),
                                             )),

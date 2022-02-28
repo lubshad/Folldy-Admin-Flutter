@@ -41,8 +41,7 @@ class CourseListingController extends ChangeNotifier {
   get institutesItems => selectedUniversity == null
       ? null
       : institutes
-          .where((element) =>
-              element.university == selectedUniversity!.name.toString())
+          .where((element) => element.university == selectedUniversity!.id)
           .map((e) =>
               DropdownMenuItem<Institution>(value: e, child: Text(e.name)))
           .toList();
@@ -119,7 +118,7 @@ class CourseListingController extends ChangeNotifier {
 
   void addCourse() async {
     await addNewCourse(Course(
-        university: selectedUniversity!.id.toString(),
+        university: selectedUniversity!.id,
         name: courseNameController.text,
         id: 1));
     courseNameController.clear();

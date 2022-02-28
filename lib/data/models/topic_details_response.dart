@@ -4,8 +4,9 @@
 
 import 'dart:convert';
 
+import 'package:folldy_admin/data/models/topic_list_response.dart';
+
 import 'teacher_list_response.dart';
-import 'topic_list_response.dart';
 
 TopicDetailsResponse topicDetailsResponseFromJson(String str) =>
     TopicDetailsResponse.fromJson(json.decode(str));
@@ -36,31 +37,31 @@ class TopicDetailsResponse {
 
 class Presentation {
   Presentation({
-    required this.id,
     required this.teacher,
     required this.topic,
+    required this.id,
+    this.audios = const [],
     this.slides = const [],
-    this.audios = const []
   });
 
-  int id;
   Teacher teacher;
   Topic topic;
-  List<Slide> slides;
+  int id;
   List<Audio> audios;
+  List<Slide> slides;
 
   factory Presentation.fromJson(Map<String, dynamic> json) => Presentation(
-        id: json["id"],
         teacher: Teacher.fromJson(json["teacher"]),
         topic: Topic.fromJson(json["topic"]),
-        slides: List<Slide>.from(json["slides"].map((x) => Slide.fromJson(x))),
+        id: json["id"],
         audios: List<Audio>.from(json["audios"].map((x) => Audio.fromJson(x))),
+        slides: List<Slide>.from(json["slides"].map((x) => Slide.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
         "teacher": teacher.id,
         "topic": topic.id,
+        "id": id,
         "audios": List<dynamic>.from(audios.map((x) => x.toJson())),
         "slides": List<dynamic>.from(slides.map((x) => x.toJson())),
       };
@@ -68,64 +69,63 @@ class Presentation {
 
 class Data {
   Data({
-    required this.presentations,
-    required this.name,
     required this.id,
+    required this.name,
     required this.chapter,
+    this.presentations = const [],
   });
 
-  List<Presentation> presentations;
-  String name;
   int id;
+  String name;
   int chapter;
+  List<Presentation> presentations;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
+        id: json["id"],
+        name: json["name"],
+        chapter: json["chapter"],
         presentations: json["presentations"] == []
             ? []
             : List<Presentation>.from(
                 json["presentations"].map((x) => Presentation.fromJson(x))),
-        name: json["name"],
-        id: json["id"],
-        chapter: json["chapter"],
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "chapter": chapter,
         "presentations": presentations == []
             ? []
             : List<dynamic>.from(presentations.map((x) => x.toJson())),
-        "name": name,
-        "id": id,
-        "chapter": chapter,
       };
 }
 
-
 class Audio {
-    Audio({
-        required this.id,
-        required this.language,
-        required this.audio,
-        required this.presentation,
-    });
+  Audio({
+    required this.id,
+    required this.language,
+    required this.audio,
+    required this.presentation,
+  });
 
-    int id;
-    int language;
-    String audio;
-    int presentation;
+  int id;
+  int language;
+  String audio;
+  int presentation;
 
-    factory Audio.fromJson(Map<String, dynamic> json) => Audio(
+  factory Audio.fromJson(Map<String, dynamic> json) => Audio(
         id: json["id"],
         language: json["language"],
         audio: json["audio"],
         presentation: json["presentation"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "language": language,
         "audio": audio,
         "presentation": presentation,
-    };
+      };
 }
 
 class Slide {
