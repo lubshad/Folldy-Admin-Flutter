@@ -100,8 +100,8 @@ class TopicListingController extends ChangeNotifier {
   }
 
   deleteSelectedTopic(Topic e) async {
-    await deleteTopic(e);
-    getData();
+    final response = await deleteTopic(e);
+    response.fold((l) => l.handleError(), (r) => getData());
   }
 
   void changeSelectedChapter(Chapter? value) {

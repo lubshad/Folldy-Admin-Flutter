@@ -46,7 +46,7 @@ class TopicsListing extends StatelessWidget {
                                     icon: const Icon(Icons.edit)),
                                 IconButton(
                                     onPressed: () =>
-                                        topiclistingController.deleteTopic(e),
+                                        topiclistingController.deleteSelectedTopic(e),
                                     icon: const Icon(Icons.delete)),
                               ],
                             ),
