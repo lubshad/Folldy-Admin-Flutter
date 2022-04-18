@@ -1,8 +1,10 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
-import 'package:folldy_admin/presentation/app_route.dart';
+import 'package:folldy_admin/data/core/api_constants.dart';
+import 'package:folldy_admin/data/models/topic_list_response.dart';
 import 'package:folldy_admin/presentation/screens/topics_listing/topic_listing_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
-import 'package:get/get.dart';
 
 class TopicsListing extends StatelessWidget {
   const TopicsListing({
@@ -12,6 +14,12 @@ class TopicsListing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TopicListingController topiclistingController = TopicListingController();
+
+    openPresentationEditor(Topic topic) {
+      final url = Uri.http(ApiConstants.presentationEditorUrl, "/", {"topic_id" :topic.id.toString()}).toString();
+      window.open(url.toString(), '_blank');
+    }
+
     return Column(
       children: [
         Row(
@@ -34,9 +42,7 @@ class TopicsListing extends StatelessWidget {
               return ListView(
                   children: topiclistingController.topics
                       .map((e) => ListTile(
-                            onTap: () => Get.toNamed(
-                                AppRoute.topicDetailsScreen,
-                                arguments: e),
+                            onTap: () => openPresentationEditor(e),
                             title: Row(
                               children: [
                                 Text(e.name),
@@ -45,8 +51,8 @@ class TopicsListing extends StatelessWidget {
                                     onPressed: () {},
                                     icon: const Icon(Icons.edit)),
                                 IconButton(
-                                    onPressed: () =>
-                                        topiclistingController.deleteSelectedTopic(e),
+                                    onPressed: () => topiclistingController
+                                        .deleteSelectedTopic(e),
                                     icon: const Icon(Icons.delete)),
                               ],
                             ),

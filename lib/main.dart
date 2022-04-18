@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:folldy_admin/di/di.dart';
 import 'package:folldy_admin/presentation/app_route.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
@@ -12,6 +13,7 @@ void main() {
 }
 
 void setupApp() {
+  setUrlStrategy(PathUrlStrategy());
   DependencyInjection.inject();
 }
 

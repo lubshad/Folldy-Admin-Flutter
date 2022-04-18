@@ -14,6 +14,5 @@ class DependencyInjection {
     Get.lazyPut<RemoteDataSource>(
         () => RemoteDataSourceImplementation(Get.find()));
     Get.lazyPut<DataRepository>(() => DataRepositoryImplementation(Get.find()));
-   
   }
 }

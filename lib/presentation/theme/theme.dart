@@ -52,45 +52,10 @@ class AppTheme {
   }
 
   static ThemeData get theme => ThemeData.light().copyWith(
-      tabBarTheme: const TabBarTheme(
-        indicator: UnderlineTabIndicator(
-          borderSide: BorderSide(
-            width: 2,
-            color: waikawaGray,
-          ),
-        ),
-        labelColor: Colors.black,
-        indicatorSize: TabBarIndicatorSize.label,
-      ),
-      scaffoldBackgroundColor: Colors.white,
-      textTheme: GoogleFonts.rubikTextTheme(),
-      sliderTheme: SliderThemeData(
-        overlayShape: SliderComponentShape.noOverlay,
-        trackHeight: 3,
-        thumbShape: const RoundSliderThumbShape(
-          enabledThumbRadius: 6,
-          disabledThumbRadius: 6,
-        ),
-        thumbColor: Colors.red,
-        activeTrackColor: Colors.red,
-      ),
-      platform: TargetPlatform.windows,
-      colorScheme: const ColorScheme.light().copyWith(
-        primary: Colors.blueGrey,
-      ),
-      appBarTheme: const AppBarTheme(
-        titleTextStyle: TextStyle(
-          fontSize: 20,
-          color: Colors.black,
-        ),
-        iconTheme: IconThemeData(color: Colors.black),
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark,
-          statusBarBrightness: Brightness.light,
-        ),
-        elevation: 0,
+          appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
+        iconTheme: IconThemeData(color: Colors.black),
+        elevation: 0,
       ));
 }
 
