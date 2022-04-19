@@ -3,9 +3,10 @@ class ApiConstants {
 
   static const String baseUrl = domainUrl + slugUrl;
   // static const String domainUrl = "http://64.227.131.205";
-  static const String domainUrl = "http://127.0.0.1:8000";
+  static const String domainUrl = "http://35.224.59.116";
   // static const String domainUrl = "http://172.20.10.4:8000";
-  static const String presentationEditorUrl = "localhost:59249";
+  static const String presentationEditorUrl =
+      "lubshad.github.io";
   static const String slugUrl = "/folldy_admin/api/";
   static const String addUniversity = "university_add";
   static const String listChapters = "chapter_list";
