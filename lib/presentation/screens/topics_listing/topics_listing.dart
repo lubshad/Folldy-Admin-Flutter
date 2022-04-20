@@ -16,8 +16,12 @@ class TopicsListing extends StatelessWidget {
     TopicListingController topiclistingController = TopicListingController();
 
     openPresentationEditor(Topic topic) {
-      final url = Uri.http(ApiConstants.presentationEditorUrl, "/", {"topic_id" :topic.id.toString()}).toString();
-      window.open(url.toString(), '_blank');
+      final url = Uri.http(
+          ApiConstants.presentationDomain,
+          ApiConstants.presentationEditorUrl,
+          {"topic_id": topic.id.toString()}).toString();
+      print(url);
+      window.open(url.toString(), 'new tab');
     }
 
     return Column(

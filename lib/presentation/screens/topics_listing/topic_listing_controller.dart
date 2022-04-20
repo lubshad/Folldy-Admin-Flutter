@@ -21,7 +21,7 @@ class TopicListingController extends ChangeNotifier {
   DeleteTopic deleteTopic = DeleteTopic(Get.find());
 
   TextEditingController topicNameController = TextEditingController();
-  List<Topic> topics = [];
+  List<Topic> topics = [Topic(name: "name", id: 1, chapter: 1)];
   List<Chapter> chapters = [];
   // List<Institution> institutes = [];
 
