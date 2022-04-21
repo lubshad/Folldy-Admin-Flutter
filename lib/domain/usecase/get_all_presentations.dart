@@ -1,16 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:folldy_admin/data/models/presentation_list_response.dart';
 import 'package:folldy_admin/domain/entities/app_error.dart';
+import 'package:folldy_admin/domain/entities/no_params.dart';
 import 'package:folldy_admin/domain/repositories/data_repository.dart';
 import 'package:folldy_admin/domain/usecase/usecase.dart';
 
-class AddNewPresentation extends UseCase<Map<String, dynamic>, Presentation> {
+class GetAllPresentations extends UseCase<List<Presentation>, NoParams> {
   final DataRepository _dataRepository;
 
-  AddNewPresentation(this._dataRepository);
+  GetAllPresentations(this._dataRepository);
   @override
-  Future<Either<AppError, Map<String, dynamic>>> call(
-      Presentation params) async {
-    return _dataRepository.addNewPresentation(params.toJson());
+  Future<Either<AppError, List<Presentation>>> call(NoParams params) async {
+    return _dataRepository.getAllPresentations(params.toJson());
   }
 }

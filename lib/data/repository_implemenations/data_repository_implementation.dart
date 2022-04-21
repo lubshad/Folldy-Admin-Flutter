@@ -1,12 +1,13 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:folldy_admin/data/models/area_list_response.dart';
 import 'package:folldy_admin/data/models/chapter_list_response.dart';
 import 'package:folldy_admin/data/models/course_list_response.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
+import 'package:folldy_admin/data/models/presentation_list_response.dart';
 import 'package:folldy_admin/data/models/subject_list_response.dart';
 import 'package:folldy_admin/data/models/teacher_list_response.dart';
-import 'package:folldy_admin/data/models/topic_details_response.dart';
 import 'package:folldy_admin/data/models/topic_list_response.dart';
 import 'package:folldy_admin/domain/usecase/upload_topic_images.dart';
 
@@ -279,19 +280,6 @@ class DataRepositoryImplementation extends DataRepository {
     }
   }
 
-  @override
-  Future<Either<AppError, TopicDetailsResponse>> getTopicDetails(
-      Map<String, dynamic> params) async {
-    try {
-      TopicDetailsResponse response =
-          await _remoteDataSource.getTopicDetails(params);
-      return Right(response);
-    } on SocketException {
-      return const Left(AppError(AppErrorType.network));
-    } on Exception {
-      return const Left(AppError(AppErrorType.api));
-    }
-  }
 
   @override
   Future<Either<AppError, List<Teacher>>> listTeachers(
@@ -324,8 +312,73 @@ class DataRepositoryImplementation extends DataRepository {
   Future<Either<AppError, Map<String, dynamic>>> addNewPresentation(
       Map<String, dynamic> params) async {
     try {
-      Map<String, dynamic> response =
+      final response =
           await _remoteDataSource.addNewPresentation(params);
+      return Right(response);
+    } on SocketException {
+      return const Left(AppError(AppErrorType.network));
+    } on Exception {
+      return const Left(AppError(AppErrorType.api));
+    }
+  }
+
+  @override
+  Future<Either<AppError, List<Area>>> listAreas(Map<String, dynamic> json) async {
+     try {
+      List<Area> response =
+          await _remoteDataSource.listAreas(json);
+      return Right(response);
+    } on SocketException {
+      return const Left(AppError(AppErrorType.network));
+    } on Exception {
+      return const Left(AppError(AppErrorType.api));
+    }
+  }
+
+  @override
+  Future<Either<AppError, Map<String, dynamic>>> addNewArea(Map<String, dynamic> json) async {
+    try {
+      final response =
+          await _remoteDataSource.addNewArea(json);
+      return Right(response);
+    } on SocketException {
+      return const Left(AppError(AppErrorType.network));
+    } on Exception {
+      return const Left(AppError(AppErrorType.api));
+    }
+  }
+
+  @override
+  Future<Either<AppError, Map<String, dynamic>>> deleteArea(Map<String, dynamic> json) async {
+     try {
+      final response =
+          await _remoteDataSource.deleteArea(json);
+      return Right(response);
+    } on SocketException {
+      return const Left(AppError(AppErrorType.network));
+    } on Exception {
+      return const Left(AppError(AppErrorType.api));
+    }
+  }
+
+  @override
+  Future<Either<AppError, List<Presentation>>> getAllPresentations(Map<String, dynamic> json) async {
+    try {
+      List<Presentation> response =
+          await _remoteDataSource.getAllPresentations(json);
+      return Right(response);
+    } on SocketException {
+      return const Left(AppError(AppErrorType.network));
+    } on Exception {
+      return const Left(AppError(AppErrorType.api));
+    }
+  }
+
+  @override
+  Future<Either<AppError, Map<String, dynamic>>> deletePresentation(Map<String, dynamic> json) async {
+     try {
+      final  response =
+          await _remoteDataSource.deletePresentation(json);
       return Right(response);
     } on SocketException {
       return const Left(AppError(AppErrorType.network));

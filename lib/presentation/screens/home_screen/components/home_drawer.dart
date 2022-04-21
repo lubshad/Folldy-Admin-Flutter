@@ -21,12 +21,12 @@ class HomeDrawer extends StatelessWidget {
               style: Theme.of(context).textTheme.headline5,
             ),
           )),
-          ...drawerItems
+          ...DrawerItem.values
               .map((e) => ListTile(
                     selected: homeController.selectedItem == e,
                     onTap: () => homeController.selectItem(e),
                     title: Text(e.text),
-                    leading: Icon(e.icon),
+                    leading: e.icon,
                   ))
               .toList()
         ],
