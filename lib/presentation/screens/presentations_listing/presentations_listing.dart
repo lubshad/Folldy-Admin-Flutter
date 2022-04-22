@@ -46,7 +46,7 @@ class PresentationsListing extends StatelessWidget {
               return ListView(
                   children: presentationslistingController.presentations
                       .map((e) => ListTile(
-                            // onTap: () => openPresentationEditor(e),
+                            onTap: () => openPresentationEditor(e),
                             title: Row(
                               children: [
                                 Text(e.name),
