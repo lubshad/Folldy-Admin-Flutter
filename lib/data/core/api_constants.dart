@@ -7,7 +7,7 @@ class ApiConstants {
   static String get domainUrl =>
       kDebugMode ? "http://127.0.0.1:8000" : "http://34.70.62.234";
   static String get presentationDomain =>
-      kDebugMode ? "localhost:62589" : "34.70.62.234";
+      kDebugMode ? "localhost:50463" : "34.70.62.234";
 
   static String get baseUrl => domainUrl + slugUrl;
   static const String presentationEditorUrl = "/presentation/";
@@ -16,7 +16,7 @@ class ApiConstants {
   static const String listAllAreas = "area_list";
   static const String addNewArea = "area_add";
   static const String deleteArea = "area_delete";
-    static const String listAllpresentations = "presentation_list";
+  static const String listAllpresentations = "presentation_list";
   static const String addNewpresentation = "presentation_add";
   static const String deletepresentation = "presentation_delete";
   static const String listChapters = "chapter_list";
