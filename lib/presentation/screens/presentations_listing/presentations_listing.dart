@@ -12,7 +12,8 @@ class PresentationsListing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PresentationsListingController presentationslistingController = PresentationsListingController();
+    PresentationsListingController presentationslistingController =
+        PresentationsListingController();
 
     openPresentationEditor(Presentation presentation) {
       final url = Uri.http(
@@ -45,7 +46,7 @@ class PresentationsListing extends StatelessWidget {
               return ListView(
                   children: presentationslistingController.presentations
                       .map((e) => ListTile(
-                            onTap: () => openPresentationEditor(e),
+                            // onTap: () => openPresentationEditor(e),
                             title: Row(
                               children: [
                                 Text(e.name),
