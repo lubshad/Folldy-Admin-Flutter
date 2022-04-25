@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:folldy_admin/data/models/chapter_list_response.dart';
-import 'package:folldy_admin/domain/entities/app_error.dart';
 import 'package:folldy_admin/domain/repositories/data_repository.dart';
-import 'package:folldy_admin/domain/usecase/usecase.dart';
+import 'package:basic_template/basic_template.dart';
+
 
 class AddNewChapter extends UseCase<Map<String, dynamic>, Chapter> {
   final DataRepository _dataRepository;

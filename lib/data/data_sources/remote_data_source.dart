@@ -1,3 +1,4 @@
+import 'package:basic_template/basic_template.dart';
 import 'package:folldy_admin/data/models/area_list_response.dart';
 import 'package:folldy_admin/data/models/chapter_list_response.dart';
 import 'package:folldy_admin/data/models/course_list_response.dart';
@@ -9,7 +10,6 @@ import 'package:folldy_admin/data/models/topic_list_response.dart';
 import 'package:folldy_admin/data/models/university_list_response.dart';
 import 'package:folldy_admin/domain/usecase/upload_topic_images.dart';
 
-import '../core/api_client.dart';
 import '../core/api_constants.dart';
 
 abstract class RemoteDataSource {

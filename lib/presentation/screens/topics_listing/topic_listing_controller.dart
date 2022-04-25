@@ -1,6 +1,7 @@
+import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
-import 'package:folldy_admin/domain/entities/no_params.dart';
+
 import 'package:folldy_admin/domain/usecase/add_topic.dart';
 import 'package:folldy_admin/domain/usecase/delete_topic.dart';
 import 'package:folldy_admin/domain/usecase/get_all_chapters.dart';

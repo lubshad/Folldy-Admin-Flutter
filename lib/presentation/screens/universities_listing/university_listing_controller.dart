@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:folldy_admin/domain/entities/app_error.dart';
-import 'package:folldy_admin/domain/entities/no_params.dart';
+import 'package:basic_template/basic_template.dart';
+
 import 'package:folldy_admin/domain/usecase/add_new_university.dart';
 import 'package:folldy_admin/domain/usecase/delete_university.dart';
 import 'package:folldy_admin/domain/usecase/get_all_universities.dart';

@@ -8,7 +8,8 @@ import 'package:folldy_admin/data/models/subject_list_response.dart';
 import 'package:folldy_admin/data/models/teacher_list_response.dart';
 import 'package:folldy_admin/data/models/topic_list_response.dart';
 import 'package:folldy_admin/data/models/university_list_response.dart';
-import 'package:folldy_admin/domain/entities/app_error.dart';
+import 'package:basic_template/basic_template.dart';
+
 import 'package:folldy_admin/domain/usecase/upload_topic_images.dart';
 
 abstract class DataRepository {

@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:folldy_admin/domain/entities/app_error.dart';
+import 'package:basic_template/basic_template.dart';
+
 import 'package:folldy_admin/domain/repositories/data_repository.dart';
-import 'package:folldy_admin/domain/usecase/usecase.dart';
+
 import 'package:http/http.dart';
 
 class UploadTopicImages

@@ -7,7 +7,7 @@ class ApiConstants {
   static String get domainUrl =>
       kDebugMode ? "http://127.0.0.1:8000" : "http://143.244.138.169";
   static String get presentationDomain =>
-      kDebugMode ? "localhost:62859" : "143.244.138.169";
+      kDebugMode ? "localhost:51777" : "143.244.138.169";
 
   static String get baseUrl => domainUrl + slugUrl;
   static const String presentationEditorUrl = "/presentation/";
