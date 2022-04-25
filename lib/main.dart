@@ -1,3 +1,4 @@
+import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:folldy_admin/di/di.dart';
@@ -13,6 +14,7 @@ void main() {
 void setupApp() {
   setUrlStrategy(PathUrlStrategy());
   DependencyInjection.inject();
+  setupLogger();
 }
 
 class MyApp extends StatelessWidget {
@@ -23,7 +25,6 @@ class MyApp extends StatelessWidget {
       title: 'Folldy Admin',
       theme: AppTheme.theme,
       routes: AppRoute.routes,
-      defaultTransition: Transition.downToUp,
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:basic_template/basic_template.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -51,6 +52,11 @@ class AppTheme {
   }
 
   static ThemeData get theme => ThemeData.light().copyWith(
+      pageTransitionsTheme: PageTransitionsTheme(
+        builders: {
+          TargetPlatform.windows: NoTransitionBuilder(),
+        },
+      ),
       platform: TargetPlatform.windows,
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
