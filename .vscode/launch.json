@@ -1,0 +1,13 @@
+{
+    "configurations": [
+        {
+            "name": "Folldy admin on port 8001",
+            "type": "dart",
+            "request": "launch",
+            "args": [
+                "--web-port",
+                "8001"
+            ]
+        }
+    ]
+}
