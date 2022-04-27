@@ -1,6 +1,4 @@
-import 'package:dartz/dartz.dart';
-
-import '../entities/app_error.dart';
+import 'package:basic_template/basic_template.dart';
 
 abstract class AuthenticationRepository {
   Future<Either<AppError, bool>> loginUser(Map<String, dynamic> params);

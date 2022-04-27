@@ -1,11 +1,11 @@
+import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
-import 'package:folldy_admin/domain/entities/no_params.dart';
+
 import 'package:folldy_admin/domain/usecase/add_topic.dart';
 import 'package:folldy_admin/domain/usecase/delete_topic.dart';
 import 'package:folldy_admin/domain/usecase/get_all_chapters.dart';
 import 'package:folldy_admin/domain/usecase/get_all_topics.dart';
-import 'package:get/get.dart';
 
 import '../../../data/models/chapter_list_response.dart';
 import '../../../data/models/topic_list_response.dart';
@@ -21,7 +21,7 @@ class TopicListingController extends ChangeNotifier {
   DeleteTopic deleteTopic = DeleteTopic(Get.find());
 
   TextEditingController topicNameController = TextEditingController();
-  List<Topic> topics = [Topic(name: "name", id: 1, chapter: 1)];
+  List<Topic> topics = [];
   List<Chapter> chapters = [];
   // List<Institution> institutes = [];
 

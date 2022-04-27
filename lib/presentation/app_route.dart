@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-
-import 'screens/topic_details_screen/topic_details_screen.dart';
+import 'package:folldy_admin/presentation/screens/home_screen/home_screen.dart';
 
 class AppRoute {
-  static const topicDetailsScreen = '/topicDetailsScreen';
+  static const String initial = '/';
 
-  static Map<String, WidgetBuilder> get  routes => {
-    topicDetailsScreen: (context) => const TopicDetailsScreen(),
-  };
-
+  static Map<String, WidgetBuilder> get routes => {
+        initial: (context) => const Home(),
+      };
 }
-
-
-
-

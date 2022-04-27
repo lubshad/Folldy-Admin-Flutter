@@ -1,11 +1,8 @@
+import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:folldy_admin/di/di.dart';
 import 'package:folldy_admin/presentation/app_route.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
-import 'package:get/get.dart';
-
-import 'presentation/screens/home_screen/home_screen.dart';
 
 void main() {
   setupApp();
@@ -15,6 +12,7 @@ void main() {
 void setupApp() {
   setUrlStrategy(PathUrlStrategy());
   DependencyInjection.inject();
+  setupLogger();
 }
 
 class MyApp extends StatelessWidget {
@@ -24,9 +22,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Folldy Admin',
       theme: AppTheme.theme,
-      home: const Home(),
       routes: AppRoute.routes,
-      defaultTransition: Transition.downToUp,
     );
   }
 }

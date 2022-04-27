@@ -1,8 +1,7 @@
-import 'package:dartz/dartz.dart';
-import 'package:folldy_admin/domain/entities/app_error.dart';
+
+import 'package:basic_template/basic_template.dart';
+
 import 'package:folldy_admin/domain/repositories/data_repository.dart';
-import 'package:folldy_admin/domain/usecase/upload_topic_images.dart';
-import 'package:folldy_admin/domain/usecase/usecase.dart';
 
 class AddNewTeacher
     extends UseCase<Map<String, dynamic>, UploadFileParams> {

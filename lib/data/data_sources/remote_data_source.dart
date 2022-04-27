@@ -1,14 +1,14 @@
+import 'package:basic_template/basic_template.dart';
+import 'package:folldy_admin/data/models/area_list_response.dart';
 import 'package:folldy_admin/data/models/chapter_list_response.dart';
 import 'package:folldy_admin/data/models/course_list_response.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
+import 'package:folldy_admin/data/models/presentation_list_response.dart';
 import 'package:folldy_admin/data/models/subject_list_response.dart';
 import 'package:folldy_admin/data/models/teacher_list_response.dart';
-import 'package:folldy_admin/data/models/topic_details_response.dart';
 import 'package:folldy_admin/data/models/topic_list_response.dart';
 import 'package:folldy_admin/data/models/university_list_response.dart';
-import 'package:folldy_admin/domain/usecase/upload_topic_images.dart';
 
-import '../core/api_client.dart';
 import '../core/api_constants.dart';
 
 abstract class RemoteDataSource {
@@ -49,8 +49,6 @@ abstract class RemoteDataSource {
 
   Future<Map<String, dynamic>> uploadFile(UploadFileParams params);
 
-  Future<TopicDetailsResponse> getTopicDetails(Map<String, dynamic> params);
-
   Future<List<Teacher>> listTeachers(Map<String, dynamic> params);
 
   Future<Map<String, dynamic>> addNewTeacher(UploadFileParams params);
@@ -58,6 +56,16 @@ abstract class RemoteDataSource {
   Future<Map<String, dynamic>> deleteTeacher(Map<String, dynamic> params);
 
   Future<Map<String, dynamic>> addNewPresentation(Map<String, dynamic> params);
+
+  Future<List<Area>> listAreas(Map<String, dynamic> json);
+
+  Future<dynamic> addNewArea(Map<String, dynamic> json);
+
+  Future<dynamic> deleteArea(Map<String, dynamic> json);
+
+  Future<List<Presentation>> getAllPresentations(Map<String, dynamic> json);
+
+  Future<dynamic> deletePresentation(Map<String, dynamic> json);
 }
 
 class RemoteDataSourceImplementation implements RemoteDataSource {
@@ -194,13 +202,6 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
-  Future<TopicDetailsResponse> getTopicDetails(
-      Map<String, dynamic> params) async {
-    final response = await _apiClient.post(ApiConstants.topicDetails, params);
-    return TopicDetailsResponse.fromJson(response);
-  }
-
-  @override
   Future<List<Teacher>> listTeachers(params) async {
     final response =
         await _apiClient.post(ApiConstants.listAllTeachers, params);
@@ -224,8 +225,42 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
-  Future<Map<String, dynamic>> addNewPresentation(Map<String, dynamic> params) async {
-    final response = await _apiClient.post(ApiConstants.addNewPresentation, params);
+  Future<Map<String, dynamic>> addNewPresentation(
+      Map<String, dynamic> params) async {
+    final response =
+        await _apiClient.post(ApiConstants.addNewpresentation, params);
+    return response;
+  }
+
+  @override
+  Future<List<Area>> listAreas(Map<String, dynamic> json) async {
+    final response = await _apiClient.post(ApiConstants.listAllAreas, json);
+    return areaListResponseFromJson(response);
+  }
+
+  @override
+  Future addNewArea(Map<String, dynamic> json) async {
+    final response = await _apiClient.post(ApiConstants.addNewArea, json);
+    return response;
+  }
+
+  @override
+  Future deleteArea(Map<String, dynamic> json) async {
+    final response = await _apiClient.post(ApiConstants.deleteArea, json);
+    return response;
+  }
+
+  @override
+  Future<List<Presentation>> getAllPresentations(
+      Map<String, dynamic> json) async {
+    final response =
+        await _apiClient.post(ApiConstants.listAllpresentations, json);
+    return presentationListResponseFromJson(response);
+  }
+
+  @override
+  Future deletePresentation(Map<String, dynamic> json) async {
+    final response = await _apiClient.post(ApiConstants.deletepresentation, json);
     return response;
   }
 }

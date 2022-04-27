@@ -1,22 +1,22 @@
+import 'package:basic_template/basic_template.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 const defaultAnimationDuration = Duration(milliseconds: 500);
 const double slideAspectRatio = 0.55;
 
-const double defaultPadding = 20.0;
-const double defaultPaddingSmall = 10.0;
-const double defaultPaddingLarge = 40.0;
-const double defaultPaddingTiny = 5.0;
+const double defaultPadding = 16;
+const double defaultPaddingSmall = 8;
+const double defaultPaddingLarge = 32;
+const double defaultPaddingTiny = 4;
 const defaultSpacerLarge = SizedBox(height: defaultPaddingLarge);
 const defaultSpacer = SizedBox(height: defaultPadding);
 const defaultSpacerHorizontal = SizedBox(width: defaultPadding);
-const defaultSpacerSmall = SizedBox(height: defaultPadding * .5);
-const defaultSpacerTiny = SizedBox(height: defaultPadding * .25);
-const defaultSpacerHorizontalSmall = SizedBox(width: defaultPadding * .5);
-const defaultSpacerHorizontalTiny = SizedBox(width: defaultPadding * .25);
+const defaultSpacerSmall = SizedBox(height: defaultPaddingSmall);
+const defaultSpacerTiny = SizedBox(height: defaultPaddingTiny);
+const defaultSpacerHorizontalSmall = SizedBox(width: defaultPaddingSmall);
+const defaultSpacerHorizontalTiny = SizedBox(width: defaultPaddingTiny);
 
 const Color offWhite = Color(0xFFF2F2F2);
 const Color porcelain = Color(0xFFF6F8F9);
@@ -52,7 +52,13 @@ class AppTheme {
   }
 
   static ThemeData get theme => ThemeData.light().copyWith(
-          appBarTheme: const AppBarTheme(
+      pageTransitionsTheme: PageTransitionsTheme(
+        builders: {
+          TargetPlatform.windows: NoTransitionBuilder(),
+        },
+      ),
+      platform: TargetPlatform.windows,
+      appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
         iconTheme: IconThemeData(color: Colors.black),
         elevation: 0,

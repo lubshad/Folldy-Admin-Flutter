@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/core/api_constants.dart';
-import 'package:folldy_admin/data/models/topic_list_response.dart';
-import 'package:folldy_admin/presentation/screens/topics_listing/topic_listing_controller.dart';
+import 'package:folldy_admin/data/models/presentation_list_response.dart';
+import 'package:folldy_admin/presentation/screens/presentations_listing/presentation_listing_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
 import 'package:folldy_admin/utils/url_launcher_utils.dart';
 
-class TopicsListing extends StatelessWidget {
-  const TopicsListing({
+class PresentationsListing extends StatelessWidget {
+  const PresentationsListing({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    TopicListingController topiclistingController = TopicListingController();
+    PresentationsListingController presentationslistingController =
+        PresentationsListingController();
 
-    openPresentationEditor(Topic topic) {
+    openPresentationEditor(Presentation presentation) {
       final url = Uri.http(
           ApiConstants.presentationDomain,
           ApiConstants.presentationEditorUrl,
-          {"topic_id": topic.id.toString()}).toString();
+          {"presentation_id": presentation.id.toString()}).toString();
       launchInBrowser(url.toString());
     }
 
@@ -30,8 +31,9 @@ class TopicsListing extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(defaultPadding),
               child: TextButton.icon(
-                onPressed: topiclistingController.showAddTopicDialog,
-                label: const Text("Add New Topic"),
+                onPressed:
+                    presentationslistingController.showAddPresentationDialog,
+                label: const Text("Add New Presentation"),
                 icon: const Icon(Icons.add),
               ),
             ),
@@ -39,10 +41,10 @@ class TopicsListing extends StatelessWidget {
         ),
         Expanded(
           child: AnimatedBuilder(
-            animation: topiclistingController,
+            animation: presentationslistingController,
             builder: (BuildContext context, Widget? child) {
               return ListView(
-                  children: topiclistingController.topics
+                  children: presentationslistingController.presentations
                       .map((e) => ListTile(
                             onTap: () => openPresentationEditor(e),
                             title: Row(
@@ -53,8 +55,9 @@ class TopicsListing extends StatelessWidget {
                                     onPressed: () {},
                                     icon: const Icon(Icons.edit)),
                                 IconButton(
-                                    onPressed: () => topiclistingController
-                                        .deleteSelectedTopic(e),
+                                    onPressed: () =>
+                                        presentationslistingController
+                                            .deleteSelectedPresentation(e),
                                     icon: const Icon(Icons.delete)),
                               ],
                             ),

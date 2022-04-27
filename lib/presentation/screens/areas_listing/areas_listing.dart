@@ -1,26 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:folldy_admin/data/core/api_constants.dart';
-import 'package:folldy_admin/data/models/topic_list_response.dart';
-import 'package:folldy_admin/presentation/screens/topics_listing/topic_listing_controller.dart';
+import 'package:folldy_admin/presentation/screens/areas_listing/areas_listing_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
-import 'package:folldy_admin/utils/url_launcher_utils.dart';
 
-class TopicsListing extends StatelessWidget {
-  const TopicsListing({
+class AreasListing extends StatelessWidget {
+  const AreasListing({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    TopicListingController topiclistingController = TopicListingController();
-
-    openPresentationEditor(Topic topic) {
-      final url = Uri.http(
-          ApiConstants.presentationDomain,
-          ApiConstants.presentationEditorUrl,
-          {"topic_id": topic.id.toString()}).toString();
-      launchInBrowser(url.toString());
-    }
+    AreasListingController arealistingController = AreasListingController();
 
     return Column(
       children: [
@@ -30,8 +19,8 @@ class TopicsListing extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(defaultPadding),
               child: TextButton.icon(
-                onPressed: topiclistingController.showAddTopicDialog,
-                label: const Text("Add New Topic"),
+                onPressed: arealistingController.showAddAreaDialog,
+                label: const Text("Add New Area"),
                 icon: const Icon(Icons.add),
               ),
             ),
@@ -39,12 +28,11 @@ class TopicsListing extends StatelessWidget {
         ),
         Expanded(
           child: AnimatedBuilder(
-            animation: topiclistingController,
+            animation: arealistingController,
             builder: (BuildContext context, Widget? child) {
               return ListView(
-                  children: topiclistingController.topics
+                  children: arealistingController.areas
                       .map((e) => ListTile(
-                            onTap: () => openPresentationEditor(e),
                             title: Row(
                               children: [
                                 Text(e.name),
@@ -53,8 +41,8 @@ class TopicsListing extends StatelessWidget {
                                     onPressed: () {},
                                     icon: const Icon(Icons.edit)),
                                 IconButton(
-                                    onPressed: () => topiclistingController
-                                        .deleteSelectedTopic(e),
+                                    onPressed: () => arealistingController
+                                        .deleteSelectedArea(e),
                                     icon: const Icon(Icons.delete)),
                               ],
                             ),

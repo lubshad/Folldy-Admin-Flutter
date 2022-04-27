@@ -1,16 +1,24 @@
+import 'package:flutter/foundation.dart';
+
 class ApiConstants {
   ApiConstants._();
 
-  static const String baseUrl = domainUrl + slugUrl;
-  // static const String domainUrl = "http://64.227.131.205";
-  static const String domainUrl = "http://34.70.62.234";
-  // static const String domainUrl = "https://35.224.59.116";
-  // static const String domainUrl = "http://172.20.10.4:8000";
-  static const String presentationDomain = "34.70.62.234";
-  // static const String presentationDomain = "lubshad.github.io";
+  // local
+  static String get domainUrl =>
+      kDebugMode ? "http://127.0.0.1:8000" : "http://143.244.138.169";
+  static String get presentationDomain =>
+      kDebugMode ? "localhost:8002" : "143.244.138.169";
+
+  static String get baseUrl => domainUrl + slugUrl;
   static const String presentationEditorUrl = "/presentation/";
   static const String slugUrl = "/folldy_admin/api/";
   static const String addUniversity = "university_add";
+  static const String listAllAreas = "area_list";
+  static const String addNewArea = "area_add";
+  static const String deleteArea = "area_delete";
+  static const String listAllpresentations = "presentation_list";
+  static const String addNewpresentation = "presentation_add";
+  static const String deletepresentation = "presentation_delete";
   static const String listChapters = "chapter_list";
   static const String listSubjects = "subject_list";
   static const String universityList = "university_list";
@@ -33,6 +41,5 @@ class ApiConstants {
   static const String listAllTeachers = "teacher_list";
   static const String addNewTeacher = "teacher_add";
   static const String deleteTeacher = "teacher_delete";
-  static const String addNewPresentation = "presentation_add";
   static const String uploadAudios = "upload_audios";
 }
