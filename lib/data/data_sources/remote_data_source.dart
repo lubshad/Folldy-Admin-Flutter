@@ -59,7 +59,7 @@ abstract class RemoteDataSource {
 
   Future<List<Area>> listAreas(Map<String, dynamic> json);
 
-  Future<dynamic> addNewArea(Map<String, dynamic> json);
+  Future<dynamic> addNewArea(UploadFileParams json);
 
   Future<dynamic> deleteArea(Map<String, dynamic> json);
 
@@ -239,8 +239,8 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
-  Future addNewArea(Map<String, dynamic> json) async {
-    final response = await _apiClient.post(ApiConstants.addNewArea, json);
+  Future addNewArea(UploadFileParams json) async {
+    final response = await _apiClient.formData(data: json.data, files: json.files, path: ApiConstants.addNewArea);
     return response;
   }
 

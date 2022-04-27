@@ -158,7 +158,7 @@ class DataRepositoryImplementation extends DataRepository
 
   @override
   Future<Either<AppError, Map<String, dynamic>>> addNewArea(
-      Map<String, dynamic> json) async {
+      UploadFileParams json) async {
     return await exceptionHandler(_remoteDataSource.addNewArea(json));
   }
 

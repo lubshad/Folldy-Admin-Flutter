@@ -8,7 +8,7 @@ import 'package:folldy_admin/data/models/presentation_list_response.dart';
 import 'package:folldy_admin/domain/usecase/delete_presentation.dart';
 import 'package:folldy_admin/domain/usecase/get_all_areas.dart';
 import 'package:folldy_admin/domain/usecase/get_all_presentations.dart';
-import 'package:folldy_admin/presentation/dialogs/add_presentation_dialog.dart';
+import 'package:folldy_admin/presentation/dialogs/add_presentation_dialog/add_presentation_dialog.dart';
 
 import '../../../data/models/presentation_list_response.dart';
 

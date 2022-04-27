@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:folldy_admin/data/core/api_constants.dart';
 import 'package:folldy_admin/data/models/topic_list_response.dart';
 import 'package:folldy_admin/presentation/screens/topics_listing/topic_listing_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
-import 'package:folldy_admin/utils/url_launcher_utils.dart';
 
 class TopicsListing extends StatelessWidget {
   const TopicsListing({
@@ -15,11 +13,13 @@ class TopicsListing extends StatelessWidget {
     TopicListingController topiclistingController = TopicListingController();
 
     openPresentationEditor(Topic topic) {
-      final url = Uri.http(
-          ApiConstants.presentationDomain,
-          ApiConstants.presentationEditorUrl,
-          {"topic_id": topic.id.toString()}).toString();
-      launchInBrowser(url.toString());
+      // final url = Uri.http(
+      //     ApiConstants.domainUrl,
+      //     ApiConstants.presentationEditorUrl
+      //     ,
+
+      // )
+      // launchInBrowser(url);
     }
 
     return Column(

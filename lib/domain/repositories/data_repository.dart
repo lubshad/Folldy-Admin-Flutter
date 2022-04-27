@@ -78,7 +78,7 @@ abstract class DataRepository {
   Future<Either<AppError, List<Area>>> listAreas(Map<String, dynamic> json);
 
   Future<Either<AppError, Map<String, dynamic>>> addNewArea(
-      Map<String, dynamic> json);
+      UploadFileParams json);
 
   Future<Either<AppError, Map<String, dynamic>>> deleteArea(
       Map<String, dynamic> json);

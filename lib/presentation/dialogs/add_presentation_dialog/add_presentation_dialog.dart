@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:folldy_admin/data/models/area_list_response.dart';
-import 'package:folldy_admin/presentation/dialogs/add_presentation_dialog_controller.dart';
+import 'package:folldy_admin/presentation/dialogs/add_presentation_dialog/add_presentation_dialog_controller.dart';
 import 'package:folldy_admin/presentation/screens/presentations_listing/presentation_listing_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
 
