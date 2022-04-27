@@ -14,18 +14,22 @@ class Area {
   Area({
     required this.name,
     required this.id,
+    this.image,
   });
 
   String name;
   int id;
+  String? image;
 
   factory Area.fromJson(Map<String, dynamic> json) => Area(
         name: json["name"],
         id: json["id"],
+        image: json["image"],
       );
 
   Map<String, dynamic> toJson() => {
         "name": name,
         "id": id,
+        "image": image,
       };
 }
