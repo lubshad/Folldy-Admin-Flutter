@@ -11,7 +11,7 @@ import 'package:folldy_admin/presentation/screens/topics_listing/topics_listing.
 import '../universities_listing/universities_listing.dart';
 
 class HomeController extends ChangeNotifier {
-  DrawerItem selectedItem = DrawerItem.areas;
+  DrawerItem selectedItem = DrawerItem.presentations;
 
   void selectItem(DrawerItem item) {
     selectedItem = item;
