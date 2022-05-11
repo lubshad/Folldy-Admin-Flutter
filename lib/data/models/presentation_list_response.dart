@@ -22,7 +22,7 @@ class Presentation {
   String name;
   int id;
   int module;
-  int area;
+  int? area;
   List<String> tags;
 
   factory Presentation.fromJson(Map<String, dynamic> json) => Presentation(

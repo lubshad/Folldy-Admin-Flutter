@@ -9,7 +9,6 @@ import '../../../data/models/chapter_list_response.dart';
 import '../../dialogs/add_new_area/add_new_area_dialog.dart';
 
 class AreasListingController extends ChangeNotifier {
-
   GetAllAreas getAllAreas = GetAllAreas(Get.find());
   DeleteArea deleteArea = DeleteArea(Get.find());
 
@@ -63,5 +62,27 @@ class AreasListingController extends ChangeNotifier {
 
   void getData() {
     getAreas();
+  }
+
+  showAreaDeleteConfirmation(Area e) {
+    Get.dialog(
+      AlertDialog(
+        title: const Text("Delete Area"),
+        content: Text("Are you sure you want to delete ${e.name} ?"),
+        actions: [
+          ElevatedButton(
+            onPressed: Get.back,
+            child: const Text("Cancel"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              deleteSelectedArea(e);
+              Get.back();
+            },
+            child: const Text("Delete"),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -58,7 +58,7 @@ class AreasListing extends StatelessWidget {
                                         IconButton(
                                             onPressed: () =>
                                                 arealistingController
-                                                    .deleteSelectedArea(e),
+                                                    .showAreaDeleteConfirmation(e),
                                             icon: const Icon(Icons.delete)),
                                       ],
                                     ),

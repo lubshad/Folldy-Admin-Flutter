@@ -102,7 +102,7 @@ class PresentationsListing extends StatelessWidget {
                                 IconButton(
                                     onPressed: () =>
                                         presentationslistingController
-                                            .deleteSelectedPresentation(e),
+                                            .showDeletePresentationConfirmation(e),
                                     icon: const Icon(Icons.delete)),
                               ],
                             ),

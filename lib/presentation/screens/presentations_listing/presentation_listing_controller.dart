@@ -69,4 +69,26 @@ class PresentationsListingController extends ChangeNotifier {
     getAreas();
     getPresentations();
   }
+
+  showDeletePresentationConfirmation(Presentation e) {
+    Get.dialog(
+      AlertDialog(
+        title: const Text('Delete Presentation'),
+        content: Text('Are you sure you want to delete ${e.name} ?'),
+        actions: [
+          ElevatedButton(
+            onPressed: Get.back,
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              deleteSelectedPresentation(e);
+              Get.back();
+            },
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+  }
 }
