@@ -13,6 +13,7 @@ class AreasListingController extends ChangeNotifier {
   DeleteArea deleteArea = DeleteArea(Get.find());
 
   TextEditingController areaNameController = TextEditingController();
+  TextEditingController searchAreaController = TextEditingController();
   final formKey = GlobalKey<FormState>(debugLabel: 'area_form_key');
   bool validate() {
     bool valid = false;
@@ -85,4 +86,6 @@ class AreasListingController extends ChangeNotifier {
       ),
     );
   }
+
+  void search(String value) {}
 }

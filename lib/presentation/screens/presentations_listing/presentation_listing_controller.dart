@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/models/area_list_response.dart';
@@ -13,10 +11,7 @@ import 'package:folldy_admin/presentation/dialogs/add_presentation_dialog/add_pr
 import '../../../data/models/presentation_list_response.dart';
 
 class PresentationsListingController extends ChangeNotifier {
-  PresentationsListingController() {
-    getData();
-  }
-
+  TextEditingController searchPresentationController = TextEditingController();
   GetAllPresentations getAllPresentations = GetAllPresentations(Get.find());
   GetAllAreas getAllAreas = GetAllAreas(Get.find());
 
@@ -25,7 +20,7 @@ class PresentationsListingController extends ChangeNotifier {
   List<Presentation> presentations = [];
   List<Area> areas = [];
 
-  bool? appError;
+  AppError? appError;
   bool isLoading = true;
 
   makeLoading() {
@@ -39,21 +34,21 @@ class PresentationsListingController extends ChangeNotifier {
   }
 
   retry() async {
+    appError = null;
     makeLoading();
-    await Future.delayed(const Duration(seconds: 2));
-    makeNotLoading();
+    getData();
   }
 
   getPresentations() async {
     final response = await getAllPresentations(NoParams());
-    response.fold((l) => l.handleError(), (r) => presentations = r);
-    notifyListeners();
+    response.fold((l) => appError = l, (r) => presentations = r);
+    makeNotLoading();
   }
 
   getAreas() async {
     final response = await getAllAreas(NoParams());
     response.fold((l) => l.handleError(), (r) => areas = r);
-    notifyListeners();
+    // notifyListeners();
   }
 
   showAddPresentationDialog() {
@@ -66,6 +61,7 @@ class PresentationsListingController extends ChangeNotifier {
   }
 
   void getData() {
+    appError = null;
     getAreas();
     getPresentations();
   }

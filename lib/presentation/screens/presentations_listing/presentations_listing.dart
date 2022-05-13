@@ -43,8 +43,8 @@ class PresentationsListing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PresentationsListingController presentationslistingController =
-        PresentationsListingController();
+    Get.lazyPut(() => PresentationsListingController());
+    PresentationsListingController presentationslistingController = Get.find();
 
     openPresentationEditor(Presentation presentation) {
       final queryParams = ApiClient.jsonToQuery(PresentationViewArguments(
@@ -64,11 +64,27 @@ class PresentationsListing extends StatelessWidget {
       launchInBrowser(url);
     }
 
+    presentationslistingController.getData();
+    presentationslistingController.searchPresentationController.text = "";
+
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+                child: TextField(
+                  decoration: const InputDecoration(
+                    hintText: 'Search Presentation',
+                    suffixIcon: Icon(Icons.search),
+                  ),
+                  controller: presentationslistingController
+                      .searchPresentationController,
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(defaultPadding),
               child: TextButton.icon(
@@ -82,32 +98,48 @@ class PresentationsListing extends StatelessWidget {
         ),
         Expanded(
           child: AnimatedBuilder(
-            animation: presentationslistingController,
+            animation: Listenable.merge([
+              presentationslistingController,
+              presentationslistingController.searchPresentationController
+            ]),
             builder: (BuildContext context, Widget? child) {
-              return ListView(
-                  children: presentationslistingController.presentations
-                      .map((e) => ListTile(
-                            onTap: () => openPresentationEditor(e),
-                            title: Row(
-                              children: [
-                                Text(e.name),
-                                const Spacer(),
-                                IconButton(
-                                    onPressed: () => openPresentationViewer(e),
-                                    icon:
-                                        const Icon(Icons.visibility_outlined)),
-                                IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.edit)),
-                                IconButton(
-                                    onPressed: () =>
-                                        presentationslistingController
-                                            .showDeletePresentationConfirmation(e),
-                                    icon: const Icon(Icons.delete)),
-                              ],
-                            ),
-                          ))
-                      .toList());
+              final filteredPresentations = presentationslistingController
+                  .presentations
+                  .where((e) => e.name.toLowerCase().contains(
+                      presentationslistingController
+                          .searchPresentationController.text
+                          .toLowerCase()))
+                  .toList();
+              return NetworkResource(
+                error: presentationslistingController.appError,
+                isLoading: presentationslistingController.isLoading,
+                child: ListView.builder(
+                  itemCount: filteredPresentations.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final presentation = filteredPresentations[index];
+                    return ListTile(
+                      onTap: () => openPresentationEditor(presentation),
+                      title: Row(
+                        children: [
+                          Text(presentation.name),
+                          const Spacer(),
+                          IconButton(
+                              onPressed: () =>
+                                  openPresentationViewer(presentation),
+                              icon: const Icon(Icons.visibility_outlined)),
+                          IconButton(
+                              onPressed: () {}, icon: const Icon(Icons.edit)),
+                          IconButton(
+                              onPressed: () => presentationslistingController
+                                  .showDeletePresentationConfirmation(
+                                      presentation),
+                              icon: const Icon(Icons.delete)),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              );
             },
           ),
         ),
