@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:folldy_admin/presentation/app_route.dart';
 import 'package:folldy_admin/presentation/screens/chapters_listing/chapter_listing_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
+import 'package:get/get.dart';
 
 class ChaptersListing extends StatelessWidget {
   const ChaptersListing({
@@ -36,6 +38,7 @@ class ChaptersListing extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   final chapter = chapterListingController.chapters[index];
                   return ListTile(
+                    onTap: ()=> Get.toNamed(AppRoute.chapterDetails,arguments: chapter),
                       title: Text(chapter.name),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,

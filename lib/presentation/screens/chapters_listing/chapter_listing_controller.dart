@@ -80,6 +80,15 @@ class ChapterListingController extends ChangeNotifier {
                   labelText: "Module",
                 ),
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                validator: (value) {
+                  if (value!.isEmpty) return null;
+                  final module = int.tryParse(value);
+                  if (module == null) return "Module must be a number";
+                  if (module < 1) {
+                    return "Module must be greater than 0";
+                  }
+                  return null;
+                },
               )
             ],
           ),
@@ -144,6 +153,15 @@ class ChapterListingController extends ChangeNotifier {
                   labelText: "Module",
                 ),
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                validator: (value) {
+                  if (value!.isEmpty) return null;
+                  final module = int.tryParse(value);
+                  if (module == null) return "Module must be a number";
+                  if (module < 1) {
+                    return "Module must be greater than 0";
+                  }
+                  return null;
+                },
               )
             ],
           ),

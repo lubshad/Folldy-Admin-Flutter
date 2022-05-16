@@ -22,7 +22,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Folldy Admin',
       theme: AppTheme.theme,
-      routes: AppRoute.routes,
+      initialRoute: AppRoute.initial,
+      onGenerateInitialRoutes: AppRoute.onGenerateInitialRoute,
+      onGenerateRoute: AppRoute.onGenerateRoute,
     );
   }
 }
