@@ -11,6 +11,7 @@ class UniversitiesListing extends StatelessWidget {
   Widget build(BuildContext context) {
     UniversityListingController universityListingController =
         UniversityListingController();
+    universityListingController.getData();
 
     return Column(
       children: [
@@ -31,30 +32,33 @@ class UniversitiesListing extends StatelessWidget {
           child: AnimatedBuilder(
             animation: universityListingController,
             builder: (BuildContext context, Widget? child) {
-              return ListView(
-                children: universityListingController.universities
-                    .map((e) => ListTile(
-                          title: Row(
-                            children: [
-                              Text(e.name),
-                              const Spacer(),
-                              Row(
-                                children: [
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.edit),
-                                  ),
-                                  IconButton(
-                                    onPressed: () => universityListingController
-                                        .deleteSelectedUniversity(e),
-                                    icon: const Icon(Icons.delete),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ))
-                    .toList(),
+              return ListView.builder(
+                itemCount: universityListingController.universities.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final university =
+                      universityListingController.universities[index];
+                  return ListTile(
+                    title: Row(
+                      children: [
+                        Text(university.name),
+                        const Spacer(),
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () => universityListingController.showEditUniversityDialog(university),
+                              icon: const Icon(Icons.edit),
+                            ),
+                            IconButton(
+                              onPressed: () => universityListingController
+                                  .showDeleteUniversityConfirmation(university),
+                              icon: const Icon(Icons.delete),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                },
               );
             },
           ),

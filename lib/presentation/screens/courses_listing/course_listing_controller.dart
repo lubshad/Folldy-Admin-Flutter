@@ -118,7 +118,7 @@ class CourseListingController extends ChangeNotifier {
 
   void addCourse() async {
     await addNewCourse(Course(
-        university: selectedUniversity!.id,
+        university: selectedUniversity!.id!,
         name: courseNameController.text,
         id: 1));
     courseNameController.clear();
