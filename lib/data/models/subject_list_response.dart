@@ -12,17 +12,17 @@ String subjectToJson(List<Subject> data) =>
 
 class Subject {
   Subject({
-    required this.course,
+    // required this.course,
     required this.name,
     required this.id,
   });
 
   String name;
-  int course;
-  int id;
+  // int course;
+  int? id;
 
   factory Subject.fromJson(Map<String, dynamic> json) => Subject(
-        course: json["course"],
+        // course: json["course"],
         name: json["name"],
         id: json["id"],
       );
@@ -30,6 +30,6 @@ class Subject {
   Map<String, dynamic> toJson() => {
         "name": name,
         "id": id,
-        "course": course,
+        // "course": course,
       };
 }

@@ -13,7 +13,7 @@ String universityToJson(List<University> data) =>
 class University {
   University({
     required this.name,
-    required this.id,
+    this.id,
   });
 
   String name;

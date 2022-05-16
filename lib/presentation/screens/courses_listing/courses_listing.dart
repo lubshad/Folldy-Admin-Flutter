@@ -10,6 +10,7 @@ class CorusesListing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CourseListingController courseListingController = CourseListingController();
+    courseListingController.getData();
     return Column(
       children: [
         Row(
@@ -29,12 +30,30 @@ class CorusesListing extends StatelessWidget {
           child: AnimatedBuilder(
             animation: courseListingController,
             builder: (BuildContext context, Widget? child) {
-              return ListView(
-                children: courseListingController.courses
-                    .map((e) => ListTile(
-                          title: Text(e.name),
-                        ))
-                    .toList(),
+              return ListView.builder(
+                itemCount: courseListingController.courses.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final course = courseListingController.courses[index];
+                  return ListTile(
+                    title: Text(course.name),
+                    // subtitle: Text(course.university.toString()),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          onPressed: () => courseListingController
+                              .showEditCourseDialog(course),
+                          icon: const Icon(Icons.edit),
+                        ),
+                        IconButton(
+                          onPressed: () => courseListingController
+                              .showDeleteCourseConfirmation(course),
+                          icon: const Icon(Icons.delete),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               );
             },
           ),

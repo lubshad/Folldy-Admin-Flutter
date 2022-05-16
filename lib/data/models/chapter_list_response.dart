@@ -12,20 +12,17 @@ String chapterToJson(List<Chapter> data) =>
 
 class Chapter {
   Chapter({
-    required this.subject,
     required this.name,
-    required this.id,
+    this.id,
+    this.module = 1,
   });
 
   String name;
-  int subject;
-  int id;
+  int? id;
+  int module;
 
-  factory Chapter.fromJson(Map<String, dynamic> json) => Chapter(
-        subject: json["subject"],
-        name: json["name"],
-        id: json["id"],
-      );
+  factory Chapter.fromJson(Map<String, dynamic> json) =>
+      Chapter(name: json["name"], id: json["id"], module: json["module"]);
 
-  Map<String, dynamic> toJson() => {"name": name, "id": id, "subject": subject};
+  Map<String, dynamic> toJson() => {"name": name, "id": id, "module": module};
 }

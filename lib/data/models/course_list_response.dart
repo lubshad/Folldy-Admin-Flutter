@@ -12,17 +12,17 @@ String courseToJson(List<Course> data) =>
 
 class Course {
   Course({
-    required this.university,
+    // this.university,
     required this.name,
-    required this.id,
+    this.id,
   });
 
   String name;
-  int university;
-  int id;
+  // int? university;
+  int? id;
 
   factory Course.fromJson(Map<String, dynamic> json) => Course(
-        university: json["university"],
+        // university: json["university"].isEmpty ? null : json["university"].first,
         name: json["name"],
         id: json["id"],
       );
@@ -30,6 +30,6 @@ class Course {
   Map<String, dynamic> toJson() => {
         "name": name,
         "id": id,
-        "university": university
+        // "university": university,
       };
 }

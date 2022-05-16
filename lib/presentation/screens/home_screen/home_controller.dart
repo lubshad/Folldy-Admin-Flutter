@@ -11,7 +11,7 @@ import 'package:folldy_admin/presentation/screens/topics_listing/topics_listing.
 import '../universities_listing/universities_listing.dart';
 
 class HomeController extends ChangeNotifier {
-  DrawerItem selectedItem = DrawerItem.universities;
+  DrawerItem selectedItem = DrawerItem.chapters;
 
   void selectItem(DrawerItem item) {
     selectedItem = item;
@@ -22,14 +22,14 @@ class HomeController extends ChangeNotifier {
 enum DrawerItem {
   dashboard,
   universities,
-  institutions,
   courses,
   subjects,
   chapters,
-  topics,
-  teachers,
   areas,
   presentations,
+  institutions,
+  teachers,
+  topics,
 }
 
 extension DrawerItemExtension on DrawerItem {

@@ -11,6 +11,7 @@ class ChaptersListing extends StatelessWidget {
   Widget build(BuildContext context) {
     ChapterListingController chapterListingController =
         ChapterListingController();
+    chapterListingController.getData();
     return Column(
       children: [
         Row(
@@ -30,14 +31,27 @@ class ChaptersListing extends StatelessWidget {
           child: AnimatedBuilder(
             animation: chapterListingController,
             builder: (BuildContext context, Widget? child) {
-              return ListView(
-                  children: chapterListingController.chapters
-                      .map(
-                        (chapter) => ListTile(
-                          title: Text(chapter.name),
-                        ),
-                      )
-                      .toList());
+              return ListView.builder(
+                itemCount: chapterListingController.chapters.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final chapter = chapterListingController.chapters[index];
+                  return ListTile(
+                      title: Text(chapter.name),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                              onPressed: () => chapterListingController
+                                  .showEditChapterDialog(chapter),
+                              icon: const Icon(Icons.edit)),
+                          IconButton(
+                              onPressed: () => chapterListingController
+                                  .showDeleteChapterConfirmationDialog(chapter),
+                              icon: const Icon(Icons.delete)),
+                        ],
+                      ));
+                },
+              );
             },
           ),
         ),

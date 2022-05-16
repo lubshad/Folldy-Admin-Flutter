@@ -64,7 +64,7 @@ class UniversityListingController extends ChangeNotifier {
   void addUniversity() async {
     if (!formKey.currentState!.validate()) return;
     await addNewUniversity(
-        University(name: universityNameController.text, id: null));
+        University(name: universityNameController.text));
     getData();
     popDialog();
   }

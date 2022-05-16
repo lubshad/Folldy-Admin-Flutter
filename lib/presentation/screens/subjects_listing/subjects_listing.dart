@@ -11,6 +11,7 @@ class SubjectsListing extends StatelessWidget {
   Widget build(BuildContext context) {
     SubjectListingController subjectListingController =
         SubjectListingController();
+    subjectListingController.getData();
     return Column(
       children: [
         Row(
@@ -30,12 +31,29 @@ class SubjectsListing extends StatelessWidget {
           child: AnimatedBuilder(
             animation: subjectListingController,
             builder: (BuildContext context, Widget? child) {
-              return ListView(
-                  children: subjectListingController.subjects
-                      .map((subject) => ListTile(
-                            title: Text(subject.name),
-                          ))
-                      .toList());
+              return ListView.builder(
+                  itemCount: subjectListingController.subjects.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final subject = subjectListingController.subjects[index];
+                    return ListTile(
+                      title: Text(subject.name),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            onPressed: () => subjectListingController
+                                .showEditSubjectDialog(subject),
+                            icon: const Icon(Icons.edit),
+                          ),
+                          IconButton(
+                            onPressed: () => subjectListingController
+                                .showDeleteSubjectConfirmation(subject),
+                            icon: const Icon(Icons.delete),
+                          ),
+                        ],
+                      ),
+                    );
+                  });
             },
           ),
         ),

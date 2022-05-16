@@ -5,22 +5,15 @@ import 'package:folldy_admin/data/models/institution_list_response.dart';
 import 'package:folldy_admin/domain/usecase/add_new_course.dart';
 import 'package:folldy_admin/domain/usecase/delete_course.dart';
 import 'package:folldy_admin/domain/usecase/get_all_courses.dart';
-import 'package:folldy_admin/domain/usecase/get_all_institutions.dart';
-import 'package:folldy_admin/domain/usecase/get_all_universities.dart';
+import 'package:folldy_admin/utils/extensions.dart';
 
 import '../../../data/models/course_list_response.dart';
 import '../../../data/models/university_list_response.dart';
 
 class CourseListingController extends ChangeNotifier {
-  CourseListingController() {
-    getUniversities();
-    getInstitutes();
-    getData();
-  }
-
-  GetAllUniversitys getAllUniversitys = GetAllUniversitys(Get.find());
+  // GetAllUniversitys getAllUniversitys = GetAllUniversitys(Get.find());
   GetAllCourses getAllCourses = GetAllCourses(Get.find());
-  GetAllInstitutions getAllInstitutions = GetAllInstitutions(Get.find());
+  // GetAllInstitutions getAllInstitutions = GetAllInstitutions(Get.find());
   AddNewCourse addNewCourse = AddNewCourse(Get.find());
   DeleteCourse deleteCourse = DeleteCourse(Get.find());
 
@@ -64,65 +57,76 @@ class CourseListingController extends ChangeNotifier {
 
   getData() {
     getCourses();
-    getUniversities();
-    getInstitutes();
   }
 
   getCourses() async {
     final response = await getAllCourses(NoParams());
     response.fold((l) => l.handleError(), (r) => courses = r);
-    notifyListeners();
+    makeNotLoading();
   }
 
-  getUniversities() async {
-    final response = await getAllUniversitys(NoParams());
-    response.fold((l) => l.handleError(), (r) => universities = r);
-    notifyListeners();
-  }
+  // getUniversities({int? universityId}) async {
+  //   // final response = await getAllUniversitys(NoParams());
+  //   response.fold((l) => l.handleError(), (r) => universities = r);
+  //   selectedUniversity =
+  //       universities.firstWhereOrNull((element) => element.id == universityId);
+  //   notifyListeners();
+  // }
 
-  getInstitutes() async {
-    final response = await getAllInstitutions(NoParams());
-    response.fold((l) => l.handleError(), (r) => institutes = r);
-    notifyListeners();
-  }
+  // getInstitutes() async {
+  //   final response = await getAllInstitutions(NoParams());
+  //   response.fold((l) => l.handleError(), (r) => institutes = r);
+  //   notifyListeners();
+  // }
 
   showAddCourseDialog() {
-    showDialog(
-        context: Get.context!,
-        builder: (context) {
-          return AlertDialog(
-              title: const Text("Add New Course"),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  DropdownButtonFormField<University>(
+    courseNameController.clear();
+    // getUniversities();
+    Get.dialog(AlertDialog(
+        title: const Text("Add New Course"),
+        content: Form(
+          key: formKey,
+          child: AnimatedBuilder(
+              animation: this,
+              builder: (context, child) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // DropdownButtonFormField<University>(
+                    //     decoration: const InputDecoration(
+                    //       hintText: "Select University",
+                    //     ),
+                    //     items: universitiesItems,
+                    //     validator: (value) =>
+                    //         value == null ? "Select University" : null,
+                    //     onChanged: changeSelectedUniversity),
+                    TextFormField(
+                      controller: courseNameController,
                       decoration: const InputDecoration(
-                        hintText: "Select University",
+                        labelText: "Course Name",
                       ),
-                      items: universitiesItems,
-                      onChanged: changeSelectedUniversity),
-                  TextFormField(
-                    controller: courseNameController,
-                    decoration: const InputDecoration(
-                      labelText: "Course Name",
+                      validator: (value) =>
+                          value!.isEmpty ? "Enter Course Name" : null,
+                      onFieldSubmitted: (val) => addCourse(),
                     ),
-                    onFieldSubmitted: (val) => addCourse(),
-                  ),
-                ],
-              ),
-              actions: [
-                ElevatedButton(onPressed: addCourse, child: const Text("Add")),
-              ]);
-        });
+                  ],
+                );
+              }),
+        ),
+        actions: [
+          ElevatedButton(onPressed: addCourse, child: const Text("Add")),
+        ]));
   }
 
-  void addCourse() async {
+  void addCourse({Course? course}) async {
+    if (!formKey.currentState!.validate()) return;
     await addNewCourse(Course(
-        university: selectedUniversity!.id!,
-        name: courseNameController.text,
-        id: 1));
-    courseNameController.clear();
+      id: course?.id,
+      // university: selectedUniversity!.id!,
+      name: courseNameController.text,
+    ));
     getData();
+    popDialog();
   }
 
   deleteSelectedCourse(Course e) async {
@@ -137,5 +141,75 @@ class CourseListingController extends ChangeNotifier {
 
   void changeSelectedInstitute(Institution? value) {
     selectedInstitution = value;
+  }
+
+  final formKey = GlobalKey<FormState>(debugLabel: 'course_form_key');
+  bool validate() {
+    bool valid = false;
+    if (formKey.currentState!.validate()) {
+      valid = true;
+    }
+    return valid;
+  }
+
+  showEditCourseDialog(Course e) {
+    courseNameController.text = e.name;
+    // getUniversities(universityId: e.university);
+
+    Get.dialog(AlertDialog(
+        title: const Text("Edit Course"),
+        content: Form(
+          key: formKey,
+          child: AnimatedBuilder(
+              animation: this,
+              builder: (context, child) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // DropdownButtonFormField<University>(
+                    //     decoration: const InputDecoration(
+                    //       hintText: "Select University",
+                    //     ),
+                    //     value: selectedUniversity,
+                    //     items: universitiesItems,
+                    //     validator: (value) =>
+                    //         value == null ? "Select University" : null,
+                    //     onChanged: changeSelectedUniversity),
+                    TextFormField(
+                      controller: courseNameController,
+                      decoration: const InputDecoration(
+                        labelText: "Course Name",
+                      ),
+                      validator: (value) =>
+                          value!.isEmpty ? "Enter Course Name" : null,
+                    ),
+                  ],
+                );
+              }),
+        ),
+        actions: [
+          ElevatedButton(onPressed: Get.back, child: const Text("Cancel")),
+          ElevatedButton(
+              onPressed: () => addCourse(course: e), child: const Text("Save")),
+        ]));
+  }
+
+  showDeleteCourseConfirmation(Course e) {
+    Get.dialog(AlertDialog(
+        title: const Text("Delete Course"),
+        content: Text("Are you sure you want to delete course ${e.name}?"),
+        actions: [
+          ElevatedButton(
+              onPressed: () {
+                popDialog();
+              },
+              child: const Text("Cancel")),
+          ElevatedButton(
+              onPressed: () {
+                deleteSelectedCourse(e);
+                popDialog();
+              },
+              child: const Text("Delete")),
+        ]));
   }
 }
