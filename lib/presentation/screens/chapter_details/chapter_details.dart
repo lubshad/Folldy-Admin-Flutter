@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/models/chapter_list_response.dart';
 
@@ -13,9 +12,11 @@ class ChapterDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text(chapter.name),
-      ),
+      appBar: AppBar(title: Text(chapter.name)),
+      body: ListView.builder(
+          itemBuilder: ((context, index) => const ListTile(
+                title: Text("data"),
+              ))),
     );
   }
 }

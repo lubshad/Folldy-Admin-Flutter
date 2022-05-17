@@ -42,7 +42,8 @@ class PresentationsListingController extends ChangeNotifier {
 
   getPresentations() async {
     appError = null;
-    final response = await getAllPresentations(PresentationListingParams(searchKey: searchPresentationController.text));
+    final response = await getAllPresentations(PresentationListingParams(
+        searchKey: searchPresentationController.text));
     response.fold((l) => appError = l, (r) => presentations = r);
     makeNotLoading();
   }
@@ -54,6 +55,7 @@ class PresentationsListingController extends ChangeNotifier {
   }
 
   showAddPresentationDialog() {
+    getAreas();
     Get.dialog(AddPresentationDialog(presentationsListingController: this));
   }
 
