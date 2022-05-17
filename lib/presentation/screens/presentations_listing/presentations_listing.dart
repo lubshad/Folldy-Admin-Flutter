@@ -121,6 +121,7 @@ class PresentationsListing extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     final presentation = filteredPresentations[index];
                     return ListTile(
+                      key: Key(presentation.id.toString()),
                       onTap: () => openPresentationEditor(presentation),
                       title: Row(
                         children: [

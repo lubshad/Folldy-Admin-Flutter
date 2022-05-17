@@ -62,6 +62,7 @@ class AreasListing extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     final area = filteredAreas[index];
                     return ListTile(
+                      key: Key(area.id.toString()),
                       title: Row(
                         children: [
                           Text(area.name),
