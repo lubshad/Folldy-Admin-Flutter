@@ -5,6 +5,7 @@ import 'package:folldy_admin/data/models/area_list_response.dart';
 import 'package:folldy_admin/data/models/presentation_list_response.dart';
 import 'package:folldy_admin/domain/usecase/add_new_presentation.dart';
 import 'package:folldy_admin/presentation/screens/presentations_listing/presentation_listing_controller.dart';
+import 'package:folldy_admin/utils/extensions.dart';
 import 'package:get/get.dart';
 
 class AddPresentationDialogController extends ChangeNotifier {
@@ -93,10 +94,10 @@ class AddPresentationDialogController extends ChangeNotifier {
         id: 1,
         module: int.parse(moduleController.text),
         tags: tags));
-    if (Get.isDialogOpen == true) Get.back();
+    popDialog();
     // clearFields();
     response.fold((l) => l.handleError(), (r) {
-      presentationsListingController.getData();
+      presentationsListingController.getPresentations();
     });
   }
 

@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:folldy_admin/data/core/api_constants.dart';
 import 'package:folldy_admin/presentation/screens/areas_listing/areas_listing_controller.dart';
+import 'package:folldy_admin/utils/extensions.dart';
 import 'package:http_parser/http_parser.dart';
 
 import '../../../domain/usecase/add_new_area.dart';

@@ -7,6 +7,7 @@ import 'package:folldy_admin/domain/usecase/delete_presentation.dart';
 import 'package:folldy_admin/domain/usecase/get_all_areas.dart';
 import 'package:folldy_admin/domain/usecase/get_all_presentations.dart';
 import 'package:folldy_admin/presentation/dialogs/add_presentation_dialog/add_presentation_dialog.dart';
+import 'package:folldy_admin/utils/extensions.dart';
 
 import '../../../data/models/presentation_list_response.dart';
 
@@ -36,11 +37,12 @@ class PresentationsListingController extends ChangeNotifier {
   retry() async {
     appError = null;
     makeLoading();
-    getData();
+    getPresentations();
   }
 
   getPresentations() async {
-    final response = await getAllPresentations(NoParams());
+    appError = null;
+    final response = await getAllPresentations(PresentationListingParams(searchKey: searchPresentationController.text));
     response.fold((l) => appError = l, (r) => presentations = r);
     makeNotLoading();
   }
@@ -57,13 +59,7 @@ class PresentationsListingController extends ChangeNotifier {
 
   deleteSelectedPresentation(Presentation e) async {
     final response = await deletePresentation(e);
-    response.fold((l) => l.handleError(), (r) => getData());
-  }
-
-  void getData() {
-    appError = null;
-    getAreas();
-    getPresentations();
+    response.fold((l) => l.handleError(), (r) => getPresentations());
   }
 
   showDeletePresentationConfirmation(Presentation e) {

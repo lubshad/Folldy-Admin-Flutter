@@ -4,6 +4,7 @@ import 'package:folldy_admin/data/models/area_list_response.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
 import 'package:folldy_admin/domain/usecase/delete_area.dart';
 import 'package:folldy_admin/domain/usecase/get_all_areas.dart';
+import 'package:folldy_admin/utils/extensions.dart';
 
 import '../../../data/models/chapter_list_response.dart';
 import '../../dialogs/add_new_area/add_new_area_dialog.dart';

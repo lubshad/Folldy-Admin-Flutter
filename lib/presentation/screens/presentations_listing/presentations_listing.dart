@@ -64,8 +64,11 @@ class PresentationsListing extends StatelessWidget {
       launchInBrowser(url);
     }
 
-    presentationslistingController.getData();
+    presentationslistingController.getPresentations();
     presentationslistingController.searchPresentationController.text = "";
+    presentationslistingController.searchPresentationController.addListener(() {
+      presentationslistingController.getPresentations();
+    });
 
     return Column(
       children: [
@@ -100,16 +103,16 @@ class PresentationsListing extends StatelessWidget {
           child: AnimatedBuilder(
             animation: Listenable.merge([
               presentationslistingController,
-              presentationslistingController.searchPresentationController
+              // presentationslistingController.searchPresentationController
             ]),
             builder: (BuildContext context, Widget? child) {
-              final filteredPresentations = presentationslistingController
-                  .presentations
-                  .where((e) => e.name.toLowerCase().contains(
-                      presentationslistingController
-                          .searchPresentationController.text
-                          .toLowerCase()))
-                  .toList();
+              final filteredPresentations =
+                  presentationslistingController.presentations;
+              // .where((e) => e.name.toLowerCase().contains(
+              //     presentationslistingController
+              //         .searchPresentationController.text
+              //         .toLowerCase()))
+              // .toList();
               return NetworkResource(
                 error: presentationslistingController.appError,
                 isLoading: presentationslistingController.isLoading,
