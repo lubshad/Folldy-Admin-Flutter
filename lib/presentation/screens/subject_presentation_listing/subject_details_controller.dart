@@ -7,7 +7,7 @@ import 'package:folldy_admin/domain/usecase/add_presentation_to_chapter.dart';
 import 'package:folldy_admin/domain/usecase/get_all_presentations.dart';
 import 'package:folldy_admin/utils/extensions.dart';
 
-class SubjectDetailsController extends ChangeNotifier {
+class SubjectPresentationsController extends ChangeNotifier {
   AddPresentations addPresentations = AddPresentations(Get.find());
 
   // AddAreaToSubject addAreaToSubject = AddAreaToSubject(Get.find());
@@ -71,12 +71,17 @@ class SubjectDetailsController extends ChangeNotifier {
     appError = null;
     presentaionListing = false;
     areaListing = false;
-    makeLoading();
     getData();
   }
 
   void tougleAreaLising() {
     areaListing = !areaListing;
+    notifyListeners();
+  }
+
+  void hideAndResetSelection() {
+    areaListing = false;
+    presentaionListing = false;
     notifyListeners();
   }
 }

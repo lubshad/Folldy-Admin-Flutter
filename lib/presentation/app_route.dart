@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/models/chapter_list_response.dart';
 import 'package:folldy_admin/data/models/subject_list_response.dart';
 import 'package:folldy_admin/presentation/screens/home_screen/home_screen.dart';
-import 'package:folldy_admin/presentation/screens/subject_details/subject_details.dart';
+import 'package:folldy_admin/presentation/screens/subject_details_new/subject_details_new.dart';
 
 import 'screens/chapter_details/chapter_details.dart';
 
@@ -26,7 +26,7 @@ class AppRoute {
       case subjectDetails:
         return MaterialPageRoute(
             builder: (context) =>
-                SubjectDetails(subject: arguments as Subject));
+                SubjectDetailsNew(subject: arguments as Subject));
       default:
         return MaterialPageRoute(builder: (context) => Container());
     }

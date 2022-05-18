@@ -1,6 +1,7 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:folldy_admin/data/models/subject_list_response.dart';
 
 import 'package:folldy_admin/domain/usecase/add_new_chapter.dart';
 import 'package:folldy_admin/domain/usecase/delete_chapter.dart';
@@ -101,9 +102,10 @@ class ChapterListingController extends ChangeNotifier {
   void addChapter({Chapter? chapter}) async {
     if (!formKey.currentState!.validate()) return;
     await addNewChapter(Chapter(
+        subjectId: subject?.id,
         name: chapterNameController.text,
         id: chapter?.id,
-        module: int.tryParse(moduleController.text) ?? 0));
+        module: int.tryParse(moduleController.text) ?? 1));
     getData();
     popDialog();
   }
@@ -122,8 +124,11 @@ class ChapterListingController extends ChangeNotifier {
   //   // getSubjects();
   // }
 
+  Subject? subject;
+
   void getData() async {
-    final response = await getAllChapters(NoParams());
+    final response =
+        await getAllChapters(ChapterListingParams(subjectId: subject?.id));
     response.fold((l) => l.handleError(), (r) => chapters = r);
     makeNotLoading();
   }
@@ -188,5 +193,10 @@ class ChapterListingController extends ChangeNotifier {
               },
               child: const Text("Delete")),
         ]));
+  }
+
+  void init(Subject value) {
+    subject = value;
+    getData();
   }
 }

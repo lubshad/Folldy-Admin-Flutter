@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/presentation/screens/areas_listing/areas_listing.dart';
-import 'package:folldy_admin/presentation/screens/chapters_listing/chapters_listing.dart';
 import 'package:folldy_admin/presentation/screens/courses_listing/courses_listing.dart';
 import 'package:folldy_admin/presentation/screens/institutions_listing/institutions_listing.dart';
 import 'package:folldy_admin/presentation/screens/presentations_listing/presentations_listing.dart';
 import 'package:folldy_admin/presentation/screens/subjects_listing/subjects_listing.dart';
 import 'package:folldy_admin/presentation/screens/teachers_listing%20copy/teachers_listing.dart';
-import 'package:folldy_admin/presentation/screens/topics_listing/topics_listing.dart';
 
 import '../universities_listing/universities_listing.dart';
 
 class HomeController extends ChangeNotifier {
-  DrawerItem selectedItem = DrawerItem.chapters;
+  DrawerItem selectedItem = DrawerItem.subjects;
 
   void selectItem(DrawerItem item) {
     selectedItem = item;
@@ -24,12 +22,12 @@ enum DrawerItem {
   universities,
   courses,
   subjects,
-  chapters,
+  // chapters,
   areas,
   presentations,
   institutions,
   teachers,
-  topics,
+  // topics,
 }
 
 extension DrawerItemExtension on DrawerItem {
@@ -47,10 +45,10 @@ extension DrawerItemExtension on DrawerItem {
         return const CorusesListing();
       case DrawerItem.subjects:
         return const SubjectsListing();
-      case DrawerItem.chapters:
-        return const ChaptersListing();
-      case DrawerItem.topics:
-        return const TopicsListing();
+      // case DrawerItem.chapters:
+      //   return const ChaptersListing();
+      // case DrawerItem.topics:
+      //   return const TopicsListing();
       case DrawerItem.teachers:
         return const TeachersListing();
       case DrawerItem.areas:
@@ -72,10 +70,10 @@ extension DrawerItemExtension on DrawerItem {
         return "Courses";
       case DrawerItem.subjects:
         return "Subjects";
-      case DrawerItem.chapters:
-        return "Chapters";
-      case DrawerItem.topics:
-        return "Topics";
+      // case DrawerItem.chapters:
+      //   return "Chapters";
+      // case DrawerItem.topics:
+      //   return "Topics";
       case DrawerItem.teachers:
         return "Teachers";
       case DrawerItem.areas:
@@ -97,10 +95,10 @@ extension DrawerItemExtension on DrawerItem {
         return const Icon(Icons.book);
       case DrawerItem.subjects:
         return const Icon(Icons.subject);
-      case DrawerItem.chapters:
-        return const Icon(Icons.library_books);
-      case DrawerItem.topics:
-        return const Icon(Icons.library_books);
+      // case DrawerItem.chapters:
+      //   return const Icon(Icons.library_books);
+      // case DrawerItem.topics:
+      //   return const Icon(Icons.library_books);
       case DrawerItem.teachers:
         return const Icon(Icons.person);
       case DrawerItem.areas:

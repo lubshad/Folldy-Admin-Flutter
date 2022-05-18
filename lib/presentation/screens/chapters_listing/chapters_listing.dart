@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:folldy_admin/data/models/subject_list_response.dart';
 import 'package:folldy_admin/presentation/app_route.dart';
 import 'package:folldy_admin/presentation/screens/chapters_listing/chapter_listing_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
@@ -7,13 +8,16 @@ import 'package:get/get.dart';
 class ChaptersListing extends StatelessWidget {
   const ChaptersListing({
     Key? key,
+    required this.subject,
   }) : super(key: key);
+
+  final Subject subject;
 
   @override
   Widget build(BuildContext context) {
     ChapterListingController chapterListingController =
         ChapterListingController();
-    chapterListingController.getData();
+    chapterListingController.init(subject);
     return Column(
       children: [
         Row(
@@ -38,7 +42,8 @@ class ChaptersListing extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   final chapter = chapterListingController.chapters[index];
                   return ListTile(
-                    onTap: ()=> Get.toNamed(AppRoute.chapterDetails,arguments: chapter),
+                      onTap: () => Get.toNamed(AppRoute.chapterDetails,
+                          arguments: chapter),
                       title: Text(chapter.name),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,

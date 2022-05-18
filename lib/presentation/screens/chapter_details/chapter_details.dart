@@ -23,7 +23,9 @@ class ChapterDetails extends StatelessWidget {
         animation: chapterDetailsController,
         child: PresentationSelectionListing(
             // chapterId: chapter.id,
-            addPresentations: (presentations) => chapterDetailsController.addPresntations(presentations)),
+            subjectId: chapter.subjectId,
+            addPresentations: (presentations) =>
+                chapterDetailsController.addPresntations(presentations)),
         builder: (context, child) {
           return Scaffold(
               appBar: AppBar(

@@ -57,6 +57,9 @@ class AppTheme {
       //   },
       // ),
       platform: TargetPlatform.windows,
+      tabBarTheme: const TabBarTheme(
+        labelColor: Colors.black,
+      ),
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
         iconTheme: IconThemeData(color: Colors.black),

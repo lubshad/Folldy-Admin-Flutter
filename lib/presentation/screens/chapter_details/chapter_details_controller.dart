@@ -7,8 +7,7 @@ import 'package:folldy_admin/domain/usecase/get_all_presentations.dart';
 import 'package:folldy_admin/utils/extensions.dart';
 
 class ChapterDetailsController extends ChangeNotifier {
-  AddPresentations addPresentationToChapter =
-      AddPresentations(Get.find());
+  AddPresentations addPresentationToChapter = AddPresentations(Get.find());
 
   GetAllPresentations getAllPresentations = GetAllPresentations(Get.find());
 
@@ -50,8 +49,7 @@ class ChapterDetailsController extends ChangeNotifier {
 
   getData() async {
     final response = await getAllPresentations(PresentationListingParams(
-      chapterId: chapter?.id,
-    ));
+        chapterId: chapter?.id, subjectId: chapter?.subjectId));
     response.fold((l) => l.handleError(), (r) => presentations = r);
     makeNotLoading();
   }

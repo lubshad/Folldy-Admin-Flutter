@@ -45,11 +45,11 @@ class PresentationSelectionListing extends StatelessWidget {
                 if (presentationSelectionController
                     .selectedPresentations.isNotEmpty)
                   TextButton.icon(
-                      icon: const Icon(Icons.add),
+                      icon: const Icon(Icons.download),
                       onPressed: () => addPresentations(
                           presentationSelectionController
                               .selectedPresentations),
-                      label: const Text("Add selected presentaion"))
+                      label: const Text("Import selected presentaion"))
               ],
             ),
             body: ListView.builder(
