@@ -1,5 +1,9 @@
+import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/models/chapter_list_response.dart';
+import 'package:folldy_admin/presentation/screens/chapter_details/chapter_details_controller.dart';
+import 'package:folldy_admin/presentation/screens/presentation_selection_listing/presentation_selection_listing.dart';
+import 'package:folldy_admin/presentation/theme/theme.dart';
 
 class ChapterDetails extends StatelessWidget {
   const ChapterDetails({
@@ -11,12 +15,58 @@ class ChapterDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(chapter.name)),
-      body: ListView.builder(
-          itemBuilder: ((context, index) => const ListTile(
-                title: Text("data"),
-              ))),
-    );
+    Get.lazyPut(() => ChapterDetailsController());
+    ChapterDetailsController chapterDetailsController = Get.find();
+    chapterDetailsController.chapter = chapter;
+    chapterDetailsController.getData();
+    return AnimatedBuilder(
+        animation: chapterDetailsController,
+        child: const PresentationSelectionListing(),
+        builder: (context, child) {
+          return Scaffold(
+              appBar: AppBar(
+                title: Text(chapter.name),
+                actions: [
+                  TextButton(
+                      onPressed:
+                          chapterDetailsController.touglePresentationListing,
+                      child: Row(
+                        children: [
+                          if (!chapterDetailsController.presentaionListing)
+                            const Icon(Icons.add),
+                          Text(chapterDetailsController.presentaionListing
+                              ? "Done"
+                              : 'Add Presentation'),
+                        ],
+                      ))
+                ],
+              ),
+              body: LayoutBuilder(builder: (context, constraints) {
+                return Stack(
+                  children: [
+                    ListView.builder(
+                        itemCount:
+                            chapterDetailsController.presentations.length,
+                        itemBuilder: ((context, index) {
+                          final presentation =
+                              chapterDetailsController.presentations[index];
+                          return ListTile(
+                            title: Text(presentation.name),
+                          );
+                        })),
+                    AnimatedPositioned(
+                        curve: Curves.fastOutSlowIn,
+                        width: constraints.maxWidth / 2,
+                        height: constraints.maxHeight,
+                        left: chapterDetailsController.presentaionListing
+                            ? constraints.maxWidth / 2
+                            : constraints.maxWidth,
+                        top: 0,
+                        child: child!,
+                        duration: defaultAnimationDuration)
+                  ],
+                );
+              }));
+        });
   }
 }

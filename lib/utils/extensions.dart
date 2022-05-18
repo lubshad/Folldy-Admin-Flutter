@@ -1,4 +1,3 @@
-
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
 
@@ -38,20 +37,19 @@ void popDialog() {
   if (Get.isDialogOpen == true) Get.back();
 }
 
-
 extension AppErrorTypeExtension on AppErrorType {
   String get message {
     switch (this) {
       case AppErrorType.api:
-        return 'Api Error';
+        return "Something went wrong, please try again later";
       case AppErrorType.network:
-        return 'Network Error';
+        return 'Something went wrong , Please check your network connection';
       case AppErrorType.database:
-        return 'Database Error';
+        return 'Something went wrong , Please check your database connection';
       case AppErrorType.unauthorised:
-        return 'Unauthorised Error';
+        return "You are not authorised to perform this action";
       case AppErrorType.sessionDenied:
-        return 'Session Denied Error';
+        return "Session Expired, Please login again";
     }
   }
 
@@ -69,13 +67,10 @@ extension AppErrorTypeExtension on AppErrorType {
         return 'assets/svgs/session_denied_error.svg';
     }
   }
-
- 
 }
 
-
 extension AppErrorExtension on AppError {
-   handleError() {
+  handleError() {
     logger.info(appErrorType);
     ScaffoldMessenger.of(Get.context!).showSnackBar(
       SnackBar(
@@ -84,4 +79,3 @@ extension AppErrorExtension on AppError {
     );
   }
 }
-

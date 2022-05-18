@@ -1,4 +1,3 @@
-
 import 'package:folldy_admin/data/models/area_list_response.dart';
 import 'package:folldy_admin/data/models/chapter_list_response.dart';
 import 'package:folldy_admin/data/models/course_list_response.dart';
@@ -88,4 +87,6 @@ abstract class DataRepository {
 
   Future<Either<AppError, Map<String, dynamic>>> deletePresentation(
       Map<String, dynamic> json);
+
+  Future<Either<AppError, dynamic>> addPresentationsToChapter(json);
 }

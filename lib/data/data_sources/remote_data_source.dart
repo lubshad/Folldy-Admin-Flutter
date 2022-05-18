@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:basic_template/basic_template.dart';
 import 'package:folldy_admin/data/models/area_list_response.dart';
 import 'package:folldy_admin/data/models/chapter_list_response.dart';
@@ -66,6 +68,8 @@ abstract class RemoteDataSource {
   Future<List<Presentation>> getAllPresentations(Map<String, dynamic> json);
 
   Future<dynamic> deletePresentation(Map<String, dynamic> json);
+
+  FutureOr addPresentationsToChapter(json);
 }
 
 class RemoteDataSourceImplementation implements RemoteDataSource {
@@ -240,7 +244,8 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
 
   @override
   Future addNewArea(UploadFileParams json) async {
-    final response = await _apiClient.formData(data: json.data, files: json.files, path: ApiConstants.addNewArea);
+    final response = await _apiClient.formData(
+        data: json.data, files: json.files, path: ApiConstants.addNewArea);
     return response;
   }
 
@@ -260,7 +265,15 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
 
   @override
   Future deletePresentation(Map<String, dynamic> json) async {
-    final response = await _apiClient.post(ApiConstants.deletepresentation, json);
+    final response =
+        await _apiClient.post(ApiConstants.deletepresentation, json);
+    return response;
+  }
+  
+  @override
+  FutureOr addPresentationsToChapter(json) async {
+    final response =
+        await _apiClient.post(ApiConstants.addPresentationsToChapter, json);
     return response;
   }
 }
