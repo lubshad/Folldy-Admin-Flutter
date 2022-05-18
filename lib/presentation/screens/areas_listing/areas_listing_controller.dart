@@ -48,7 +48,7 @@ class AreasListingController extends ChangeNotifier {
   }
 
   getAreas() async {
-    final response = await getAllAreas(NoParams());
+    final response = await getAllAreas(AreaListingParams());
     response.fold((l) => l.handleError(), (r) => areas = r);
     makeNotLoading();
   }

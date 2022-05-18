@@ -8,7 +8,10 @@ import 'package:folldy_admin/domain/repositories/data_repository.dart';
 class PresentationListingParams {
   final String? searchKey;
   final int? chapterId;
-  PresentationListingParams({this.chapterId, 
+  final int? subjectId;
+  PresentationListingParams({
+    this.subjectId,
+    this.chapterId,
     this.searchKey,
   });
 
@@ -16,6 +19,7 @@ class PresentationListingParams {
     return {
       'searchKey': searchKey,
       'chapterId': chapterId,
+      'subjectId': subjectId,
     };
   }
 
@@ -23,12 +27,14 @@ class PresentationListingParams {
     return PresentationListingParams(
       searchKey: map['searchKey'],
       chapterId: map['chapterId']?.toInt(),
+      subjectId: map['subjectId']?.toInt(),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory PresentationListingParams.fromJson(String source) => PresentationListingParams.fromMap(json.decode(source));
+  factory PresentationListingParams.fromJson(String source) =>
+      PresentationListingParams.fromMap(json.decode(source));
 }
 
 class GetAllPresentations

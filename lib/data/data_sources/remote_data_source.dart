@@ -70,6 +70,8 @@ abstract class RemoteDataSource {
   Future<dynamic> deletePresentation(Map<String, dynamic> json);
 
   FutureOr addPresentationsToChapter(json);
+
+  FutureOr addAreaToSubject(json);
 }
 
 class RemoteDataSourceImplementation implements RemoteDataSource {
@@ -269,11 +271,18 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
         await _apiClient.post(ApiConstants.deletepresentation, json);
     return response;
   }
-  
+
   @override
   FutureOr addPresentationsToChapter(json) async {
     final response =
-        await _apiClient.post(ApiConstants.addPresentationsToChapter, json);
+        await _apiClient.post(ApiConstants.addPresentations, json);
+    return response;
+  }
+  
+  @override
+  FutureOr addAreaToSubject(json) async {
+      final response =
+        await _apiClient.post(ApiConstants.addAreaToSubject, json);
     return response;
   }
 }

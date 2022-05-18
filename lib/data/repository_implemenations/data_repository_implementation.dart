@@ -184,4 +184,10 @@ class DataRepositoryImplementation extends DataRepository
   Future<Either<AppError, dynamic>> addPresentationsToChapter(json) async {
     return await exceptionHandler(_remoteDataSource.addPresentationsToChapter(json));
   }
+  
+  @override
+  Future<Either<AppError, dynamic>> addAreaToSubject(json) async {
+    return await exceptionHandler(_remoteDataSource.addAreaToSubject(json));
+    
+  }
 }

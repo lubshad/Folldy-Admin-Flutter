@@ -1,6 +1,7 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/models/chapter_list_response.dart';
+import 'package:folldy_admin/presentation/components/error_message_with_retry.dart';
 import 'package:folldy_admin/presentation/screens/chapter_details/chapter_details_controller.dart';
 import 'package:folldy_admin/presentation/screens/presentation_selection_listing/presentation_selection_listing.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
@@ -17,11 +18,12 @@ class ChapterDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.lazyPut(() => ChapterDetailsController());
     ChapterDetailsController chapterDetailsController = Get.find();
-    chapterDetailsController.chapter = chapter;
-    chapterDetailsController.getData();
+    chapterDetailsController.init(chapter);
     return AnimatedBuilder(
         animation: chapterDetailsController,
-        child: const PresentationSelectionListing(),
+        child: PresentationSelectionListing(
+            // chapterId: chapter.id,
+            addPresentations: (presentations) => chapterDetailsController.addPresntations(presentations)),
         builder: (context, child) {
           return Scaffold(
               appBar: AppBar(
@@ -44,16 +46,25 @@ class ChapterDetails extends StatelessWidget {
               body: LayoutBuilder(builder: (context, constraints) {
                 return Stack(
                   children: [
-                    ListView.builder(
-                        itemCount:
-                            chapterDetailsController.presentations.length,
-                        itemBuilder: ((context, index) {
-                          final presentation =
-                              chapterDetailsController.presentations[index];
-                          return ListTile(
-                            title: Text(presentation.name),
-                          );
-                        })),
+                    NetworkResource(
+                      errorWidget: Builder(builder: (context) {
+                        return ErrorMessageWithRetry(
+                            error: chapterDetailsController.appError!,
+                            retry: chapterDetailsController.retry);
+                      }),
+                      error: chapterDetailsController.appError,
+                      isLoading: chapterDetailsController.isLoading,
+                      child: ListView.builder(
+                          itemCount:
+                              chapterDetailsController.presentations.length,
+                          itemBuilder: ((context, index) {
+                            final presentation =
+                                chapterDetailsController.presentations[index];
+                            return ListTile(
+                              title: Text(presentation.name),
+                            );
+                          })),
+                    ),
                     AnimatedPositioned(
                         curve: Curves.fastOutSlowIn,
                         width: constraints.maxWidth / 2,

@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:folldy_admin/data/models/presentation_list_response.dart';
 import 'package:folldy_admin/presentation/screens/presentation_selection_listing/presentation_selection_controller.dart';
 
 class PresentationSelectionListing extends StatelessWidget {
   const PresentationSelectionListing({
     Key? key,
+    required this.addPresentations,
+    this.subjectId,
+    this.chapterId,
   }) : super(key: key);
+  final Function(List<Presentation> presentations) addPresentations;
+  final int? subjectId;
+  final int? chapterId;
 
   @override
   Widget build(BuildContext context) {
     PresentationSelectionController presentationSelectionController =
-        PresentationSelectionController();
+        PresentationSelectionController(
+            subjectId: subjectId, chapterId: chapterId);
     // ChapterDetailsController chapterDetailsController = Get.find();
     presentationSelectionController.getPresentations();
 
-    presentationSelectionController.searchPresentationController.addListener(() {
+    presentationSelectionController.searchPresentationController
+        .addListener(() {
       presentationSelectionController.getPresentations();
     });
 
@@ -23,7 +32,8 @@ class PresentationSelectionListing extends StatelessWidget {
             hintText: 'Search Presentation',
             suffixIcon: Icon(Icons.search),
           ),
-          controller: presentationSelectionController.searchPresentationController,
+          controller:
+              presentationSelectionController.searchPresentationController,
         ),
         animation: presentationSelectionController,
         builder: (context, child) {
@@ -36,7 +46,9 @@ class PresentationSelectionListing extends StatelessWidget {
                     .selectedPresentations.isNotEmpty)
                   TextButton.icon(
                       icon: const Icon(Icons.add),
-                      onPressed:presentationSelectionController.addPresentations,
+                      onPressed: () => addPresentations(
+                          presentationSelectionController
+                              .selectedPresentations),
                       label: const Text("Add selected presentaion"))
               ],
             ),

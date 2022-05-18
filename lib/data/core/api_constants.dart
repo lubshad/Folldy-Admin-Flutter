@@ -47,5 +47,7 @@ class ApiConstants {
   static const String addNewTeacher = "teacher_add";
   static const String deleteTeacher = "teacher_delete";
   static const String uploadAudios = "upload_audios";
-  static const String addPresentationsToChapter = "add_presentations_to_chapter";
+  static const String addPresentations =
+      "add_presentations";
+  static const String addAreaToSubject = "add_area_to_subject";
 }
