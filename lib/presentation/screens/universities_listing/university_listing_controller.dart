@@ -12,6 +12,7 @@ class UniversityListingController extends ChangeNotifier {
   GetAllUniversitys getAllUniversitys = GetAllUniversitys(Get.find());
   DeleteUniversity deleteUniversity = DeleteUniversity(Get.find());
   AddNewUniversity addNewUniversity = AddNewUniversity(Get.find());
+  University? selectedUniversity;
 
   TextEditingController universityNameController = TextEditingController();
   List<University> universities = [];
@@ -63,8 +64,7 @@ class UniversityListingController extends ChangeNotifier {
 
   void addUniversity() async {
     if (!formKey.currentState!.validate()) return;
-    await addNewUniversity(
-        University(name: universityNameController.text));
+    await addNewUniversity(AddUniversityParams(name: universityNameController.text));
     getData();
     popDialog();
   }
@@ -128,8 +128,13 @@ class UniversityListingController extends ChangeNotifier {
 
   editUniversity(University university) async {
     final response = await addNewUniversity(
-        University(name: universityNameController.text, id: university.id));
+        AddUniversityParams(name: universityNameController.text, id: university.id));
     response.fold((l) => l.handleError(), (r) => getData());
     popDialog();
+  }
+
+  selectUniversity(University university) {
+    selectedUniversity = university;
+    notifyListeners();
   }
 }

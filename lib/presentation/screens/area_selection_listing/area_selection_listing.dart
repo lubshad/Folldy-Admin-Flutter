@@ -42,8 +42,10 @@ class AreaSelectionListing extends StatelessWidget {
                 if (areaSelectionController.selectedArea.isNotEmpty)
                   TextButton.icon(
                       icon: const Icon(Icons.download),
-                      onPressed: () =>
-                          addAreas(areaSelectionController.selectedArea),
+                      onPressed: () {
+                        addAreas(areaSelectionController.selectedArea);
+                        areaSelectionController.clear();
+                      },
                       label: const Text("Import selected areas"))
               ],
             ),

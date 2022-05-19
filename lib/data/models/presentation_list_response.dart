@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:folldy_admin/data/models/area_list_response.dart';
+
 List<Presentation> presentationListResponseFromJson(dynamic str) =>
     List<Presentation>.from(str.map((x) => Presentation.fromJson(x)));
 
@@ -12,7 +14,7 @@ String presentationListResponseToJson(List<Presentation> data) =>
 
 class Presentation {
   Presentation({
-    required this.area,
+    required this.areas,
     required this.tags,
     required this.name,
     required this.id,
@@ -22,14 +24,14 @@ class Presentation {
   String name;
   int id;
   int module;
-  int? area;
+  List<Area> areas;
   List<String> tags;
 
   factory Presentation.fromJson(Map<String, dynamic> json) => Presentation(
         name: json["name"],
         id: json["id"],
         module: json["module"],
-        area: json["area"],
+        areas: areaListResponseFromJson(json["areas"]),
         tags: List<String>.from(json["tags"].map((x) => x)),
       );
 
@@ -37,7 +39,7 @@ class Presentation {
         "name": name,
         "id": id,
         "module": module,
-        "area": area,
+        "areas": areas,
         "tags": tags,
       };
 }

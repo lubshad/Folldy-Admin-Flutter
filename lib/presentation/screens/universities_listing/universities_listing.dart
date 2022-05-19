@@ -1,6 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:folldy_admin/presentation/screens/courses_listing/courses_listing.dart';
 import 'package:folldy_admin/presentation/screens/universities_listing/university_listing_controller.dart';
-import 'package:folldy_admin/presentation/theme/theme.dart';
+
+import '../../theme/theme.dart';
+
+enum PopupOptions {
+  edit,
+  delete,
+}
+
+extension PopupOptionsExtension on PopupOptions {
+  String get title {
+    switch (this) {
+      case PopupOptions.edit:
+        return 'Edit';
+      case PopupOptions.delete:
+        return 'Delete';
+      default:
+        return '';
+    }
+  }
+}
 
 class UniversitiesListing extends StatelessWidget {
   const UniversitiesListing({
@@ -13,57 +33,72 @@ class UniversitiesListing extends StatelessWidget {
         UniversityListingController();
     universityListingController.getData();
 
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+    return AnimatedBuilder(
+      animation: universityListingController,
+      builder: (BuildContext context, Widget? child) {
+        return Row(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(defaultPadding),
-              child: TextButton.icon(
-                onPressed: universityListingController.showAddUniversityDialog,
-                label: const Text("Add New University"),
-                icon: const Icon(Icons.add),
+            Drawer(
+              elevation: 0,
+              child: Column(
+                children: [
+                  const DrawerHeader(
+                      child: Center(child: Text("Universities"))),
+                  Expanded(
+                    child: ListView(children: [
+                      ...universityListingController.universities
+                          .map((university) => ListTile(
+                                selected: university.id ==
+                                    universityListingController
+                                        .selectedUniversity?.id,
+                                onTap: () => universityListingController
+                                    .selectUniversity(university),
+                                title: Text(university.name),
+                                trailing: PopupMenuButton<PopupOptions>(
+                                    itemBuilder: ((context) => PopupOptions
+                                        .values
+                                        .map((e) => PopupMenuItem(
+                                            value: e, child: Text(e.title)))
+                                        .toList()),
+                                    onSelected: (popupOption) {
+                                      switch (popupOption) {
+                                        case PopupOptions.edit:
+                                          universityListingController
+                                              .showEditUniversityDialog(
+                                                  university);
+                                          break;
+                                        case PopupOptions.delete:
+                                          universityListingController
+                                              .showDeleteUniversityConfirmation(
+                                                  university);
+
+                                          break;
+                                      }
+                                    }),
+                              ))
+                          .toList(),
+                      Padding(
+                        padding: const EdgeInsets.all(defaultPadding),
+                        child: TextButton.icon(
+                          onPressed: universityListingController
+                              .showAddUniversityDialog,
+                          label: const Text("Add New University"),
+                          icon: const Icon(Icons.add),
+                        ),
+                      ),
+                    ]),
+                  ),
+                ],
               ),
             ),
+            const VerticalDivider(),
+            Expanded(
+                child: CorusesListing(
+                    university:
+                        universityListingController.selectedUniversity)),
           ],
-        ),
-        Expanded(
-          child: AnimatedBuilder(
-            animation: universityListingController,
-            builder: (BuildContext context, Widget? child) {
-              return ListView.builder(
-                itemCount: universityListingController.universities.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final university =
-                      universityListingController.universities[index];
-                  return ListTile(
-                    title: Row(
-                      children: [
-                        Text(university.name),
-                        const Spacer(),
-                        Row(
-                          children: [
-                            IconButton(
-                              onPressed: () => universityListingController.showEditUniversityDialog(university),
-                              icon: const Icon(Icons.edit),
-                            ),
-                            IconButton(
-                              onPressed: () => universityListingController
-                                  .showDeleteUniversityConfirmation(university),
-                              icon: const Icon(Icons.delete),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-        ),
-      ],
+        );
+      },
     );
   }
 }

@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:folldy_admin/data/models/university_list_response.dart';
 import 'package:folldy_admin/presentation/screens/courses_listing/course_listing_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
 
 class CorusesListing extends StatelessWidget {
   const CorusesListing({
     Key? key,
+    this.university,
   }) : super(key: key);
+
+  final University? university;
 
   @override
   Widget build(BuildContext context) {
-    CourseListingController courseListingController = CourseListingController();
-    courseListingController.getData();
+    CourseListingController courseListingController =
+        CourseListingController(university: university);
+    courseListingController.getCourses();
     return Column(
       children: [
         Row(
@@ -36,7 +41,7 @@ class CorusesListing extends StatelessWidget {
                   final course = courseListingController.courses[index];
                   return ListTile(
                     title: Text(course.name),
-                    // subtitle: Text(course.university.toString()),
+                    subtitle: Text(course.university.name),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

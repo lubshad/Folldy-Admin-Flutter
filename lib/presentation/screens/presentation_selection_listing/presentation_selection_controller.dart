@@ -64,4 +64,9 @@ class PresentationSelectionController extends ChangeNotifier {
         : selectedPresentations.add(presentation);
     notifyListeners();
   }
+
+  void clear() {
+    selectedPresentations.clear();
+    notifyListeners();
+  }
 }

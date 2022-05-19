@@ -20,6 +20,7 @@ class Home extends StatelessWidget {
             return Row(
               children: [
                 HomeDrawer(homeController: homeController),
+                const VerticalDivider(),
                 Expanded(
                     child: Column(
                   children: [

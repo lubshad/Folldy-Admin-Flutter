@@ -140,6 +140,12 @@ class PresentationsListing extends StatelessWidget {
                               icon: const Icon(Icons.delete)),
                         ],
                       ),
+                      subtitle: Text(
+                        presentation.areas.map((area) => area.name).join(",") +
+                            " " +
+                            "Module ${presentation.module}",
+                        style: Theme.of(context).textTheme.caption,
+                      ),
                     );
                   },
                 ),

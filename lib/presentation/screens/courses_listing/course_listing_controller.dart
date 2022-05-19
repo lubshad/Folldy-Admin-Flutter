@@ -11,6 +11,8 @@ import '../../../data/models/course_list_response.dart';
 import '../../../data/models/university_list_response.dart';
 
 class CourseListingController extends ChangeNotifier {
+  final University? university;
+  CourseListingController({this.university});
   // GetAllUniversitys getAllUniversitys = GetAllUniversitys(Get.find());
   GetAllCourses getAllCourses = GetAllCourses(Get.find());
   // GetAllInstitutions getAllInstitutions = GetAllInstitutions(Get.find());
@@ -22,7 +24,7 @@ class CourseListingController extends ChangeNotifier {
   List<University> universities = [];
   List<Institution> institutes = [];
 
-  University? selectedUniversity;
+  // University? selectedUniversity;
   Institution? selectedInstitution;
   bool? appError;
   bool isLoading = true;
@@ -31,13 +33,13 @@ class CourseListingController extends ChangeNotifier {
       .map((e) => DropdownMenuItem<University>(value: e, child: Text(e.name)))
       .toList();
 
-  get institutesItems => selectedUniversity == null
-      ? null
-      : institutes
-          .where((element) => element.university == selectedUniversity!.id)
-          .map((e) =>
-              DropdownMenuItem<Institution>(value: e, child: Text(e.name)))
-          .toList();
+  // get institutesItems => selectedUniversity == null
+  //     ? null
+  //     : institutes
+  //         .where((element) => element.university == selectedUniversity!.id)
+  //         .map((e) =>
+  //             DropdownMenuItem<Institution>(value: e, child: Text(e.name)))
+  //         .toList();
 
   makeLoading() {
     isLoading = true;
@@ -55,12 +57,9 @@ class CourseListingController extends ChangeNotifier {
     makeNotLoading();
   }
 
-  getData() {
-    getCourses();
-  }
-
   getCourses() async {
-    final response = await getAllCourses(NoParams());
+    final response =
+        await getAllCourses(CourseListingParams(universityId: university?.id));
     response.fold((l) => l.handleError(), (r) => courses = r);
     makeNotLoading();
   }
@@ -89,27 +88,14 @@ class CourseListingController extends ChangeNotifier {
           child: AnimatedBuilder(
               animation: this,
               builder: (context, child) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // DropdownButtonFormField<University>(
-                    //     decoration: const InputDecoration(
-                    //       hintText: "Select University",
-                    //     ),
-                    //     items: universitiesItems,
-                    //     validator: (value) =>
-                    //         value == null ? "Select University" : null,
-                    //     onChanged: changeSelectedUniversity),
-                    TextFormField(
-                      controller: courseNameController,
-                      decoration: const InputDecoration(
-                        labelText: "Course Name",
-                      ),
-                      validator: (value) =>
-                          value!.isEmpty ? "Enter Course Name" : null,
-                      onFieldSubmitted: (val) => addCourse(),
-                    ),
-                  ],
+                return TextFormField(
+                  controller: courseNameController,
+                  decoration: const InputDecoration(
+                    labelText: "Course Name",
+                  ),
+                  validator: (value) =>
+                      value!.isEmpty ? "Enter Course Name" : null,
+                  onFieldSubmitted: (val) => addCourse(),
                 );
               }),
         ),
@@ -119,25 +105,36 @@ class CourseListingController extends ChangeNotifier {
   }
 
   void addCourse({Course? course}) async {
-    if (!formKey.currentState!.validate()) return;
-    await addNewCourse(Course(
+    if (!validate()) return;
+    await addNewCourse(AddCourseParams(
       id: course?.id,
-      // university: selectedUniversity!.id!,
+      university: university!.id!,
       name: courseNameController.text,
     ));
-    getData();
+    getCourses();
+    popDialog();
+  }
+
+  editCourse(Course course) async {
+    if (!formKey.currentState!.validate()) return;
+    await addNewCourse(AddCourseParams(
+      id: course.id,
+      university: course.university.id!,
+      name: courseNameController.text,
+    ));
+    getCourses();
     popDialog();
   }
 
   deleteSelectedCourse(Course e) async {
     await deleteCourse(e);
-    getData();
+    getCourses();
   }
 
-  void changeSelectedUniversity(University? value) {
-    selectedUniversity = value;
-    notifyListeners();
-  }
+  // void changeSelectedUniversity(University? value) {
+  //   selectedUniversity = value;
+  //   notifyListeners();
+  // }
 
   void changeSelectedInstitute(Institution? value) {
     selectedInstitution = value;
@@ -146,9 +143,14 @@ class CourseListingController extends ChangeNotifier {
   final formKey = GlobalKey<FormState>(debugLabel: 'course_form_key');
   bool validate() {
     bool valid = false;
-    if (formKey.currentState!.validate()) {
-      valid = true;
+    if (!formKey.currentState!.validate()) return valid;
+    if (university == null) {
+      ScaffoldMessenger.of(Get.context!).showSnackBar(const SnackBar(
+        content: Text("Please select university"),
+      ));
+      return valid;
     }
+    valid = true;
     return valid;
   }
 

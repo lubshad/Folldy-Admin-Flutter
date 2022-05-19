@@ -13,11 +13,11 @@ String universityToJson(List<University> data) =>
 class University {
   University({
     required this.name,
-    this.id,
+    required this.id,
   });
 
   String name;
-  int? id;
+  int id;
 
   factory University.fromJson(Map<String, dynamic> json) => University(
         name: json["name"],

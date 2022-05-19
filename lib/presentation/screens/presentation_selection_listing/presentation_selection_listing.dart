@@ -46,9 +46,11 @@ class PresentationSelectionListing extends StatelessWidget {
                     .selectedPresentations.isNotEmpty)
                   TextButton.icon(
                       icon: const Icon(Icons.download),
-                      onPressed: () => addPresentations(
-                          presentationSelectionController
-                              .selectedPresentations),
+                      onPressed: () {
+                        addPresentations(presentationSelectionController
+                            .selectedPresentations);
+                        presentationSelectionController.clear();
+                      },
                       label: const Text("Import selected presentaion"))
               ],
             ),

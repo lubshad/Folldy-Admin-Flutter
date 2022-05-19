@@ -9,7 +9,7 @@ import 'package:folldy_admin/presentation/screens/teachers_listing%20copy/teache
 import '../universities_listing/universities_listing.dart';
 
 class HomeController extends ChangeNotifier {
-  DrawerItem selectedItem = DrawerItem.subjects;
+  DrawerItem selectedItem = DrawerItem.universities;
 
   void selectItem(DrawerItem item) {
     selectedItem = item;

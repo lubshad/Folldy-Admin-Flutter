@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/models/area_list_response.dart';
-import 'package:folldy_admin/data/models/presentation_list_response.dart';
 import 'package:folldy_admin/domain/usecase/add_new_presentation.dart';
 import 'package:folldy_admin/presentation/screens/presentations_listing/presentation_listing_controller.dart';
 import 'package:folldy_admin/utils/extensions.dart';
@@ -88,10 +87,9 @@ class AddPresentationDialogController extends ChangeNotifier {
 
   void addPresentation() async {
     if (!validate()) return;
-    final response = await addNewPresentation(Presentation(
+    final response = await addNewPresentation(AddNewPresentationParams(
         area: selectedArea!.id,
         name: presentationNameController.text,
-        id: 1,
         module: int.parse(moduleController.text),
         tags: tags));
     popDialog();

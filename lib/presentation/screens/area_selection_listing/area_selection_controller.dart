@@ -61,4 +61,9 @@ class AreaSelectionController extends ChangeNotifier {
         : selectedArea.add(presentation);
     notifyListeners();
   }
+
+  void clear() {
+    selectedArea.clear();
+    notifyListeners();
+  }
 }
