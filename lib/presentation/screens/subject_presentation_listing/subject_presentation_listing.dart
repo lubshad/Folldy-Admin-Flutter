@@ -6,7 +6,6 @@ import 'package:folldy_admin/presentation/theme/theme.dart';
 
 import '../../components/error_message_with_retry.dart';
 import '../area_selection_listing/area_selection_listing.dart';
-import '../presentation_selection_listing/presentation_selection_listing.dart';
 
 class SubjectPresentationListing extends StatelessWidget {
   const SubjectPresentationListing({
@@ -74,24 +73,24 @@ class SubjectPresentationListing extends StatelessWidget {
                         })),
                   );
                 }),
-            AnimatedBuilder(
-                child: PresentationSelectionListing(
-                    addPresentations: (presentations) =>
-                        subjectDetailsController
-                            .addPresentationss(presentations)),
-                animation: subjectDetailsController,
-                builder: (context, child) {
-                  return AnimatedPositioned(
-                      curve: Curves.fastOutSlowIn,
-                      width: constraints.maxWidth / 2,
-                      height: constraints.maxHeight,
-                      left: subjectDetailsController.presentaionListing
-                          ? constraints.maxWidth / 2
-                          : constraints.maxWidth,
-                      top: 0,
-                      child: child!,
-                      duration: defaultAnimationDuration);
-                }),
+            // AnimatedBuilder(
+            //     // child: PresentationSelectionListing(
+            //     //     addPresentations: (presentations) =>
+            //     //         subjectDetailsController
+            //     //             .addPresentationss(presentations)),
+            //     animation: subjectDetailsController,
+            //     builder: (context, child) {
+            //       return AnimatedPositioned(
+            //           curve: Curves.fastOutSlowIn,
+            //           width: constraints.maxWidth / 2,
+            //           height: constraints.maxHeight,
+            //           left: subjectDetailsController.presentaionListing
+            //               ? constraints.maxWidth / 2
+            //               : constraints.maxWidth,
+            //           top: 0,
+            //           child: child!,
+            //           duration: defaultAnimationDuration);
+            //     }),
             AnimatedBuilder(
                 child: AreaSelectionListing(
                   addAreas: (areas) => subjectDetailsController.addAreas(areas),

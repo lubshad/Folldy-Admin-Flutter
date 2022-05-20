@@ -20,9 +20,10 @@ class ChapterDetailsController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addPresntations(List<Presentation> selectedPresentations) async {
+  void addPresntations(List<Map<String, dynamic>> selectedPresentations) async {
     final response = await addPresentationToChapter(AddPresentaionParams(
-        presentationIds: selectedPresentations.map((e) => e.id).toList(),
+        presentationIds:
+            selectedPresentations.map((e) => e["id"] as int).toList(),
         chapterId: chapter!.id!));
     response.fold((l) => l.handleError(), (r) => getData());
   }
@@ -48,8 +49,8 @@ class ChapterDetailsController extends ChangeNotifier {
   List<Presentation> presentations = [];
 
   getData() async {
-    final response = await getAllPresentations(PresentationListingParams(
-        chapterId: chapter?.id, subjectId: chapter?.subjectId));
+    final response = await getAllPresentations(
+        PresentationListingParams(chapterId: chapter?.id));
     response.fold((l) => l.handleError(), (r) => presentations = r);
     makeNotLoading();
   }
