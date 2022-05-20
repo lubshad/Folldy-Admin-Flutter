@@ -11,28 +11,36 @@ class ChaptersListing extends StatelessWidget {
     required this.subject,
   }) : super(key: key);
 
-  final Subject subject;
+  final Subject? subject;
 
   @override
   Widget build(BuildContext context) {
-    ChapterListingController chapterListingController =
-        ChapterListingController();
-    chapterListingController.init(subject);
+    if (subject == null) {
+      return Container();
+    }
+    ChapterListingController chapterListingController = Get.find();
+    chapterListingController.init(subject!);
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(defaultPadding),
-              child: TextButton.icon(
+        Container(
+          height: defaultPaddingLarge * 2,
+          padding: const EdgeInsets.all(defaultPadding),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                subject!.name,
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              TextButton.icon(
                 onPressed: chapterListingController.showAddChapterDialog,
                 label: const Text("Add New Chapter"),
                 icon: const Icon(Icons.add),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+        const Divider(),
         Expanded(
           child: AnimatedBuilder(
             animation: chapterListingController,

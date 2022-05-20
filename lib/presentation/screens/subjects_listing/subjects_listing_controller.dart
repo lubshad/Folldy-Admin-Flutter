@@ -28,6 +28,8 @@ class SubjectListingController extends ChangeNotifier {
   bool? appError;
   bool isLoading = true;
 
+  Subject? selectedSubject;
+
   // get courcesItems => cources
   //     .map((e) => DropdownMenuItem<Course>(value: e, child: Text(e.name)))
   //     .toList();
@@ -200,5 +202,10 @@ class SubjectListingController extends ChangeNotifier {
         course: subject.course.id!));
     getData();
     popDialog();
+  }
+
+  selectSubject(Subject subject) {
+    selectedSubject = subject;
+    notifyListeners();
   }
 }

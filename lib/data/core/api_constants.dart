@@ -50,4 +50,5 @@ class ApiConstants {
   static const String addPresentations =
       "add_presentations";
   static const String addAreaToSubject = "add_area_to_subject";
+  static const String getAreaWisePresentations = "area_wise_presentations";
 }

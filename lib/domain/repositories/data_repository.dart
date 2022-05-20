@@ -91,4 +91,6 @@ abstract class DataRepository {
   Future<Either<AppError, dynamic>> addPresentationsToChapter(json);
 
   Future<Either<AppError, dynamic>> addAreaToSubject(json);
+
+  Future<Either<AppError, dynamic>> getAreaWisePresentations(json);
 }

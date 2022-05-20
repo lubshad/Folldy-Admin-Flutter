@@ -29,7 +29,7 @@ class CorusesListing extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Courses",
+                university!.name,
                 style: Theme.of(context).textTheme.headline6,
               ),
               TextButton.icon(

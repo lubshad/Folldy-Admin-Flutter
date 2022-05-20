@@ -190,4 +190,10 @@ class DataRepositoryImplementation extends DataRepository
     return await exceptionHandler(_remoteDataSource.addAreaToSubject(json));
     
   }
+  
+  @override
+  Future<Either<AppError, dynamic>> getAreaWisePresentations(json) async {
+    return await exceptionHandler(_remoteDataSource.getAreaWisePresentations(json));
+    
+  }
 }

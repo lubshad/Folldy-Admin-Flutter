@@ -3,12 +3,13 @@ import 'package:folldy_admin/presentation/screens/areas_listing/areas_listing.da
 import 'package:folldy_admin/presentation/screens/course_listing_with_drawer/course_listing_with_drawer.dart';
 import 'package:folldy_admin/presentation/screens/institutions_listing/institutions_listing.dart';
 import 'package:folldy_admin/presentation/screens/presentations_listing/presentations_listing.dart';
+import 'package:folldy_admin/presentation/screens/subject_listing_with_drawer/subject_listing_with_drawer.dart';
 import 'package:folldy_admin/presentation/screens/teachers_listing%20copy/teachers_listing.dart';
 
 import '../universities_listing/universities_listing.dart';
 
 class HomeController extends ChangeNotifier {
-  DrawerItem selectedItem = DrawerItem.courses;
+  DrawerItem selectedItem = DrawerItem.subjects;
 
   void selectItem(DrawerItem item) {
     selectedItem = item;
@@ -43,7 +44,7 @@ extension DrawerItemExtension on DrawerItem {
       case DrawerItem.courses:
         return const CourseListingWithDrawer();
       case DrawerItem.subjects:
-        return const Scaffold();
+        return const SubjectListingWithDrawer();
       // case DrawerItem.chapters:
       //   return const ChaptersListing();
       // case DrawerItem.topics:

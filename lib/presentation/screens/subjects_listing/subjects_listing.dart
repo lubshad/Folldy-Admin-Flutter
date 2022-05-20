@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/models/course_list_response.dart';
-import 'package:folldy_admin/presentation/app_route.dart';
 import 'package:folldy_admin/presentation/screens/subjects_listing/subjects_listing_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
 import 'package:get/get.dart';
@@ -20,6 +19,7 @@ class SubjectsListing extends StatelessWidget {
     SubjectListingController subjectListingController = Get.find();
     subjectListingController.course = course;
     subjectListingController.semester = semester;
+    subjectListingController.searchSubjectController.clear();
     subjectListingController.getData();
     return Column(
       children: [
@@ -49,8 +49,8 @@ class SubjectsListing extends StatelessWidget {
                     final subject = semesterSubjects[index];
                     return ListTile(
                       key: Key(subject.id.toString()),
-                      onTap: () => Get.toNamed(AppRoute.subjectDetails,
-                          arguments: subject),
+                      // onTap: () => Get.toNamed(AppRoute.subjectDetails,
+                      //     arguments: subject),
                       title: Text(subject.name),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,

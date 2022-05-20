@@ -1,5 +1,6 @@
 import 'package:folldy_admin/data/core/api_constants.dart';
 import 'package:basic_template/basic_template.dart';
+import 'package:folldy_admin/presentation/screens/chapters_listing/chapter_listing_controller.dart';
 import 'package:folldy_admin/presentation/screens/subjects_listing/subjects_listing_controller.dart';
 
 import '../data/data_sources/remote_data_source.dart';
@@ -20,8 +21,11 @@ class DependencyInjection {
     Get.lazyPut(
       () => UniversityListingController(),
     );
-      Get.lazyPut(
+    Get.lazyPut(
       () => SubjectListingController(),
+    );
+    Get.lazyPut(
+      () => ChapterListingController(),
     );
   }
 }

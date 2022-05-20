@@ -72,6 +72,8 @@ abstract class RemoteDataSource {
   FutureOr addPresentationsToChapter(json);
 
   FutureOr addAreaToSubject(json);
+
+  FutureOr getAreaWisePresentations(json);
 }
 
 class RemoteDataSourceImplementation implements RemoteDataSource {
@@ -274,15 +276,19 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
 
   @override
   FutureOr addPresentationsToChapter(json) async {
-    final response =
-        await _apiClient.post(ApiConstants.addPresentations, json);
+    final response = await _apiClient.post(ApiConstants.addPresentations, json);
+    return response;
+  }
+
+  @override
+  FutureOr addAreaToSubject(json) async {
+    final response = await _apiClient.post(ApiConstants.addAreaToSubject, json);
     return response;
   }
   
   @override
-  FutureOr addAreaToSubject(json) async {
-      final response =
-        await _apiClient.post(ApiConstants.addAreaToSubject, json);
+  FutureOr getAreaWisePresentations(json) async {
+    final response = await _apiClient.post(ApiConstants.getAreaWisePresentations, json);
     return response;
   }
 }

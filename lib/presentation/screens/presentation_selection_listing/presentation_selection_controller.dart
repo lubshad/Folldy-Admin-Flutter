@@ -1,15 +1,13 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:folldy_admin/domain/usecase/get_all_presentations.dart';
+import 'package:folldy_admin/domain/usecase/get_area_wise_presentation.dart';
 
 import '../../../data/models/presentation_list_response.dart';
 
 class PresentationSelectionController extends ChangeNotifier {
-  final int? chapterId;
-  final int? subjectId;
-  PresentationSelectionController({this.chapterId, this.subjectId});
-
-  GetAllPresentations getAllPresentations = GetAllPresentations(Get.find());
+  // GetAllPresentations getAllPresentations = GetAllPresentations(Get.find());
+  GetAreawisePresentaions getAreawisePresentaions =
+      GetAreawisePresentaions(Get.find());
   TextEditingController searchPresentationController = TextEditingController();
 
   List<Presentation> selectedPresentations = [];
@@ -33,15 +31,12 @@ class PresentationSelectionController extends ChangeNotifier {
     makeNotLoading();
   }
 
-  List<Presentation> presentations = [];
+  List<dynamic> areavisePresentations = [];
 
   getPresentations() async {
     appError = null;
-    final response = await getAllPresentations(PresentationListingParams(
-        subjectId: subjectId,
-        chapterId: chapterId,
-        searchKey: searchPresentationController.text));
-    response.fold((l) => appError = l, (r) => presentations = r);
+    final response = await getAreawisePresentaions(NoParams());
+    response.fold((l) => appError = l, (r) => areavisePresentations = r);
     makeNotLoading();
   }
 

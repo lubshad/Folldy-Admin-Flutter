@@ -6,18 +6,13 @@ class PresentationSelectionListing extends StatelessWidget {
   const PresentationSelectionListing({
     Key? key,
     required this.addPresentations,
-    this.subjectId,
-    this.chapterId,
   }) : super(key: key);
   final Function(List<Presentation> presentations) addPresentations;
-  final int? subjectId;
-  final int? chapterId;
 
   @override
   Widget build(BuildContext context) {
     PresentationSelectionController presentationSelectionController =
-        PresentationSelectionController(
-            subjectId: subjectId, chapterId: chapterId);
+        PresentationSelectionController();
     // ChapterDetailsController chapterDetailsController = Get.find();
     presentationSelectionController.getPresentations();
 
@@ -40,7 +35,7 @@ class PresentationSelectionListing extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              title: child,
+              // title: child,
               actions: [
                 if (presentationSelectionController
                     .selectedPresentations.isNotEmpty)
@@ -56,18 +51,19 @@ class PresentationSelectionListing extends StatelessWidget {
             ),
             body: ListView.builder(
                 controller: ScrollController(),
-                itemCount: presentationSelectionController.presentations.length,
+                itemCount: presentationSelectionController
+                    .areavisePresentations.length,
                 itemBuilder: (context, index) {
-                  final presentation =
-                      presentationSelectionController.presentations[index];
-                  return CheckboxListTile(
-                    key: Key(presentation.id.toString()),
+                  final area = presentationSelectionController
+                      .areavisePresentations[index];
+                  return ExpansionTile(
+                    key: Key(area["id"].toString()),
                     controlAffinity: ListTileControlAffinity.leading,
-                    title: Text(presentation.name),
-                    onChanged: (value) =>
-                        presentationSelectionController.onChanged(presentation),
-                    value: presentationSelectionController
-                        .selectionValue(presentation),
+                    title: Text(area["name"]),
+                    // onChanged: (value) =>
+                    //     presentationSelectionController.onChanged(presentation),
+                    // value: presentationSelectionController
+                    //     .selectionValue(presentation),
                   );
                 }),
           );

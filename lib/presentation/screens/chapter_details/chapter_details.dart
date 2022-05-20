@@ -16,14 +16,12 @@ class ChapterDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut(() => ChapterDetailsController());
-    ChapterDetailsController chapterDetailsController = Get.find();
+    ChapterDetailsController chapterDetailsController =
+        ChapterDetailsController();
     chapterDetailsController.init(chapter);
     return AnimatedBuilder(
         animation: chapterDetailsController,
         child: PresentationSelectionListing(
-            // chapterId: chapter.id,
-            subjectId: chapter.subjectId,
             addPresentations: (presentations) =>
                 chapterDetailsController.addPresntations(presentations)),
         builder: (context, child) {
