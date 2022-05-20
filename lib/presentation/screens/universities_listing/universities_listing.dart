@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/presentation/screens/courses_listing/courses_listing.dart';
 import 'package:folldy_admin/presentation/screens/universities_listing/university_listing_controller.dart';
+import 'package:get/get.dart';
 
 import '../../theme/theme.dart';
 
@@ -29,8 +30,8 @@ class UniversitiesListing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UniversityListingController universityListingController =
-        UniversityListingController();
+    
+    UniversityListingController universityListingController = Get.find();
     universityListingController.getData();
 
     return AnimatedBuilder(
@@ -39,15 +40,32 @@ class UniversitiesListing extends StatelessWidget {
         return Row(
           children: [
             Drawer(
-              elevation: 0,
               child: Column(
                 children: [
-                  const DrawerHeader(
-                      child: Center(child: Text("Universities"))),
+                  Container(
+                    height: defaultPaddingLarge * 2,
+                    padding: const EdgeInsets.all(defaultPadding),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Universities",
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                        IconButton(
+                            padding: EdgeInsets.zero,
+                            onPressed: universityListingController
+                                .showAddUniversityDialog,
+                            icon: const Icon(Icons.add))
+                      ],
+                    ),
+                  ),
+                  const Divider(),
                   Expanded(
                     child: ListView(children: [
                       ...universityListingController.universities
                           .map((university) => ListTile(
+                            key: Key(university.id.toString()),
                                 selected: university.id ==
                                     universityListingController
                                         .selectedUniversity?.id,
@@ -77,15 +95,6 @@ class UniversitiesListing extends StatelessWidget {
                                     }),
                               ))
                           .toList(),
-                      Padding(
-                        padding: const EdgeInsets.all(defaultPadding),
-                        child: TextButton.icon(
-                          onPressed: universityListingController
-                              .showAddUniversityDialog,
-                          label: const Text("Add New University"),
-                          icon: const Icon(Icons.add),
-                        ),
-                      ),
                     ]),
                   ),
                 ],

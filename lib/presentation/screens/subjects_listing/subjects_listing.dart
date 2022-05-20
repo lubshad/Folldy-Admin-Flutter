@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:folldy_admin/data/models/course_list_response.dart';
 import 'package:folldy_admin/presentation/app_route.dart';
 import 'package:folldy_admin/presentation/screens/subjects_listing/subjects_listing_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
@@ -7,12 +8,18 @@ import 'package:get/get.dart';
 class SubjectsListing extends StatelessWidget {
   const SubjectsListing({
     Key? key,
+    required this.course,
+    required this.semester,
   }) : super(key: key);
+
+  final Course course;
+  final int semester;
 
   @override
   Widget build(BuildContext context) {
-    SubjectListingController subjectListingController =
-        SubjectListingController();
+    SubjectListingController subjectListingController = Get.find();
+    subjectListingController.course = course;
+    subjectListingController.semester = semester;
     subjectListingController.getData();
     return Column(
       children: [
@@ -31,13 +38,17 @@ class SubjectsListing extends StatelessWidget {
         ),
         Expanded(
           child: AnimatedBuilder(
-            animation: subjectListingController,
+            animation: Listenable.merge([subjectListingController]),
             builder: (BuildContext context, Widget? child) {
+              final semesterSubjects = subjectListingController.subjects
+                  .where((element) => element.semester == semester)
+                  .toList();
               return ListView.builder(
-                  itemCount: subjectListingController.subjects.length,
+                  itemCount: semesterSubjects.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final subject = subjectListingController.subjects[index];
+                    final subject = semesterSubjects[index];
                     return ListTile(
+                      key: Key(subject.id.toString()),
                       onTap: () => Get.toNamed(AppRoute.subjectDetails,
                           arguments: subject),
                       title: Text(subject.name),

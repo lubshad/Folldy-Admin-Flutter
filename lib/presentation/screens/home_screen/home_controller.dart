@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/presentation/screens/areas_listing/areas_listing.dart';
-import 'package:folldy_admin/presentation/screens/courses_listing/courses_listing.dart';
+import 'package:folldy_admin/presentation/screens/course_listing_with_drawer/course_listing_with_drawer.dart';
 import 'package:folldy_admin/presentation/screens/institutions_listing/institutions_listing.dart';
 import 'package:folldy_admin/presentation/screens/presentations_listing/presentations_listing.dart';
-import 'package:folldy_admin/presentation/screens/subjects_listing/subjects_listing.dart';
 import 'package:folldy_admin/presentation/screens/teachers_listing%20copy/teachers_listing.dart';
 
 import '../universities_listing/universities_listing.dart';
 
 class HomeController extends ChangeNotifier {
-  DrawerItem selectedItem = DrawerItem.universities;
+  DrawerItem selectedItem = DrawerItem.courses;
 
   void selectItem(DrawerItem item) {
     selectedItem = item;
@@ -42,9 +41,9 @@ extension DrawerItemExtension on DrawerItem {
       case DrawerItem.institutions:
         return const InstitutionsListing();
       case DrawerItem.courses:
-        return const CorusesListing();
+        return const CourseListingWithDrawer();
       case DrawerItem.subjects:
-        return const SubjectsListing();
+        return const Scaffold();
       // case DrawerItem.chapters:
       //   return const ChaptersListing();
       // case DrawerItem.topics:

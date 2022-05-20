@@ -60,6 +60,7 @@ class AppTheme {
       tabBarTheme: const TabBarTheme(
         labelColor: Colors.black,
       ),
+      drawerTheme: const DrawerThemeData(elevation: 0),
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
         iconTheme: IconThemeData(color: Colors.black),

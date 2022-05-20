@@ -12,7 +12,6 @@ class HomeDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      elevation: 0,
       child: Column(
         children: [
           DrawerHeader(

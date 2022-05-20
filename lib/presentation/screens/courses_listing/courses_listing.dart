@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/models/university_list_response.dart';
 import 'package:folldy_admin/presentation/screens/courses_listing/course_listing_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
+import 'package:get/get.dart';
 
 class CorusesListing extends StatelessWidget {
   const CorusesListing({
@@ -13,24 +14,33 @@ class CorusesListing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CourseListingController courseListingController =
-        CourseListingController(university: university);
+    if (university == null) {
+      return Container();
+    }
+    CourseListingController courseListingController = Get.find();
+    courseListingController.university = university;
     courseListingController.getCourses();
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(defaultPadding),
-              child: TextButton.icon(
+        Container(
+          height: defaultPaddingLarge * 2,
+          padding: const EdgeInsets.all(defaultPadding),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Courses",
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              TextButton.icon(
                 onPressed: courseListingController.showAddCourseDialog,
                 label: const Text("Add New course"),
                 icon: const Icon(Icons.add),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+        const Divider(),
         Expanded(
           child: AnimatedBuilder(
             animation: courseListingController,
@@ -40,6 +50,7 @@ class CorusesListing extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   final course = courseListingController.courses[index];
                   return ListTile(
+                    key: Key(course.id.toString()),
                     title: Text(course.name),
                     subtitle: Text(course.university.name),
                     trailing: Row(

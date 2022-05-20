@@ -1,5 +1,6 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
 
 import 'package:folldy_admin/domain/usecase/add_new_course.dart';
@@ -11,35 +12,23 @@ import '../../../data/models/course_list_response.dart';
 import '../../../data/models/university_list_response.dart';
 
 class CourseListingController extends ChangeNotifier {
-  final University? university;
-  CourseListingController({this.university});
-  // GetAllUniversitys getAllUniversitys = GetAllUniversitys(Get.find());
+  University? university;
   GetAllCourses getAllCourses = GetAllCourses(Get.find());
-  // GetAllInstitutions getAllInstitutions = GetAllInstitutions(Get.find());
   AddNewCourse addNewCourse = AddNewCourse(Get.find());
   DeleteCourse deleteCourse = DeleteCourse(Get.find());
 
   TextEditingController courseNameController = TextEditingController();
+  TextEditingController searchCourseController = TextEditingController();
+  TextEditingController semesterController = TextEditingController();
   List<Course> courses = [];
   List<University> universities = [];
   List<Institution> institutes = [];
 
-  // University? selectedUniversity;
+  Course? selectedCourse;
+
   Institution? selectedInstitution;
   bool? appError;
   bool isLoading = true;
-
-  get universitiesItems => universities
-      .map((e) => DropdownMenuItem<University>(value: e, child: Text(e.name)))
-      .toList();
-
-  // get institutesItems => selectedUniversity == null
-  //     ? null
-  //     : institutes
-  //         .where((element) => element.university == selectedUniversity!.id)
-  //         .map((e) =>
-  //             DropdownMenuItem<Institution>(value: e, child: Text(e.name)))
-  //         .toList();
 
   makeLoading() {
     isLoading = true;
@@ -58,8 +47,8 @@ class CourseListingController extends ChangeNotifier {
   }
 
   getCourses() async {
-    final response =
-        await getAllCourses(CourseListingParams(universityId: university?.id));
+    final response = await getAllCourses(CourseListingParams(
+        universityId: university?.id, searchKey: searchCourseController.text));
     response.fold((l) => l.handleError(), (r) => courses = r);
     makeNotLoading();
   }
@@ -80,24 +69,45 @@ class CourseListingController extends ChangeNotifier {
 
   showAddCourseDialog() {
     courseNameController.clear();
+    semesterController.clear();
     // getUniversities();
     Get.dialog(AlertDialog(
         title: const Text("Add New Course"),
         content: Form(
           key: formKey,
-          child: AnimatedBuilder(
-              animation: this,
-              builder: (context, child) {
-                return TextFormField(
-                  controller: courseNameController,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                controller: courseNameController,
+                decoration: const InputDecoration(
+                  labelText: "Course Name",
+                ),
+                validator: (value) =>
+                    value!.isEmpty ? "Enter Course Name" : null,
+                onFieldSubmitted: (val) => addCourse(),
+              ),
+              TextFormField(
+                  controller: semesterController,
                   decoration: const InputDecoration(
-                    labelText: "Course Name",
+                    labelText: "Semesters",
                   ),
-                  validator: (value) =>
-                      value!.isEmpty ? "Enter Course Name" : null,
-                  onFieldSubmitted: (val) => addCourse(),
-                );
-              }),
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Semesters is required";
+                    }
+                    final semester = int.tryParse(value);
+                    if (semester == null) {
+                      return "Semesters must be a number";
+                    }
+                    if (semester < 1 || semester > 8) {
+                      return "Semesters must be between 1 and 8";
+                    }
+                    return null;
+                  })
+            ],
+          ),
         ),
         actions: [
           ElevatedButton(onPressed: addCourse, child: const Text("Add")),
@@ -107,8 +117,9 @@ class CourseListingController extends ChangeNotifier {
   void addCourse({Course? course}) async {
     if (!validate()) return;
     await addNewCourse(AddCourseParams(
+      sermersers: int.tryParse(semesterController.text) ?? 4,
       id: course?.id,
-      university: university!.id!,
+      university: university!.id,
       name: courseNameController.text,
     ));
     getCourses();
@@ -118,8 +129,9 @@ class CourseListingController extends ChangeNotifier {
   editCourse(Course course) async {
     if (!formKey.currentState!.validate()) return;
     await addNewCourse(AddCourseParams(
+      sermersers: int.tryParse(semesterController.text) ?? 4,
       id: course.id,
-      university: course.university.id!,
+      university: course.university.id,
       name: courseNameController.text,
     ));
     getCourses();
@@ -130,11 +142,6 @@ class CourseListingController extends ChangeNotifier {
     await deleteCourse(e);
     getCourses();
   }
-
-  // void changeSelectedUniversity(University? value) {
-  //   selectedUniversity = value;
-  //   notifyListeners();
-  // }
 
   void changeSelectedInstitute(Institution? value) {
     selectedInstitution = value;
@@ -156,43 +163,49 @@ class CourseListingController extends ChangeNotifier {
 
   showEditCourseDialog(Course e) {
     courseNameController.text = e.name;
+    semesterController.text = e.semesters.toString();
     // getUniversities(universityId: e.university);
 
     Get.dialog(AlertDialog(
         title: const Text("Edit Course"),
         content: Form(
-          key: formKey,
-          child: AnimatedBuilder(
-              animation: this,
-              builder: (context, child) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // DropdownButtonFormField<University>(
-                    //     decoration: const InputDecoration(
-                    //       hintText: "Select University",
-                    //     ),
-                    //     value: selectedUniversity,
-                    //     items: universitiesItems,
-                    //     validator: (value) =>
-                    //         value == null ? "Select University" : null,
-                    //     onChanged: changeSelectedUniversity),
-                    TextFormField(
-                      controller: courseNameController,
-                      decoration: const InputDecoration(
-                        labelText: "Course Name",
-                      ),
-                      validator: (value) =>
-                          value!.isEmpty ? "Enter Course Name" : null,
+            key: formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                  controller: courseNameController,
+                  decoration: const InputDecoration(
+                    labelText: "Course Name",
+                  ),
+                  validator: (value) =>
+                      value!.isEmpty ? "Enter Course Name" : null,
+                ),
+                TextFormField(
+                    controller: semesterController,
+                    decoration: const InputDecoration(
+                      labelText: "Semesters",
                     ),
-                  ],
-                );
-              }),
-        ),
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Semesters is required";
+                      }
+                      final semester = int.tryParse(value);
+                      if (semester == null) {
+                        return "Semesters must be a number";
+                      }
+                      if (semester < 1 || semester > 8) {
+                        return "Semesters must be between 1 and 8";
+                      }
+                      return null;
+                    })
+              ],
+            )),
         actions: [
           ElevatedButton(onPressed: Get.back, child: const Text("Cancel")),
           ElevatedButton(
-              onPressed: () => addCourse(course: e), child: const Text("Save")),
+              onPressed: () => editCourse(e), child: const Text("Save")),
         ]));
   }
 
@@ -213,5 +226,10 @@ class CourseListingController extends ChangeNotifier {
               },
               child: const Text("Delete")),
         ]));
+  }
+
+  selectCourse(Course course) {
+    selectedCourse = course;
+    notifyListeners();
   }
 }

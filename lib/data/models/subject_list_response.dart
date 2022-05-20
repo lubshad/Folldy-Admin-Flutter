@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:folldy_admin/data/models/course_list_response.dart';
+
 List<Subject> subjectFromJson(dynamic str) =>
     List<Subject>.from(str.map((x) => Subject.fromJson(x)));
 
@@ -15,13 +17,16 @@ class Subject {
     this.semester = 1,
     required this.name,
     required this.id,
+    required this.course,
   });
 
-  String name;
-  int semester;
-  int? id;
+  final String name;
+  final int semester;
+  final int? id;
+  final Course course;
 
   factory Subject.fromJson(Map<String, dynamic> json) => Subject(
+        course: Course.fromJson(json["course"]),
         semester: json["semester"],
         name: json["name"],
         id: json["id"],
@@ -31,5 +36,6 @@ class Subject {
         "name": name,
         "id": id,
         "semester": semester,
+        "course": course,
       };
 }

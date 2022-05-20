@@ -10,25 +10,29 @@ class GetAllCourses extends UseCase<List<Course>, CourseListingParams> {
 
   GetAllCourses(this._dataRepository);
   @override
-  Future<Either<AppError, List<Course>>> call(CourseListingParams params) async {
+  Future<Either<AppError, List<Course>>> call(
+      CourseListingParams params) async {
     return _dataRepository.listCourses(params.toMap());
   }
 }
 
 class CourseListingParams {
   final int? universityId;
+  final String? searchKey;
 
-  CourseListingParams({this.universityId});
+  CourseListingParams({this.searchKey, this.universityId});
 
   Map<String, dynamic> toMap() {
     return {
       'universityId': universityId,
+      'searchKey': searchKey,
     };
   }
 
   factory CourseListingParams.fromMap(Map<String, dynamic> map) {
     return CourseListingParams(
       universityId: map['universityId']?.toInt(),
+      searchKey: map['searchKey'],
     );
   }
 

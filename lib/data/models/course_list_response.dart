@@ -17,19 +17,23 @@ class Course {
     required this.university,
     required this.name,
     this.id,
+    required this.semesters,
   });
 
-  String name;
-  University university;
-  int? id;
+  final String name;
+  final University university;
+  final int semesters;
+  final int? id;
 
   factory Course.fromJson(Map<String, dynamic> json) => Course(
+        semesters: json["semesters"],
         university: University.fromJson(json["university"]),
         name: json["name"],
         id: json["id"],
       );
 
   Map<String, dynamic> toJson() => {
+        "semsters": semesters,
         "name": name,
         "id": id,
         "university": university,
