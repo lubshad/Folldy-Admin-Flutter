@@ -158,6 +158,15 @@ class PresentationsListingController extends ChangeNotifier {
     });
   }
 
+  void dropPresentation(
+      AddNewPresentationParams addNewPresentationParams) async {
+    final response = await addNewPresentation(addNewPresentationParams);
+    popDialog();
+    response.fold((l) => l.handleError(), (r) {
+      getPresentations();
+    });
+  }
+
   removeTag(String e) {
     tags.remove(e);
     notifyListeners();
@@ -179,7 +188,7 @@ class PresentationsListingController extends ChangeNotifier {
   }
 
   showAddEditPresentaion({int? module, Presentation? presentation}) {
-    if (selectedArea == null) return;
+    // if (selectedArea == null) return;
     if (presentation == null) {
       presentationNameController.clear();
       tags.clear();
@@ -233,7 +242,7 @@ class PresentationsListingController extends ChangeNotifier {
           ElevatedButton(
               onPressed: () => addEditPresentation(AddNewPresentationParams(
                   id: presentation?.id,
-                  area: selectedArea!.id,
+                  area: selectedArea?.id,
                   name: presentationNameController.text,
                   module: presentation == null ? module! : presentation.module,
                   tags: tags)),

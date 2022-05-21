@@ -142,36 +142,40 @@ class PresentationsListing extends StatelessWidget {
                               const EdgeInsets.only(left: defaultPadding),
                           children: presentationslistingController
                               .searchResult(presentations)
-                              .map((presentation) => ListTile(
-                                  dense: true,
-                                  key: Key(presentation.id.toString()),
-                                  onTap: () =>
-                                      openPresentationEditor(presentation),
-                                  title: Row(
-                                    children: [
-                                      Text(presentation.name),
-                                      const Spacer(),
-                                      IconButton(
-                                          onPressed: () =>
-                                              openPresentationViewer(
-                                                  presentation),
-                                          icon: const Icon(
-                                              Icons.visibility_outlined)),
-                                      IconButton(
-                                          onPressed: () =>
-                                              presentationslistingController
-                                                  .showAddEditPresentaion(
-                                                      presentation:
-                                                          presentation),
-                                          icon: const Icon(Icons.edit)),
-                                      IconButton(
-                                          onPressed: () =>
-                                              presentationslistingController
-                                                  .showDeletePresentationConfirmation(
-                                                      presentation),
-                                          icon: const Icon(Icons.delete)),
-                                    ],
-                                  )))
+                              .map((presentation) => Draggable(
+                                    data: presentation,
+                                    feedback: Material(
+                                        child: Text(presentation.name)),
+                                    child: ListTile(
+                                        key: Key(presentation.id.toString()),
+                                        onTap: () => openPresentationEditor(
+                                            presentation),
+                                        title: Row(
+                                          children: [
+                                            Text(presentation.name),
+                                            const Spacer(),
+                                            IconButton(
+                                                onPressed: () =>
+                                                    openPresentationViewer(
+                                                        presentation),
+                                                icon: const Icon(
+                                                    Icons.visibility_outlined)),
+                                            IconButton(
+                                                onPressed: () =>
+                                                    presentationslistingController
+                                                        .showAddEditPresentaion(
+                                                            presentation:
+                                                                presentation),
+                                                icon: const Icon(Icons.edit)),
+                                            IconButton(
+                                                onPressed: () =>
+                                                    presentationslistingController
+                                                        .showDeletePresentationConfirmation(
+                                                            presentation),
+                                                icon: const Icon(Icons.delete)),
+                                          ],
+                                        )),
+                                  ))
                               .toList(),
                         );
                       })));

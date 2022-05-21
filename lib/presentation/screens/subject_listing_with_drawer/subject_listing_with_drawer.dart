@@ -11,7 +11,7 @@ class SubjectListingWithDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SubjectListingController subjectListingController = Get.find();
-    subjectListingController.course = null;
+    // subjectListingController.course = null;
     subjectListingController.getData();
     subjectListingController.searchSubjectController.addListener(() {
       subjectListingController.getData();

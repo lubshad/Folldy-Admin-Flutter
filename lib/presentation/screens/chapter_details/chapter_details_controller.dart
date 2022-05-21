@@ -47,12 +47,28 @@ class ChapterDetailsController extends ChangeNotifier {
   }
 
   List<Presentation> presentations = [];
-
+  List<Map<String, dynamic>> moduleVisePresentations = [];
   getData() async {
     final response = await getAllPresentations(
         PresentationListingParams(chapterId: chapter?.id));
-    response.fold((l) => l.handleError(), (r) => presentations = []);
+    response.fold((l) => l.handleError(),
+        (r) => presentations = presentationListResponseFromJson(r));
     makeNotLoading();
+  }
+
+  void setModuleVisePresentations(List<dynamic> presentations) {
+    List<int> modules =
+        presentations.map((e) => e["module"] as int).toSet().toList();
+    modules.sort();
+    List<Map<String, dynamic>> newModuleVisePresentations = [];
+    for (int module in modules) {
+      List modulePresentations = [];
+      modulePresentations =
+          presentations.where((e) => e["module"] == module).toList();
+      newModuleVisePresentations
+          .add({"module": module, "presentations": modulePresentations});
+    }
+    moduleVisePresentations = newModuleVisePresentations;
   }
 
   void init(Chapter value) {

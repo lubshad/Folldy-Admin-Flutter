@@ -65,6 +65,7 @@ class UniversitiesListing extends StatelessWidget {
                     child: ListView(children: [
                       ...universityListingController.universities
                           .map((university) => ListTile(
+                          
                             key: Key(university.id.toString()),
                                 selected: university.id ==
                                     universityListingController

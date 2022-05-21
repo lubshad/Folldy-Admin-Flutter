@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/models/university_list_response.dart';
 import 'package:folldy_admin/presentation/screens/courses_listing/course_listing_controller.dart';
+import 'package:folldy_admin/presentation/screens/home_screen/home_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
 import 'package:get/get.dart';
 
@@ -51,6 +52,11 @@ class CorusesListing extends StatelessWidget {
                   final course = courseListingController.courses[index];
                   return ListTile(
                     key: Key(course.id.toString()),
+                    onTap: () {
+                      Get.find<CourseListingController>().selectedCourse =
+                          course;
+                      Get.find<HomeController>().selectItem(DrawerItem.courses);
+                    },
                     title: Text(course.name),
                     subtitle: Text(course.university.name),
                     trailing: Row(

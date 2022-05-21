@@ -34,7 +34,7 @@ class AreasListing extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(defaultPadding),
               child: TextButton.icon(
-                onPressed: arealistingController.showAddAreaDialog,
+                onPressed: () => arealistingController.showAddEditAreaDialog(),
                 label: const Text("Add New Area"),
                 icon: const Icon(Icons.add),
               ),

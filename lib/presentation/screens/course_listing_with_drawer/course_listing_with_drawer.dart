@@ -13,7 +13,7 @@ class CourseListingWithDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CourseListingController courseListingController = Get.find();
-    courseListingController.university = null;
+    // courseListingController.university = null;
     courseListingController.getCourses();
     courseListingController.searchCourseController.addListener(() {
       courseListingController.getCourses();

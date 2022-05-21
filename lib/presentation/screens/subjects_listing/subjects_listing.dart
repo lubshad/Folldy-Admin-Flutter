@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/models/course_list_response.dart';
+import 'package:folldy_admin/presentation/screens/home_screen/home_controller.dart';
 import 'package:folldy_admin/presentation/screens/subjects_listing/subjects_listing_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
 import 'package:get/get.dart';
@@ -48,6 +49,12 @@ class SubjectsListing extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     final subject = semesterSubjects[index];
                     return ListTile(
+                      onTap: () {
+                        Get.find<SubjectListingController>().selectedSubject =
+                            subject;
+                        Get.find<HomeController>()
+                            .selectItem(DrawerItem.subjects);
+                      },
                       key: Key(subject.id.toString()),
                       // onTap: () => Get.toNamed(AppRoute.subjectDetails,
                       //     arguments: subject),

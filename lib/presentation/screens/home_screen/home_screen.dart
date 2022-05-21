@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/presentation/screens/home_screen/home_controller.dart';
 
@@ -12,7 +12,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HomeController homeController = HomeController();
+    HomeController homeController = Get.find();
     return Scaffold(
       body: AnimatedBuilder(
           animation: homeController,
@@ -37,7 +37,6 @@ class Home extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
                               ListTile(
-                                dense: true,
                                 leading: CircleAvatar(
                                   backgroundImage: CachedNetworkImageProvider(
                                       "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"),

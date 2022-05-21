@@ -2,21 +2,30 @@ import 'package:basic_template/basic_template.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:folldy_admin/data/core/api_constants.dart';
-import 'package:folldy_admin/presentation/screens/areas_listing/areas_listing_controller.dart';
+import 'package:folldy_admin/data/models/area_list_response.dart';
 import 'package:folldy_admin/utils/extensions.dart';
 import 'package:http_parser/http_parser.dart';
 
 import '../../../domain/usecase/add_new_area.dart';
 
-class AddNewAreaController extends ChangeNotifier {
+class AddEditAreaController extends ChangeNotifier {
+  final Area? area;
+  AddEditAreaController({this.area, required this.getAreas}) {
+    if (area != null) {
+      areaNameController.text = area!.name;
+    }
+  }
+
   AddNewArea addNewArea = AddNewArea(Get.find());
-  AreasListingController areasListingController = Get.find();
+
+  final VoidCallback getAreas;
 
   TextEditingController areaNameController = TextEditingController();
 
   bool buttonLoading = false;
 
   PlatformFile? pickedImage;
+
   makeButtonLoading() {
     buttonLoading = true;
     notifyListeners();
@@ -36,7 +45,7 @@ class AddNewAreaController extends ChangeNotifier {
     return valid;
   }
 
-  void addArea() async {
+  void addEditArea({Area? area}) async {
     if (!validate()) return;
     List<MultipartFile> images = pickedImage == null
         ? []
@@ -46,12 +55,15 @@ class AddNewAreaController extends ChangeNotifier {
                 filename: pickedImage!.name,
                 contentType: MediaType("image", "jpeg"))
           ];
-    UploadFileParams uploadFileParams = UploadFileParams(
-        {"name": areaNameController.text}, images, ApiConstants.addNewArea);
+    Map<String, dynamic> metadata = {"name": areaNameController.text};
+    if (area != null) {
+      metadata["id"] = area.id;
+    }
+    UploadFileParams uploadFileParams =
+        UploadFileParams(metadata, images, ApiConstants.addNewArea);
     final response = await addNewArea(uploadFileParams);
     if (Get.isDialogOpen == true) Get.back();
-    response.fold(
-        (l) => l.handleError(), (r) => areasListingController.getAreas());
+    response.fold((l) => l.handleError(), (r) => getAreas());
   }
 
   void pickImage() async {

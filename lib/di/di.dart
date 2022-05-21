@@ -2,6 +2,7 @@ import 'package:folldy_admin/data/core/api_constants.dart';
 import 'package:basic_template/basic_template.dart';
 import 'package:folldy_admin/presentation/screens/areas_listing/areas_listing_controller.dart';
 import 'package:folldy_admin/presentation/screens/chapters_listing/chapter_listing_controller.dart';
+import 'package:folldy_admin/presentation/screens/home_screen/home_controller.dart';
 import 'package:folldy_admin/presentation/screens/presentations_listing/presentation_listing_controller.dart';
 import 'package:folldy_admin/presentation/screens/subjects_listing/subjects_listing_controller.dart';
 
@@ -17,6 +18,7 @@ class DependencyInjection {
     Get.lazyPut<RemoteDataSource>(
         () => RemoteDataSourceImplementation(Get.find()));
     Get.lazyPut<DataRepository>(() => DataRepositoryImplementation(Get.find()));
+    Get.lazyPut<HomeController>(() => HomeController());
     Get.lazyPut(
       () => CourseListingController(),
     );

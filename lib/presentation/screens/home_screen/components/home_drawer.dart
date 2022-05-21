@@ -28,6 +28,7 @@ class HomeDrawer extends StatelessWidget {
                     children: [
                       ...DrawerItem.values
                           .map((e) => ListTile(
+                                dense: false,
                                 selected: homeController.selectedItem == e,
                                 onTap: () => homeController.selectItem(e),
                                 title: Text(e.text),

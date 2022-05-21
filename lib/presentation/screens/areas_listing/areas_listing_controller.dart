@@ -54,8 +54,8 @@ class AreasListingController extends ChangeNotifier {
     makeNotLoading();
   }
 
-  showAddAreaDialog() {
-    Get.dialog(const AddNewAreaDialog());
+  showAddEditAreaDialog({Area? area}) async {
+    Get.dialog( AddEditAreaDialog(area: area , getAreas: getAreas,));
   }
 
   deleteSelectedArea(Area e) async {
@@ -87,7 +87,7 @@ class AreasListingController extends ChangeNotifier {
 
   Area? selectedArea;
 
-  selectArea(Area area) {
+  selectArea(Area? area) {
     selectedArea = area;
     notifyListeners();
   }
@@ -99,13 +99,11 @@ class AreasListingController extends ChangeNotifier {
   onDropdownSelection(PopupOptions value, Area area) {
     switch (value) {
       case PopupOptions.edit:
-        showEditAreaDialog(area);
+        showAddEditAreaDialog(area:  area);
         break;
       case PopupOptions.delete:
         showAreaDeleteConfirmation(area);
         break;
     }
   }
-
-  void showEditAreaDialog(Area area) {}
 }

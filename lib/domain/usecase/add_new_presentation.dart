@@ -18,15 +18,15 @@ class AddNewPresentation
 class AddNewPresentationParams {
   final String name;
   final int module;
-  final int area;
+  final int? area;
   final List<String> tags;
   final int? id;
 
   AddNewPresentationParams(
       {required this.name,
       required this.module,
-      required this.area,
-       this.id,
+      this.area,
+      this.id,
       required this.tags});
 
   Map<String, dynamic> toMap() {

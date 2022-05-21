@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:folldy_admin/data/models/area_list_response.dart';
 import 'package:folldy_admin/presentation/dialogs/add_new_area/add_new_area_dialog_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
 
-class AddNewAreaDialog extends StatelessWidget {
-  const AddNewAreaDialog({
+class AddEditAreaDialog extends StatelessWidget {
+  const AddEditAreaDialog({
     Key? key,
+    this.area, required this.getAreas,
   }) : super(key: key);
+
+  final Area? area;
+  final VoidCallback getAreas;
 
   @override
   Widget build(BuildContext context) {
-    AddNewAreaController addNewAreaController = AddNewAreaController();
+    AddEditAreaController addNewAreaController =
+        AddEditAreaController(area: area , getAreas: getAreas);
     return AnimatedBuilder(
         animation: addNewAreaController,
         builder: (context, child) {
           return AlertDialog(
-              title: const Text("Add New Area"),
+              title: Text(area == null ? "Add New Area" : "Edit Area"),
               content: Form(
                 key: addNewAreaController.formKey,
                 child: Column(
@@ -32,7 +38,8 @@ class AddNewAreaDialog extends StatelessWidget {
                       decoration: const InputDecoration(
                         labelText: "Area Name",
                       ),
-                      onFieldSubmitted: (val) => addNewAreaController.addArea(),
+                      onFieldSubmitted: (val) =>
+                          addNewAreaController.addEditArea(),
                     ),
                     defaultSpacerLarge,
                     Container(
@@ -60,8 +67,9 @@ class AddNewAreaDialog extends StatelessWidget {
               ),
               actions: [
                 ElevatedButton(
-                    onPressed: addNewAreaController.addArea,
-                    child: const Text("Add")),
+                    onPressed: () =>
+                        addNewAreaController.addEditArea(area: area),
+                    child: Text(area == null ? "Add Area" : "Save Area")),
               ]);
         });
   }
