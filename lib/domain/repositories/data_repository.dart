@@ -2,7 +2,6 @@ import 'package:folldy_admin/data/models/area_list_response.dart';
 import 'package:folldy_admin/data/models/chapter_list_response.dart';
 import 'package:folldy_admin/data/models/course_list_response.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
-import 'package:folldy_admin/data/models/presentation_list_response.dart';
 import 'package:folldy_admin/data/models/subject_list_response.dart';
 import 'package:folldy_admin/data/models/teacher_list_response.dart';
 import 'package:folldy_admin/data/models/topic_list_response.dart';
@@ -82,7 +81,7 @@ abstract class DataRepository {
   Future<Either<AppError, Map<String, dynamic>>> deleteArea(
       Map<String, dynamic> json);
 
-  Future<Either<AppError, List<Presentation>>> getAllPresentations(
+  Future<Either<AppError, List<dynamic>>> getAllPresentations(
       Map<String, dynamic> json);
 
   Future<Either<AppError, Map<String, dynamic>>> deletePresentation(

@@ -51,7 +51,7 @@ class AddNewAreaController extends ChangeNotifier {
     final response = await addNewArea(uploadFileParams);
     if (Get.isDialogOpen == true) Get.back();
     response.fold(
-        (l) => l.handleError(), (r) => areasListingController.getData());
+        (l) => l.handleError(), (r) => areasListingController.getAreas());
   }
 
   void pickImage() async {

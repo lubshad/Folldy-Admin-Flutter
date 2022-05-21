@@ -3,7 +3,6 @@ import 'package:folldy_admin/data/models/area_list_response.dart';
 import 'package:folldy_admin/data/models/chapter_list_response.dart';
 import 'package:folldy_admin/data/models/course_list_response.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
-import 'package:folldy_admin/data/models/presentation_list_response.dart';
 import 'package:folldy_admin/data/models/subject_list_response.dart';
 import 'package:folldy_admin/data/models/teacher_list_response.dart';
 import 'package:folldy_admin/data/models/topic_list_response.dart';
@@ -169,7 +168,7 @@ class DataRepositoryImplementation extends DataRepository
   }
 
   @override
-  Future<Either<AppError, List<Presentation>>> getAllPresentations(
+  Future<Either<AppError, List<dynamic>>> getAllPresentations(
       Map<String, dynamic> json) async {
     return await exceptionHandler(_remoteDataSource.getAllPresentations(json));
   }
@@ -179,21 +178,21 @@ class DataRepositoryImplementation extends DataRepository
       Map<String, dynamic> json) async {
     return await exceptionHandler(_remoteDataSource.deletePresentation(json));
   }
-  
+
   @override
   Future<Either<AppError, dynamic>> addPresentationsToChapter(json) async {
-    return await exceptionHandler(_remoteDataSource.addPresentationsToChapter(json));
+    return await exceptionHandler(
+        _remoteDataSource.addPresentationsToChapter(json));
   }
-  
+
   @override
   Future<Either<AppError, dynamic>> addAreaToSubject(json) async {
     return await exceptionHandler(_remoteDataSource.addAreaToSubject(json));
-    
   }
-  
+
   @override
   Future<Either<AppError, dynamic>> getAreaWisePresentations(json) async {
-    return await exceptionHandler(_remoteDataSource.getAreaWisePresentations(json));
-    
+    return await exceptionHandler(
+        _remoteDataSource.getAreaWisePresentations(json));
   }
 }

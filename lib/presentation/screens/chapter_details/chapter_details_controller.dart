@@ -51,7 +51,7 @@ class ChapterDetailsController extends ChangeNotifier {
   getData() async {
     final response = await getAllPresentations(
         PresentationListingParams(chapterId: chapter?.id));
-    response.fold((l) => l.handleError(), (r) => presentations = r);
+    response.fold((l) => l.handleError(), (r) => presentations = []);
     makeNotLoading();
   }
 

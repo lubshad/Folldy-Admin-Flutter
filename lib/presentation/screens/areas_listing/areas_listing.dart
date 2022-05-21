@@ -10,10 +10,9 @@ class AreasListing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut(() => AreasListingController());
     AreasListingController arealistingController = Get.find();
     arealistingController.searchAreaController.text = "";
-    arealistingController.getData();
+    arealistingController.getAreas();
 
     return Column(
       children: [

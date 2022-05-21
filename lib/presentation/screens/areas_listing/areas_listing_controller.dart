@@ -4,6 +4,7 @@ import 'package:folldy_admin/data/models/area_list_response.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
 import 'package:folldy_admin/domain/usecase/delete_area.dart';
 import 'package:folldy_admin/domain/usecase/get_all_areas.dart';
+import 'package:folldy_admin/presentation/screens/universities_listing/universities_listing.dart';
 import 'package:folldy_admin/utils/extensions.dart';
 
 import '../../../data/models/chapter_list_response.dart';
@@ -59,11 +60,7 @@ class AreasListingController extends ChangeNotifier {
 
   deleteSelectedArea(Area e) async {
     final response = await deleteArea(e);
-    response.fold((l) => l.handleError(), (r) => getData());
-  }
-
-  void getData() {
-    getAreas();
+    response.fold((l) => l.handleError(), (r) => getAreas());
   }
 
   showAreaDeleteConfirmation(Area e) {
@@ -88,5 +85,27 @@ class AreasListingController extends ChangeNotifier {
     );
   }
 
-  void search(String value) {}
+  Area? selectedArea;
+
+  selectArea(Area area) {
+    selectedArea = area;
+    notifyListeners();
+  }
+
+  selectionValue(Area area) {
+    return selectedArea?.id == area.id;
+  }
+
+  onDropdownSelection(PopupOptions value, Area area) {
+    switch (value) {
+      case PopupOptions.edit:
+        showEditAreaDialog(area);
+        break;
+      case PopupOptions.delete:
+        showAreaDeleteConfirmation(area);
+        break;
+    }
+  }
+
+  void showEditAreaDialog(Area area) {}
 }

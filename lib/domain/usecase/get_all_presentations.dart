@@ -2,14 +2,15 @@ import 'dart:convert';
 
 import 'package:basic_template/basic_template.dart';
 
-import 'package:folldy_admin/data/models/presentation_list_response.dart';
 import 'package:folldy_admin/domain/repositories/data_repository.dart';
 
 class PresentationListingParams {
   final String? searchKey;
   final int? chapterId;
   final int? subjectId;
+  final int? areaId;
   PresentationListingParams({
+    this.areaId,
     this.subjectId,
     this.chapterId,
     this.searchKey,
@@ -20,6 +21,7 @@ class PresentationListingParams {
       'searchKey': searchKey,
       'chapterId': chapterId,
       'subjectId': subjectId,
+      'areaId': areaId,
     };
   }
 
@@ -28,6 +30,7 @@ class PresentationListingParams {
       searchKey: map['searchKey'],
       chapterId: map['chapterId']?.toInt(),
       subjectId: map['subjectId']?.toInt(),
+      areaId: map['areaId']?.toInt(),
     );
   }
 
@@ -38,12 +41,12 @@ class PresentationListingParams {
 }
 
 class GetAllPresentations
-    extends UseCase<List<Presentation>, PresentationListingParams> {
+    extends UseCase<List<dynamic>, PresentationListingParams> {
   final DataRepository _dataRepository;
 
   GetAllPresentations(this._dataRepository);
   @override
-  Future<Either<AppError, List<Presentation>>> call(
+  Future<Either<AppError, List<dynamic>>> call(
       PresentationListingParams params) async {
     return _dataRepository.getAllPresentations(params.toMap());
   }

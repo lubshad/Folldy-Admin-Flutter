@@ -62,7 +62,7 @@ class SubjectPresentationsController extends ChangeNotifier {
     final response = await getAllPresentations(PresentationListingParams(
       subjectId: subject!.id!,
     ));
-    response.fold((l) => l.handleError(), (r) => presentations = r);
+    response.fold((l) => l.handleError(), (r) => presentations = []);
     makeNotLoading();
   }
 

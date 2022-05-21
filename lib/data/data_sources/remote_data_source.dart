@@ -5,7 +5,6 @@ import 'package:folldy_admin/data/models/area_list_response.dart';
 import 'package:folldy_admin/data/models/chapter_list_response.dart';
 import 'package:folldy_admin/data/models/course_list_response.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
-import 'package:folldy_admin/data/models/presentation_list_response.dart';
 import 'package:folldy_admin/data/models/subject_list_response.dart';
 import 'package:folldy_admin/data/models/teacher_list_response.dart';
 import 'package:folldy_admin/data/models/topic_list_response.dart';
@@ -65,7 +64,7 @@ abstract class RemoteDataSource {
 
   Future<dynamic> deleteArea(Map<String, dynamic> json);
 
-  Future<List<Presentation>> getAllPresentations(Map<String, dynamic> json);
+  Future<List<dynamic>> getAllPresentations(Map<String, dynamic> json);
 
   Future<dynamic> deletePresentation(Map<String, dynamic> json);
 
@@ -260,11 +259,10 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
-  Future<List<Presentation>> getAllPresentations(
-      Map<String, dynamic> json) async {
+  Future<List<dynamic>> getAllPresentations(Map<String, dynamic> json) async {
     final response =
         await _apiClient.post(ApiConstants.listAllpresentations, json);
-    return presentationListResponseFromJson(response);
+    return response;
   }
 
   @override
@@ -285,10 +283,11 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
     final response = await _apiClient.post(ApiConstants.addAreaToSubject, json);
     return response;
   }
-  
+
   @override
   FutureOr getAreaWisePresentations(json) async {
-    final response = await _apiClient.post(ApiConstants.getAreaWisePresentations, json);
+    final response =
+        await _apiClient.post(ApiConstants.getAreaWisePresentations, json);
     return response;
   }
 }
