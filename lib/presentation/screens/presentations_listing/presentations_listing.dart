@@ -82,7 +82,7 @@ class PresentationsListing extends StatelessWidget {
           padding: const EdgeInsets.all(defaultPadding),
           alignment: Alignment.centerLeft,
           child: Text(
-            area?.name ?? "",
+            area?.name ?? "Public",
             style: Theme.of(context).textTheme.headline6,
           ),
         ),
