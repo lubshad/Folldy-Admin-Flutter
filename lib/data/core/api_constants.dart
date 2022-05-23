@@ -43,12 +43,11 @@ class ApiConstants {
   static const String deleteUniversity = "university_delete";
   static const String uploadSlides = "upload_slides";
   static const String topicDetails = "topic_details";
-  static const String listAllTeachers = "teacher_list";
-  static const String addNewTeacher = "teacher_add";
-  static const String deleteTeacher = "teacher_delete";
+  static const String listAllFacultys = "faculty_list";
+  static const String addNewFaculty = "faculty_add";
+  static const String deleteFaculty = "faculty_delete";
   static const String uploadAudios = "upload_audios";
-  static const String addPresentations =
-      "add_presentations";
+  static const String addPresentations = "add_presentations";
   static const String addAreaToSubject = "add_area_to_subject";
   static const String getAreaWisePresentations = "area_wise_presentations";
 }

@@ -3,7 +3,7 @@ import 'package:folldy_admin/data/models/chapter_list_response.dart';
 import 'package:folldy_admin/data/models/course_list_response.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
 import 'package:folldy_admin/data/models/subject_list_response.dart';
-import 'package:folldy_admin/data/models/teacher_list_response.dart';
+import 'package:folldy_admin/data/models/faculty_list_response.dart';
 import 'package:folldy_admin/data/models/topic_list_response.dart';
 import 'package:folldy_admin/data/models/university_list_response.dart';
 import 'package:basic_template/basic_template.dart';
@@ -64,10 +64,10 @@ abstract class DataRepository {
   Future<Either<AppError, Map<String, dynamic>>> uploadFile(
       UploadFileParams params);
 
-  Future<Either<AppError, List<Teacher>>> listTeachers(
+  Future<Either<AppError, List<Faculty>>> listFacultys(
       Map<String, dynamic> params);
 
-  Future<Either<AppError, Map<String, dynamic>>> deleteTeacher(
+  Future<Either<AppError, Map<String, dynamic>>> deleteFaculty(
       Map<String, dynamic> params);
 
   Future<Either<AppError, Map<String, dynamic>>> addNewPresentation(
@@ -92,4 +92,7 @@ abstract class DataRepository {
   Future<Either<AppError, dynamic>> addAreaToSubject(json);
 
   Future<Either<AppError, dynamic>> getAreaWisePresentations(json);
+
+  Future<Either<AppError, Map<String, dynamic>>> addFaculty(
+      Map<String, dynamic> map);
 }

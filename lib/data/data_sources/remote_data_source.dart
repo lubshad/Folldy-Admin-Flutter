@@ -6,7 +6,7 @@ import 'package:folldy_admin/data/models/chapter_list_response.dart';
 import 'package:folldy_admin/data/models/course_list_response.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
 import 'package:folldy_admin/data/models/subject_list_response.dart';
-import 'package:folldy_admin/data/models/teacher_list_response.dart';
+import 'package:folldy_admin/data/models/faculty_list_response.dart';
 import 'package:folldy_admin/data/models/topic_list_response.dart';
 import 'package:folldy_admin/data/models/university_list_response.dart';
 
@@ -50,11 +50,11 @@ abstract class RemoteDataSource {
 
   Future<Map<String, dynamic>> uploadFile(UploadFileParams params);
 
-  Future<List<Teacher>> listTeachers(Map<String, dynamic> params);
+  Future<List<Faculty>> listFacultys(Map<String, dynamic> params);
 
-  Future<Map<String, dynamic>> addNewTeacher(UploadFileParams params);
+  Future<Map<String, dynamic>> addNewFaculty(UploadFileParams params);
 
-  Future<Map<String, dynamic>> deleteTeacher(Map<String, dynamic> params);
+  Future<Map<String, dynamic>> deleteFaculty(Map<String, dynamic> params);
 
   Future<Map<String, dynamic>> addNewPresentation(Map<String, dynamic> params);
 
@@ -73,6 +73,8 @@ abstract class RemoteDataSource {
   FutureOr addAreaToSubject(json);
 
   FutureOr getAreaWisePresentations(json);
+
+  FutureOr addFaculty(Map<String, dynamic> map);
 }
 
 class RemoteDataSourceImplementation implements RemoteDataSource {
@@ -209,25 +211,25 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
-  Future<List<Teacher>> listTeachers(params) async {
+  Future<List<Faculty>> listFacultys(params) async {
     final response =
-        await _apiClient.post(ApiConstants.listAllTeachers, params);
+        await _apiClient.post(ApiConstants.listAllFacultys, params);
     return teacherListResponseFromJson(response);
   }
 
   @override
-  Future<Map<String, dynamic>> addNewTeacher(UploadFileParams params) async {
+  Future<Map<String, dynamic>> addNewFaculty(UploadFileParams params) async {
     final response = await _apiClient.formData(
         data: params.data,
         files: params.files,
-        path: ApiConstants.addNewTeacher);
+        path: ApiConstants.addNewFaculty);
     return response;
   }
 
   @override
-  Future<Map<String, dynamic>> deleteTeacher(
+  Future<Map<String, dynamic>> deleteFaculty(
       Map<String, dynamic> params) async {
-    final response = await _apiClient.post(ApiConstants.deleteTeacher, params);
+    final response = await _apiClient.post(ApiConstants.deleteFaculty, params);
     return response;
   }
 
@@ -288,6 +290,13 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   FutureOr getAreaWisePresentations(json) async {
     final response =
         await _apiClient.post(ApiConstants.getAreaWisePresentations, json);
+    return response;
+  }
+  
+  @override
+  FutureOr addFaculty(Map<String, dynamic> map) async {
+    final response =
+        await _apiClient.post(ApiConstants.addNewFaculty, map);
     return response;
   }
 }

@@ -81,10 +81,22 @@ class PresentationsListing extends StatelessWidget {
           height: defaultPaddingLarge * 2,
           padding: const EdgeInsets.all(defaultPadding),
           alignment: Alignment.centerLeft,
-          child: Text(
-            area?.name ?? "Public",
-            style: Theme.of(context).textTheme.headline6,
-          ),
+          child: AnimatedBuilder(
+              animation: presentationslistingController,
+              builder: (context, child) {
+                return RichText(
+                  text: TextSpan(children: [
+                    TextSpan(
+                      text: area?.name ?? "Public",
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    TextSpan(
+                        text:
+                            " (${presentationslistingController.totalPresentations})",
+                        style: Theme.of(context).textTheme.caption),
+                  ]),
+                );
+              }),
         ),
         const Divider(),
         Padding(
@@ -129,9 +141,20 @@ class PresentationsListing extends StatelessWidget {
                         List<Presentation> presentations =
                             presentationListResponseFromJson(
                                 module["presentations"]);
+                        final filteredPresentations =
+                            presentationslistingController
+                                .searchResult(presentations);
                         return ExpansionTile(
                           // initiallyExpanded: true,
-                          title: Text("Module ${module["module"]}"),
+                          title: RichText(
+                            // text: null,
+                            text: TextSpan(children: [
+                              TextSpan(text: "Module ${module["module"]}"),
+                              TextSpan(
+                                  text: " (${filteredPresentations.length})",
+                                  style: Theme.of(context).textTheme.caption)
+                            ]),
+                          ),
                           trailing: TextButton(
                               onPressed: () => presentationslistingController
                                   .showAddEditPresentaion(
@@ -140,8 +163,7 @@ class PresentationsListing extends StatelessWidget {
                           controlAffinity: ListTileControlAffinity.leading,
                           childrenPadding:
                               const EdgeInsets.only(left: defaultPadding),
-                          children: presentationslistingController
-                              .searchResult(presentations)
+                          children: filteredPresentations
                               .map((presentation) => Draggable(
                                     data: presentation,
                                     feedback: Material(

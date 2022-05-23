@@ -12,17 +12,17 @@ String institutionToJson(List<Institution> data) =>
 
 class Institution {
   Institution({
-    required this.university,
+    // required this.university,
     required this.name,
     required this.id,
   });
 
   String name;
-  int university;
+  // int university;
   int id;
 
   factory Institution.fromJson(Map<String, dynamic> json) => Institution(
-        university: json["university"],
+        // university: json["university"],
         name: json["name"],
         id: json["id"],
       );
@@ -30,6 +30,6 @@ class Institution {
   Map<String, dynamic> toJson() => {
         "name": name,
         "id": id,
-        "university": university,
+        // "university": university,
       };
 }

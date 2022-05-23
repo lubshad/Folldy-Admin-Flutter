@@ -28,6 +28,11 @@ class PresentationsListingController extends ChangeNotifier {
   AppError? appError;
   bool isLoading = true;
 
+  int get totalPresentations => moduleVisePresentations
+      .map((e) => e["presentations"])
+      .expand((element) => element)
+      .length;
+
   makeLoading() {
     isLoading = true;
     notifyListeners();

@@ -51,7 +51,10 @@ class CourseListingWithDrawer extends StatelessWidget {
                                 selected: courseListingController
                                         .selectedCourse?.id ==
                                     course.id,
-                                title: Text(course.name),
+                                title: RichText(
+                                    text: TextSpan(children: [
+                                  TextSpan(text: course.name),
+                                ])),
                                 subtitle: Text(course.university.name),
                               );
                             }));

@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:folldy_admin/presentation/screens/course_listing_with_drawer/course_listing_with_drawer.dart';
 import 'package:folldy_admin/presentation/screens/institutions_listing/institutions_listing.dart';
 import 'package:folldy_admin/presentation/screens/subject_listing_with_drawer/subject_listing_with_drawer.dart';
-import 'package:folldy_admin/presentation/screens/teachers_listing%20copy/teachers_listing.dart';
 
 import '../area_vise_presentation_listing/area_vise_presentation_listing.dart';
 import '../universities_listing/universities_listing.dart';
 
 class HomeController extends ChangeNotifier {
-  DrawerItem selectedItem = DrawerItem.presentations;
+  DrawerItem selectedItem = DrawerItem.institutions;
 
   void selectItem(DrawerItem item) {
     selectedItem = item;
@@ -25,7 +24,7 @@ enum DrawerItem {
   // areas,
   presentations,
   institutions,
-  teachers,
+  // teachers,
   // topics,
 }
 
@@ -48,8 +47,8 @@ extension DrawerItemExtension on DrawerItem {
       //   return const ChaptersListing();
       // case DrawerItem.topics:
       //   return const TopicsListing();
-      case DrawerItem.teachers:
-        return const TeachersListing();
+      // case DrawerItem.teachers:
+      //   return const TeachersListing();
       // case DrawerItem.areas:
       //   return const AreasListing();
       case DrawerItem.presentations:
@@ -73,8 +72,8 @@ extension DrawerItemExtension on DrawerItem {
       //   return "Chapters";
       // case DrawerItem.topics:
       //   return "Topics";
-      case DrawerItem.teachers:
-        return "Teachers";
+      // case DrawerItem.teachers:
+      //   return "Teachers";
       // case DrawerItem.areas:
       //   return "Areas";
       case DrawerItem.presentations:
@@ -98,10 +97,10 @@ extension DrawerItemExtension on DrawerItem {
       //   return const Icon(Icons.library_books);
       // case DrawerItem.topics:
       //   return const Icon(Icons.library_books);
-      case DrawerItem.teachers:
-        //   return const Icon(Icons.person);
-        // case DrawerItem.areas:
-        return const Icon(Icons.location_city);
+      // case DrawerItem.teachers:
+      //   return const Icon(Icons.person);
+      // case DrawerItem.areas:
+      // return const Icon(Icons.location_city);
       case DrawerItem.presentations:
         return const Icon(Icons.present_to_all);
     }
