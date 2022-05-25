@@ -2,8 +2,8 @@ import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
 import 'package:folldy_admin/utils/extensions.dart';
+import 'package:folldy_admin/utils/validators.dart';
 
-import '../../../data/models/chapter_list_response.dart';
 import '../../../data/models/faculty_list_response.dart';
 import '../../../domain/usecase/add_new_faculty.dart';
 import '../../../domain/usecase/delete_faculty.dart';
@@ -16,17 +16,10 @@ class FacultyListingController extends ChangeNotifier {
 
   TextEditingController facultyNameController = TextEditingController();
   List<Faculty> faculties = [];
-  List<Chapter> chapters = [];
-  // List<Institution> institutes = [];
 
-  Chapter? selectedChapter;
   Institution? selectedInstitution;
-  bool? appError;
+  AppError? appError;
   bool isLoading = true;
-
-  get chaptersItems => chapters
-      .map((e) => DropdownMenuItem<Chapter>(value: e, child: Text(e.name)))
-      .toList();
 
   makeLoading() {
     isLoading = true;
@@ -45,7 +38,8 @@ class FacultyListingController extends ChangeNotifier {
   }
 
   getFacultys() async {
-    final response = await getAllFacultys(NoParams());
+    final response = await getAllFacultys(
+        FacultyListingParams(institution: selectedInstitution?.id));
     response.fold((l) => l.handleError(), (r) => faculties = r);
     makeNotLoading();
   }
@@ -53,19 +47,6 @@ class FacultyListingController extends ChangeNotifier {
   deleteSelectedFaculty(Faculty e) async {
     final response = await deleteFaculty(e);
     response.fold((l) => l.handleError(), (r) => getFacultys());
-  }
-
-  void changeSelectedChapter(Chapter? value) {
-    selectedChapter = value;
-    notifyListeners();
-  }
-
-  void changeSelectedInstitute(Institution? value) {
-    selectedInstitution = value;
-  }
-
-  void getData() {
-    getFacultys();
   }
 
   final formKey = GlobalKey<FormState>(debugLabel: 'faculty_form_key');
@@ -88,7 +69,7 @@ class FacultyListingController extends ChangeNotifier {
       facultyPhoneController.text = faculty.phone.toString();
     }
     Get.dialog(AlertDialog(
-        title: Text(faculty == null ? "Add New Faculty" : "edit Faculty"),
+        title: Text(faculty == null ? "Add New Faculty" : "Edit Faculty"),
         content: Form(
           key: formKey,
           child: Column(
@@ -99,9 +80,9 @@ class FacultyListingController extends ChangeNotifier {
                 decoration: const InputDecoration(
                   labelText: "Faculty Name",
                 ),
-                // onFieldSubmitted: (val) => addEditFaculty(faculty: faculty),
               ),
               TextFormField(
+                  validator: (value) => validatePhone(phone: value),
                   controller: facultyPhoneController,
                   decoration: const InputDecoration(
                     labelText: "Faculty Phone",
@@ -137,7 +118,9 @@ class FacultyListingController extends ChangeNotifier {
   }
 
   addEditFaculty({Faculty? faculty}) async {
+    if (!validate()) return;
     final response = await addNewFaculty(AddFacultyParams(
+        institution: selectedInstitution!.id,
         id: faculty?.id,
         name: facultyNameController.text,
         phone: facultyPhoneController.text));

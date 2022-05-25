@@ -1,3 +1,4 @@
+import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/data/models/institution_list_response.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
@@ -17,9 +18,9 @@ class FacultyListing extends StatelessWidget {
     if (institution == null) {
       return Container();
     }
-    FacultyListingController teacherlistingController =
-        FacultyListingController();
-    teacherlistingController.getFacultys();
+    FacultyListingController facultylistingController = Get.find();
+    facultylistingController.selectedInstitution = institution;
+    facultylistingController.getFacultys();
     return Column(
       children: [
         Container(
@@ -33,7 +34,7 @@ class FacultyListing extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               TextButton.icon(
-                onPressed: teacherlistingController.showAddEditFacultyDialog,
+                onPressed: facultylistingController.showAddEditFacultyDialog,
                 label: const Text("Add New Faculty"),
                 icon: const Icon(Icons.add),
               ),
@@ -43,13 +44,13 @@ class FacultyListing extends StatelessWidget {
         const Divider(),
         Expanded(
           child: AnimatedBuilder(
-            animation: teacherlistingController,
+            animation: facultylistingController,
             builder: (BuildContext context, Widget? child) {
               return ListView.builder(
-                  itemCount: teacherlistingController.faculties.length,
+                  itemCount: facultylistingController.faculties.length,
                   itemBuilder: ((context, index) => Builder(builder: (context) {
                         final faculty =
-                            teacherlistingController.faculties[index];
+                            facultylistingController.faculties[index];
                         return ListTile(
                           title: Text(faculty.name),
                           trailing: Row(
@@ -57,12 +58,12 @@ class FacultyListing extends StatelessWidget {
                             children: [
                               IconButton(
                                 icon: const Icon(Icons.edit),
-                                onPressed: () => teacherlistingController
+                                onPressed: () => facultylistingController
                                     .showAddEditFacultyDialog(faculty: faculty),
                               ),
                               IconButton(
                                 icon: const Icon(Icons.delete),
-                                onPressed: () => teacherlistingController
+                                onPressed: () => facultylistingController
                                     .showDeleteConfirmationDialog(faculty),
                               ),
                             ],

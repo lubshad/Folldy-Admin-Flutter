@@ -19,11 +19,13 @@ class AddFacultyParams {
   final String name;
   final String phone;
   final int? id;
+  final int institution;
 
-  AddFacultyParams({required this.name, required this.phone, this.id});
+  AddFacultyParams({required this.name, required this.phone, this.id , required this.institution});
 
   Map<String, dynamic> toMap() {
     return {
+      "institution": institution,
       'name': name,
       'phone': phone,
       'id': id,
@@ -32,6 +34,7 @@ class AddFacultyParams {
 
   factory AddFacultyParams.fromMap(Map<String, dynamic> map) {
     return AddFacultyParams(
+      institution: map["institution"],
       name: map['name'] ?? '',
       phone: map['phone'] ?? '',
       id: map['id']?.toInt(),

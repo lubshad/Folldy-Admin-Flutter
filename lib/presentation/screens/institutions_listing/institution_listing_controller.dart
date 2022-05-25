@@ -111,6 +111,7 @@ class InstitutionListingController extends ChangeNotifier {
 
   deleteSelectedInstitution(Institution e) async {
     await deleteInstitution(e);
+    selectedInstitution?.id == e.id ? selectedInstitution = null : null;
     popDialog();
     getInstitutions();
   }
