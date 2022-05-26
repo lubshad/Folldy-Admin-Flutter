@@ -1,7 +1,7 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
-import 'package:folldy_admin/data/models/institution_list_response.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
+import 'package:folldy_utils/data/models/institution_list_response.dart';
 
 import 'faculties_listing_controller.dart';
 

@@ -1,15 +1,13 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:folldy_admin/data/models/institution_list_response.dart';
-
-import 'package:folldy_admin/domain/usecase/add_new_course.dart';
-import 'package:folldy_admin/domain/usecase/delete_course.dart';
-import 'package:folldy_admin/domain/usecase/get_all_courses.dart';
 import 'package:folldy_admin/utils/extensions.dart';
-
-import '../../../data/models/course_list_response.dart';
-import '../../../data/models/university_list_response.dart';
+import 'package:folldy_utils/data/models/course_list_response.dart';
+import 'package:folldy_utils/data/models/institution_list_response.dart';
+import 'package:folldy_utils/data/models/university_list_response.dart';
+import 'package:folldy_utils/domain/usecase/add_new_course.dart';
+import 'package:folldy_utils/domain/usecase/delete_course.dart';
+import 'package:folldy_utils/domain/usecase/get_all_courses.dart';
 
 class CourseListingController extends ChangeNotifier {
   University? university;

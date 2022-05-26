@@ -1,7 +1,7 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:folldy_admin/data/models/area_list_response.dart';
-import 'package:folldy_admin/domain/usecase/get_all_areas.dart';
+import 'package:folldy_utils/data/models/area_list_response.dart';
+import 'package:folldy_utils/domain/usecase/get_all_areas.dart';
 
 class AreaSelectionController extends ChangeNotifier {
   final int? chapterId;

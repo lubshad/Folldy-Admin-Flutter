@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:folldy_admin/data/models/area_list_response.dart';
 import 'package:folldy_admin/presentation/screens/area_selection_listing/area_selection_controller.dart';
+import 'package:folldy_utils/data/models/area_list_response.dart';
 
 class AreaSelectionListing extends StatelessWidget {
   const AreaSelectionListing({

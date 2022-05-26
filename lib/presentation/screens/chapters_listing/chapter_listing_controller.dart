@@ -1,14 +1,13 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:folldy_admin/data/models/subject_list_response.dart';
+import 'package:folldy_utils/data/models/chapter_list_response.dart';
+import 'package:folldy_utils/data/models/subject_list_response.dart';
 
-import 'package:folldy_admin/domain/usecase/add_new_chapter.dart';
-import 'package:folldy_admin/domain/usecase/delete_chapter.dart';
-import 'package:folldy_admin/domain/usecase/get_all_chapters.dart';
+import 'package:folldy_utils/domain/usecase/add_new_chapter.dart';
+import 'package:folldy_utils/domain/usecase/delete_chapter.dart';
+import 'package:folldy_utils/domain/usecase/get_all_chapters.dart';
 import 'package:folldy_admin/utils/extensions.dart';
-
-import '../../../data/models/chapter_list_response.dart';
 
 class ChapterListingController extends ChangeNotifier {
   GetAllChapters getAllChapters = GetAllChapters(Get.find());

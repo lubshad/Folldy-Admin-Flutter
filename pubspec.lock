@@ -184,6 +184,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  folldy_utils:
+    dependency: "direct main"
+    description:
+      path: "../folldy_utils"
+      relative: true
+    source: path
+    version: "0.0.1"
   get:
     dependency: "direct main"
     description:

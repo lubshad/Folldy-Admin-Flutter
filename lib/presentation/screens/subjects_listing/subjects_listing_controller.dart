@@ -1,12 +1,11 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
-import 'package:folldy_admin/data/models/course_list_response.dart';
-import 'package:folldy_admin/domain/usecase/delete_subject.dart';
-import 'package:folldy_admin/domain/usecase/get_all_subjects.dart';
 import 'package:folldy_admin/utils/extensions.dart';
-
-import '../../../data/models/subject_list_response.dart';
-import '../../../domain/usecase/add_subject.dart';
+import 'package:folldy_utils/data/models/course_list_response.dart';
+import 'package:folldy_utils/data/models/subject_list_response.dart';
+import 'package:folldy_utils/domain/usecase/add_subject.dart';
+import 'package:folldy_utils/domain/usecase/delete_subject.dart';
+import 'package:folldy_utils/domain/usecase/get_all_subjects.dart';
 
 class SubjectListingController extends ChangeNotifier {
   Course? course;

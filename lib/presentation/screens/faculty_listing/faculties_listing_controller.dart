@@ -1,13 +1,12 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
-import 'package:folldy_admin/data/models/institution_list_response.dart';
 import 'package:folldy_admin/utils/extensions.dart';
 import 'package:folldy_admin/utils/validators.dart';
-
-import '../../../data/models/faculty_list_response.dart';
-import '../../../domain/usecase/add_new_faculty.dart';
-import '../../../domain/usecase/delete_faculty.dart';
-import '../../../domain/usecase/get_all_facultys.dart';
+import 'package:folldy_utils/data/models/faculty_list_response.dart';
+import 'package:folldy_utils/data/models/institution_list_response.dart';
+import 'package:folldy_utils/domain/usecase/add_new_faculty.dart';
+import 'package:folldy_utils/domain/usecase/delete_faculty.dart';
+import 'package:folldy_utils/domain/usecase/get_all_facultys.dart';
 
 class FacultyListingController extends ChangeNotifier {
   GetAllFacultys getAllFacultys = GetAllFacultys(Get.find());
@@ -80,6 +79,11 @@ class FacultyListingController extends ChangeNotifier {
                 decoration: const InputDecoration(
                   labelText: "Faculty Name",
                 ),
+                validator: (value) => value!.isEmpty
+                    ? 'Please enter faculty name'
+                    : value.length < 3
+                        ? 'Please enter valid name'
+                        : null,
               ),
               TextFormField(
                   validator: (value) => validatePhone(phone: value),
@@ -124,9 +128,18 @@ class FacultyListingController extends ChangeNotifier {
         id: faculty?.id,
         name: facultyNameController.text,
         phone: facultyPhoneController.text));
-    response.fold((l) => l.handleError(), (r) {
+    response.fold((l) => l.handleError(), (r) => handleResponse(r));
+  }
+
+  handleResponse(Map<String, dynamic> r) {
+    if (r["status"] == 0) {
+      Map<String, dynamic> error = r["error"];
+      ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
+        content: Text(error.entries.map((e) => e.value.toString()).join(", ")),
+      ));
+    } else {
       popDialog();
       getFacultys();
-    });
+    }
   }
 }

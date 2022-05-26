@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:folldy_admin/data/models/subject_list_response.dart';
 import 'package:folldy_admin/presentation/app_route.dart';
 import 'package:folldy_admin/presentation/screens/chapters_listing/chapter_listing_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
+import 'package:folldy_utils/data/models/subject_list_response.dart';
 import 'package:get/get.dart';
 
 class ChaptersListing extends StatelessWidget {

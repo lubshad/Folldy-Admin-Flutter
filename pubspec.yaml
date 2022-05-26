@@ -40,6 +40,8 @@ dependencies:
   get: ^4.6.1
   basic_template: 
     path : ../../FLUTTER/basic_template
+  folldy_utils:
+    path : ../folldy_utils
   google_fonts: ^2.3.1
   animations: ^2.0.2
   file_picker: ^4.4.0

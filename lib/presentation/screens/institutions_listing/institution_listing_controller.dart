@@ -1,12 +1,11 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
-import 'package:folldy_admin/domain/usecase/add_new_institution.dart';
-import 'package:folldy_admin/domain/usecase/delete_institution.dart';
-import 'package:folldy_admin/domain/usecase/get_all_institutions.dart';
 import 'package:folldy_admin/presentation/screens/universities_listing/universities_listing.dart';
 import 'package:folldy_admin/utils/extensions.dart';
-
-import '../../../data/models/institution_list_response.dart';
+import 'package:folldy_utils/data/models/institution_list_response.dart';
+import 'package:folldy_utils/domain/usecase/add_new_institution.dart';
+import 'package:folldy_utils/domain/usecase/delete_institution.dart';
+import 'package:folldy_utils/domain/usecase/get_all_institutions.dart';
 
 class InstitutionListingController extends ChangeNotifier {
   GetAllInstitutions getAllInstitutions = GetAllInstitutions(Get.find());

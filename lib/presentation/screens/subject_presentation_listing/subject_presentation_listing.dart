@@ -1,6 +1,6 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
-import 'package:folldy_admin/data/models/subject_list_response.dart';
+import 'package:folldy_utils/data/models/subject_list_response.dart';
 import 'package:folldy_admin/presentation/screens/subject_presentation_listing/subject_details_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
 

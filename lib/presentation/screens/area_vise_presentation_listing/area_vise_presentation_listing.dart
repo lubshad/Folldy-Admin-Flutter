@@ -1,12 +1,12 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
-import 'package:folldy_admin/data/models/presentation_list_response.dart';
-import 'package:folldy_admin/domain/usecase/add_new_presentation.dart';
 import 'package:folldy_admin/presentation/screens/areas_listing/areas_listing_controller.dart';
 import 'package:folldy_admin/presentation/screens/presentations_listing/presentation_listing_controller.dart';
 import 'package:folldy_admin/presentation/screens/presentations_listing/presentations_listing.dart';
 import 'package:folldy_admin/presentation/screens/universities_listing/universities_listing.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
+import 'package:folldy_utils/data/models/presentation_list_response.dart';
+import 'package:folldy_utils/domain/usecase/add_new_presentation.dart';
 
 class AreaVisePresentationListing extends StatelessWidget {
   const AreaVisePresentationListing({
@@ -39,7 +39,8 @@ class AreaVisePresentationListing extends StatelessWidget {
                     ),
                     IconButton(
                       padding: EdgeInsets.zero,
-                      onPressed: () => areasListingController.showAddEditAreaDialog(),
+                      onPressed: () =>
+                          areasListingController.showAddEditAreaDialog(),
                       icon: const Icon(Icons.add),
                     ),
                   ],
@@ -62,19 +63,19 @@ class AreaVisePresentationListing extends StatelessWidget {
                           .toList();
                       return ListView.builder(
                           controller: ScrollController(),
-                          itemCount: areas.length + 1,
+                          itemCount: areas.length,
                           itemBuilder: ((context, index) =>
                               Builder(builder: (context) {
-                                if (index == areas.length) {
-                                  return ListTile(
-                                    selected:
-                                        areasListingController.selectedArea ==
-                                            null,
-                                    title: const Text("Public"),
-                                    onTap: () =>
-                                        areasListingController.selectArea(null),
-                                  );
-                                }
+                                // if (index == areas.length) {
+                                //   return ListTile(
+                                //     selected:
+                                //         areasListingController.selectedArea ==
+                                //             null,
+                                //     title: const Text("Public"),
+                                //     onTap: () =>
+                                //         areasListingController.selectArea(null),
+                                //   );
+                                // }
                                 final area = areas[index];
                                 return DragTarget<Presentation>(
                                   onAccept: (data) =>

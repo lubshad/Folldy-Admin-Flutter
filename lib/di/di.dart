@@ -1,4 +1,4 @@
-import 'package:folldy_admin/data/core/api_constants.dart';
+import 'package:folldy_utils/data/core/api_constants.dart';
 import 'package:basic_template/basic_template.dart';
 import 'package:folldy_admin/presentation/screens/areas_listing/areas_listing_controller.dart';
 import 'package:folldy_admin/presentation/screens/chapters_listing/chapter_listing_controller.dart';
@@ -6,10 +6,9 @@ import 'package:folldy_admin/presentation/screens/faculty_listing/faculties_list
 import 'package:folldy_admin/presentation/screens/home_screen/home_controller.dart';
 import 'package:folldy_admin/presentation/screens/presentations_listing/presentation_listing_controller.dart';
 import 'package:folldy_admin/presentation/screens/subjects_listing/subjects_listing_controller.dart';
-
-import '../data/data_sources/remote_data_source.dart';
-import '../data/repository_implemenations/data_repository_implementation.dart';
-import '../domain/repositories/data_repository.dart';
+import 'package:folldy_utils/data/data_sources/remote_data_source.dart';
+import 'package:folldy_utils/data/repository_implemenations/data_repository_implementation.dart';
+import 'package:folldy_utils/domain/repositories/data_repository.dart';
 import '../presentation/screens/courses_listing/course_listing_controller.dart';
 import '../presentation/screens/universities_listing/university_listing_controller.dart';
 

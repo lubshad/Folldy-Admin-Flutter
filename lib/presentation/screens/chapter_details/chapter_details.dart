@@ -1,6 +1,6 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
-import 'package:folldy_admin/data/models/chapter_list_response.dart';
+import 'package:folldy_utils/data/models/chapter_list_response.dart';
 import 'package:folldy_admin/presentation/components/error_message_with_retry.dart';
 import 'package:folldy_admin/presentation/screens/chapter_details/chapter_details_controller.dart';
 import 'package:folldy_admin/presentation/screens/presentation_selection_listing/presentation_selection_listing.dart';

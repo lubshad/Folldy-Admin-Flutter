@@ -1,13 +1,12 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
-import 'package:folldy_admin/data/core/api_constants.dart';
-import 'package:folldy_admin/data/models/presentation_list_response.dart';
+import 'package:folldy_utils/data/core/api_constants.dart';
 import 'package:folldy_admin/presentation/screens/presentations_listing/presentation_listing_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
 import 'package:folldy_admin/utils/presentation_mode.dart';
 import 'package:folldy_admin/utils/url_launcher_utils.dart';
-
-import '../../../data/models/area_list_response.dart';
+import 'package:folldy_utils/data/models/area_list_response.dart';
+import 'package:folldy_utils/data/models/presentation_list_response.dart';
 
 // ignore: must_be_immutable
 class PresentationViewArguments extends Equatable {
@@ -48,6 +47,9 @@ class PresentationsListing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (area == null) {
+      return Container();
+    }
     PresentationsListingController presentationslistingController = Get.find();
 
     openPresentationEditor(Presentation presentation) {

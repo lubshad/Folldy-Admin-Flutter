@@ -1,10 +1,10 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:folldy_admin/data/models/chapter_list_response.dart';
-import 'package:folldy_admin/data/models/presentation_list_response.dart';
-import 'package:folldy_admin/domain/usecase/add_presentation_to_chapter.dart';
-import 'package:folldy_admin/domain/usecase/get_all_presentations.dart';
 import 'package:folldy_admin/utils/extensions.dart';
+import 'package:folldy_utils/data/models/chapter_list_response.dart';
+import 'package:folldy_utils/data/models/presentation_list_response.dart';
+import 'package:folldy_utils/domain/usecase/add_presentation_to_chapter.dart';
+import 'package:folldy_utils/domain/usecase/get_all_presentations.dart';
 
 class ChapterDetailsController extends ChangeNotifier {
   AddPresentations addPresentationToChapter = AddPresentations(Get.find());

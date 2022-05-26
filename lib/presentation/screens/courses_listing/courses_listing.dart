@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:folldy_admin/data/models/university_list_response.dart';
 import 'package:folldy_admin/presentation/screens/courses_listing/course_listing_controller.dart';
 import 'package:folldy_admin/presentation/screens/home_screen/home_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
+import 'package:folldy_utils/data/models/university_list_response.dart';
 import 'package:get/get.dart';
 
 class CorusesListing extends StatelessWidget {

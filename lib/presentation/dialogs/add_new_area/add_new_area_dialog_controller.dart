@@ -1,12 +1,11 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:folldy_admin/data/core/api_constants.dart';
-import 'package:folldy_admin/data/models/area_list_response.dart';
+import 'package:folldy_utils/data/core/api_constants.dart';
 import 'package:folldy_admin/utils/extensions.dart';
+import 'package:folldy_utils/data/models/area_list_response.dart';
+import 'package:folldy_utils/domain/usecase/add_new_area.dart';
 import 'package:http_parser/http_parser.dart';
-
-import '../../../domain/usecase/add_new_area.dart';
 
 class AddEditAreaController extends ChangeNotifier {
   final Area? area;

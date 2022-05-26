@@ -1,6 +1,6 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:folldy_admin/domain/usecase/get_area_wise_presentation.dart';
+import 'package:folldy_utils/domain/usecase/get_area_wise_presentation.dart';
 
 class PresentationSelectionController extends ChangeNotifier {
   // GetAllPresentations getAllPresentations = GetAllPresentations(Get.find());

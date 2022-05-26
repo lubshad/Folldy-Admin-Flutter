@@ -1,9 +1,9 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
-import 'package:folldy_admin/data/models/chapter_list_response.dart';
-import 'package:folldy_admin/data/models/subject_list_response.dart';
 import 'package:folldy_admin/presentation/screens/home_screen/home_screen.dart';
 import 'package:folldy_admin/presentation/screens/subject_details_new/subject_details_new.dart';
+import 'package:folldy_utils/data/models/chapter_list_response.dart';
+import 'package:folldy_utils/data/models/subject_list_response.dart';
 
 import 'screens/chapter_details/chapter_details.dart';
 
