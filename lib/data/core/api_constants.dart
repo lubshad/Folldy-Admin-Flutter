@@ -3,9 +3,11 @@ import 'package:flutter/foundation.dart';
 class ApiConstants {
   ApiConstants._();
 
+  static bool test = true;
+
   // local
   static String get domainUrl =>
-      kDebugMode ? "http://localhost" : "http://143.244.138.169";
+      kDebugMode ? "http://localhost" : test ? "http://34.70.92.249": "http://143.244.138.169";
 
   static String get baseUrl =>
       kDebugMode ? domainUrl + ":8000" + slugUrl : domainUrl + slugUrl;
