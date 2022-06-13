@@ -1,4 +1,4 @@
-import 'package:folldy_utils/data/core/api_constants.dart';
+
 import 'package:basic_template/basic_template.dart';
 import 'package:folldy_admin/presentation/screens/areas_listing/areas_listing_controller.dart';
 import 'package:folldy_admin/presentation/screens/chapters_listing/chapter_listing_controller.dart';
@@ -11,6 +11,7 @@ import 'package:folldy_utils/data/repository_implemenations/data_repository_impl
 import 'package:folldy_utils/domain/repositories/data_repository.dart';
 import '../presentation/screens/courses_listing/course_listing_controller.dart';
 import '../presentation/screens/universities_listing/university_listing_controller.dart';
+import 'package:folldy_admin/data/core/api_constants.dart';
 
 class DependencyInjection {
   static inject() {
