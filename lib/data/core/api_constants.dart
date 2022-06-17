@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 class ApiConstants {
   ApiConstants._();
 
-  static bool test = true;
+  static bool test = false;
 
   // local
   static String get domainUrl =>
