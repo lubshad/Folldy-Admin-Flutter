@@ -4,12 +4,15 @@ import 'package:folldy_admin/utils/extensions.dart';
 import 'package:folldy_utils/data/models/chapter_list_response.dart';
 import 'package:folldy_utils/data/models/presentation_list_response.dart';
 import 'package:folldy_utils/domain/usecase/add_presentation_to_chapter.dart';
-import 'package:folldy_utils/domain/usecase/get_all_presentations.dart';
+import 'package:folldy_utils/domain/usecase/get_chapter_presentations.dart';
+import 'package:folldy_utils/domain/usecase/update_chapter_presentation_display_order.dart';
 
 class ChapterDetailsController extends ChangeNotifier {
   AddPresentations addPresentationToChapter = AddPresentations(Get.find());
-
-  GetAllPresentations getAllPresentations = GetAllPresentations(Get.find());
+  GetChapterPresentations getChapterPresentations =
+      GetChapterPresentations(Get.find());
+  UpdateChapterPresentationDisplayOrder updateChapterPresentationDisplayOrder =
+      UpdateChapterPresentationDisplayOrder(Get.find());
 
   bool presentaionListing = false;
 
@@ -49,10 +52,13 @@ class ChapterDetailsController extends ChangeNotifier {
   List<Presentation> presentations = [];
   List<Map<String, dynamic>> moduleVisePresentations = [];
   getData() async {
-    final response = await getAllPresentations(
-        PresentationListingParams(chapterId: chapter?.id));
-    response.fold((l) => l.handleError(),
-        (r) => presentations = presentationListResponseFromJson(r));
+    final response = await getChapterPresentations(
+        GetChapterPresentationsParams(chapterId: chapter!.id!));
+    response.fold((l) => l.handleError(), (r) {
+      presentations = presentationListResponseFromJson(r);
+      presentations
+          .sort((a, b) => (a.displayOrder ?? 1) - (b.displayOrder ?? 1));
+    });
     makeNotLoading();
   }
 
@@ -77,5 +83,24 @@ class ChapterDetailsController extends ChangeNotifier {
     presentaionListing = false;
     makeLoading();
     getData();
+  }
+
+  updateDisplayOrder(
+      {required Presentation drop, required Presentation droppedOn}) async {
+    int dropIndex = presentations.indexOf(drop);
+    int droppedOnIndex = presentations.indexOf(droppedOn);
+    if (dropIndex < droppedOnIndex) {
+      presentations.insert(droppedOnIndex + 1, drop);
+      presentations.removeAt(dropIndex);
+    } else {
+      presentations.insert(droppedOnIndex, drop);
+      presentations.removeAt(dropIndex + 1);
+    }
+    notifyListeners();
+    final response = await updateChapterPresentationDisplayOrder(
+        UpdateChapterPresentationDisplayOrderParams(
+            chapterId: chapter!.id!,
+            presentationIds: presentations.map((e) => e.id).toList()));
+    response.fold((l) => l.handleError(), (r) => {});
   }
 }

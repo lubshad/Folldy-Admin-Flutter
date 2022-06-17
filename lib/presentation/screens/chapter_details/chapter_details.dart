@@ -5,6 +5,7 @@ import 'package:folldy_admin/presentation/components/error_message_with_retry.da
 import 'package:folldy_admin/presentation/screens/chapter_details/chapter_details_controller.dart';
 import 'package:folldy_admin/presentation/screens/presentation_selection_listing/presentation_selection_listing.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
+import 'package:folldy_utils/data/models/presentation_list_response.dart';
 
 class ChapterDetails extends StatelessWidget {
   const ChapterDetails({
@@ -54,16 +55,57 @@ class ChapterDetails extends StatelessWidget {
                       }),
                       error: chapterDetailsController.appError,
                       isLoading: chapterDetailsController.isLoading,
-                      child: ListView.builder(
-                          itemCount:
-                              chapterDetailsController.presentations.length,
-                          itemBuilder: ((context, index) {
-                            final presentation =
-                                chapterDetailsController.presentations[index];
-                            return ListTile(
-                              title: Text(presentation.name),
-                            );
-                          })),
+                      child: Center(
+                        child: Container(
+                          constraints: const BoxConstraints(
+                            maxWidth: 800,
+                          ),
+                          child: ListView.builder(
+                              itemCount:
+                                  chapterDetailsController.presentations.length,
+                              itemBuilder: ((context, index) {
+                                final presentation = chapterDetailsController
+                                    .presentations[index];
+                                return Draggable(
+                                  data: presentation,
+                                  feedback: Material(
+                                    elevation: 10,
+                                    child: Container(
+                                      constraints:
+                                          const BoxConstraints(maxWidth: 800),
+                                      child: ListTile(
+                                        leading: Text((index + 1).toString()),
+                                        title: Text(presentation.name),
+                                      ),
+                                    ),
+                                  ),
+                                  child: DragTarget<Presentation>(
+                                    onAccept: (drop) => chapterDetailsController.updateDisplayOrder(drop: drop, droppedOn : presentation),
+                                    builder: (BuildContext context,
+                                        List<Object?> candidateData,
+                                        List<dynamic> rejectedData) {
+                                      return ListTile(
+                                        onTap: () {},
+                                        leading: Text((index + 1).toString()),
+                                        title: Text(presentation.name),
+                                        trailing: SizedBox(
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              IconButton(
+                                                  onPressed: () {},
+                                                  icon:
+                                                      const Icon(Icons.remove))
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                );
+                              })),
+                        ),
+                      ),
                     ),
                     AnimatedPositioned(
                         curve: Curves.fastOutSlowIn,
