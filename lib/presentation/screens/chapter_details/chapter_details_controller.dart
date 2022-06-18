@@ -1,5 +1,4 @@
 import 'package:basic_template/basic_template.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/utils/extensions.dart';
 import 'package:folldy_utils/data/models/chapter_list_response.dart';
