@@ -2,7 +2,7 @@
 # See https://dart.dev/tools/pub/glossary#lockfile
 packages:
   animations:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: animations
       url: "https://pub.dartlang.org"
@@ -25,7 +25,7 @@ packages:
   basic_template:
     dependency: "direct main"
     description:
-      path: "../../FLUTTER/basic_template"
+      path: "../basic_template"
       relative: true
     source: path
     version: "0.0.1"
@@ -37,7 +37,7 @@ packages:
     source: hosted
     version: "2.1.0"
   cached_network_image:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: cached_network_image
       url: "https://pub.dartlang.org"
@@ -199,14 +199,14 @@ packages:
     source: path
     version: "0.0.1"
   get:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: get
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.6.5"
   google_fonts:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: google_fonts
       url: "https://pub.dartlang.org"

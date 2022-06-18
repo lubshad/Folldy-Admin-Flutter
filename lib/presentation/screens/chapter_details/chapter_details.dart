@@ -80,7 +80,10 @@ class ChapterDetails extends StatelessWidget {
                                     ),
                                   ),
                                   child: DragTarget<Presentation>(
-                                    onAccept: (drop) => chapterDetailsController.updateDisplayOrder(drop: drop, droppedOn : presentation),
+                                    onAccept: (drop) => chapterDetailsController
+                                        .updateDisplayOrder(
+                                            drop: drop,
+                                            droppedOn: presentation),
                                     builder: (BuildContext context,
                                         List<Object?> candidateData,
                                         List<dynamic> rejectedData) {
@@ -93,7 +96,10 @@ class ChapterDetails extends StatelessWidget {
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
                                               IconButton(
-                                                  onPressed: () {},
+                                                  onPressed: () =>
+                                                      chapterDetailsController
+                                                          .showRemovePresentationConfirmationDialog(
+                                                              presentation),
                                                   icon:
                                                       const Icon(Icons.remove))
                                             ],

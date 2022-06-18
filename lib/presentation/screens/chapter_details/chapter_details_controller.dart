@@ -1,10 +1,12 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:folldy_admin/utils/extensions.dart';
 import 'package:folldy_utils/data/models/chapter_list_response.dart';
 import 'package:folldy_utils/data/models/presentation_list_response.dart';
 import 'package:folldy_utils/domain/usecase/add_presentation_to_chapter.dart';
 import 'package:folldy_utils/domain/usecase/get_chapter_presentations.dart';
+import 'package:folldy_utils/domain/usecase/remove_presentation_from_chapter.dart';
 import 'package:folldy_utils/domain/usecase/update_chapter_presentation_display_order.dart';
 
 class ChapterDetailsController extends ChangeNotifier {
@@ -13,6 +15,8 @@ class ChapterDetailsController extends ChangeNotifier {
       GetChapterPresentations(Get.find());
   UpdateChapterPresentationDisplayOrder updateChapterPresentationDisplayOrder =
       UpdateChapterPresentationDisplayOrder(Get.find());
+  RemovePresentationFromChapter removePresentationFromChapter =
+      RemovePresentationFromChapter(Get.find());
 
   bool presentaionListing = false;
 
@@ -102,5 +106,34 @@ class ChapterDetailsController extends ChangeNotifier {
             chapterId: chapter!.id!,
             presentationIds: presentations.map((e) => e.id).toList()));
     response.fold((l) => l.handleError(), (r) => {});
+  }
+
+  removeFromChapter(Presentation presentation) async {
+    final response = await removePresentationFromChapter(
+        RemovePresentationFromChapterParams(
+            chapterId: chapter!.id!, presentationId: presentation.id));
+    response.fold((l) => l.handleError(), (r) => getData());
+  }
+
+  showRemovePresentationConfirmationDialog(Presentation presentation) {
+    Get.dialog(
+      AlertDialog(
+        title: const Text("Remove Presentation"),
+        content: Text("Are you sure you want to remove ${presentation.name}?"),
+        actions: [
+          ElevatedButton(
+            child: const Text("Cancel"),
+            onPressed: () => Get.back(),
+          ),
+          ElevatedButton(
+            child: const Text("Remove"),
+            onPressed: () {
+              removeFromChapter(presentation);
+              Get.back();
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
