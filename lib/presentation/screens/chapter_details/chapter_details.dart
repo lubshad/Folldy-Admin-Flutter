@@ -28,7 +28,15 @@ class ChapterDetails extends StatelessWidget {
         builder: (context, child) {
           return Scaffold(
               appBar: AppBar(
-                title: Text(chapter.name),
+                title: Row(
+                  children: [
+                    Text(chapter.name),
+                    Text(
+                      " (${chapter.subjectName})",
+                      style: Theme.of(context).textTheme.caption,
+                    )
+                  ],
+                ),
                 actions: [
                   TextButton(
                       onPressed:
