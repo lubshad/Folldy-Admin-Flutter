@@ -25,7 +25,7 @@ packages:
   basic_template:
     dependency: "direct main"
     description:
-      path: "../../FLUTTER/basic_template"
+      path: "../basic_template"
       relative: true
     source: path
     version: "0.0.1"

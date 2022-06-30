@@ -37,7 +37,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   basic_template:
-    path : ../../FLUTTER/basic_template
+    path : ../basic_template
   folldy_utils:
     path : ../folldy_utils
   file_picker: ^4.4.0
