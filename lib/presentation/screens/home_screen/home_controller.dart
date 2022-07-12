@@ -1,13 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/presentation/screens/course_listing_with_drawer/course_listing_with_drawer.dart';
 import 'package:folldy_admin/presentation/screens/institutions_listing/institutions_listing.dart';
 import 'package:folldy_admin/presentation/screens/subject_listing_with_drawer/subject_listing_with_drawer.dart';
 
+import '../app_settings/app_settings.dart';
 import '../area_vise_presentation_listing/area_vise_presentation_listing.dart';
 import '../universities_listing/universities_listing.dart';
 
 class HomeController extends ChangeNotifier {
-  DrawerItem selectedItem = DrawerItem.subjects;
+  DrawerItem selectedItem = DrawerItem.appSettings;
 
   void selectItem(DrawerItem item) {
     selectedItem = item;
@@ -24,6 +26,7 @@ enum DrawerItem {
   // areas,
   presentations,
   institutions,
+  appSettings,
   // teachers,
   // topics,
 }
@@ -53,6 +56,8 @@ extension DrawerItemExtension on DrawerItem {
       //   return const AreasListing();
       case DrawerItem.presentations:
         return const AreaVisePresentationListing();
+      case DrawerItem.appSettings:
+        return const AppSettings();
     }
   }
 
@@ -78,6 +83,8 @@ extension DrawerItemExtension on DrawerItem {
       //   return "Areas";
       case DrawerItem.presentations:
         return "Presentations";
+      case DrawerItem.appSettings:
+        return "App Settings";
     }
   }
 
@@ -103,6 +110,8 @@ extension DrawerItemExtension on DrawerItem {
       // return const Icon(Icons.location_city);
       case DrawerItem.presentations:
         return const Icon(Icons.present_to_all);
+      case DrawerItem.appSettings:
+        return const Icon(CupertinoIcons.settings);
     }
   }
 }
