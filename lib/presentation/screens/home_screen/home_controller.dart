@@ -9,7 +9,7 @@ import '../area_vise_presentation_listing/area_vise_presentation_listing.dart';
 import '../universities_listing/universities_listing.dart';
 
 class HomeController extends ChangeNotifier {
-  DrawerItem selectedItem = DrawerItem.appSettings;
+  DrawerItem selectedItem = DrawerItem.dashboard;
 
   void selectItem(DrawerItem item) {
     selectedItem = item;
