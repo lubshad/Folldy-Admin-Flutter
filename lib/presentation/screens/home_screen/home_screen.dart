@@ -1,5 +1,6 @@
 import 'package:basic_template/basic_template.dart';
 import 'package:flutter/material.dart';
+import 'package:folldy_admin/presentation/screens/auth_wrapper/auth_controller.dart';
 import 'package:folldy_admin/presentation/screens/home_screen/home_controller.dart';
 
 import '../../theme/theme.dart';
@@ -13,6 +14,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomeController homeController = Get.find();
+    AuthController authController = Get.find();
     return Scaffold(
       body: AnimatedBuilder(
           animation: homeController,
@@ -35,18 +37,21 @@ class Home extends StatelessWidget {
                           width: 200,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               ListTile(
-                                leading: CircleAvatar(
-                                  backgroundImage: CachedNetworkImageProvider(
-                                      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"),
+                                leading: const CircleAvatar(
+                                  backgroundImage:
+                                      AssetImage("assets/pngs/no_image.png"),
                                 ),
-                                title: Text("Username"),
+                                title: Text(authController.user!["username"]),
                                 // subtitle: Text("Lead Developer"),
                               ),
                             ],
                           ),
                         ),
+                        IconButton(
+                            onPressed: authController.logout,
+                            icon: const Icon(Icons.logout)),
                         defaultSpacerHorizontal,
                       ],
                     ),

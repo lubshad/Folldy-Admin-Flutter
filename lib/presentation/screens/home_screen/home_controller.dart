@@ -7,9 +7,10 @@ import 'package:folldy_admin/presentation/screens/subject_listing_with_drawer/su
 import '../app_settings/app_settings.dart';
 import '../area_vise_presentation_listing/area_vise_presentation_listing.dart';
 import '../universities_listing/universities_listing.dart';
+import '../user_listing/user_listing.dart';
 
 class HomeController extends ChangeNotifier {
-  DrawerItem selectedItem = DrawerItem.dashboard;
+  DrawerItem selectedItem = DrawerItem.users;
 
   void selectItem(DrawerItem item) {
     selectedItem = item;
@@ -26,6 +27,7 @@ enum DrawerItem {
   // areas,
   presentations,
   institutions,
+  users,
   appSettings,
   // teachers,
   // topics,
@@ -58,6 +60,8 @@ extension DrawerItemExtension on DrawerItem {
         return const AreaVisePresentationListing();
       case DrawerItem.appSettings:
         return const AppSettings();
+      case DrawerItem.users:
+        return const UserListing();
     }
   }
 
@@ -85,6 +89,8 @@ extension DrawerItemExtension on DrawerItem {
         return "Presentations";
       case DrawerItem.appSettings:
         return "App Settings";
+      case DrawerItem.users:
+        return "Users";
     }
   }
 
@@ -112,6 +118,8 @@ extension DrawerItemExtension on DrawerItem {
         return const Icon(Icons.present_to_all);
       case DrawerItem.appSettings:
         return const Icon(CupertinoIcons.settings);
+      case DrawerItem.users:
+        return const Icon(CupertinoIcons.person);
     }
   }
 }

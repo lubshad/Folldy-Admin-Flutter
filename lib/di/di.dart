@@ -1,11 +1,12 @@
-
 import 'package:basic_template/basic_template.dart';
 import 'package:folldy_admin/presentation/screens/areas_listing/areas_listing_controller.dart';
+import 'package:folldy_admin/presentation/screens/auth_wrapper/auth_controller.dart';
 import 'package:folldy_admin/presentation/screens/chapters_listing/chapter_listing_controller.dart';
 import 'package:folldy_admin/presentation/screens/faculty_listing/faculties_listing_controller.dart';
 import 'package:folldy_admin/presentation/screens/home_screen/home_controller.dart';
 import 'package:folldy_admin/presentation/screens/presentations_listing/presentation_listing_controller.dart';
 import 'package:folldy_admin/presentation/screens/subjects_listing/subjects_listing_controller.dart';
+import 'package:folldy_admin/presentation/screens/user_listing/user_listing_controller.dart';
 import 'package:folldy_utils/data/data_sources/remote_data_source.dart';
 import 'package:folldy_utils/data/repository_implemenations/data_repository_implementation.dart';
 import 'package:folldy_utils/domain/repositories/data_repository.dart';
@@ -20,6 +21,7 @@ class DependencyInjection {
         () => RemoteDataSourceImplementation(Get.find()));
     Get.lazyPut<DataRepository>(() => DataRepositoryImplementation(Get.find()));
     Get.lazyPut<HomeController>(() => HomeController());
+    Get.lazyPut(() => AuthController());
     Get.lazyPut(
       () => CourseListingController(),
     );
@@ -40,6 +42,9 @@ class DependencyInjection {
     );
     Get.lazyPut(
       () => FacultyListingController(),
+    );
+    Get.lazyPut(
+      () => UserListingController(),
     );
   }
 }

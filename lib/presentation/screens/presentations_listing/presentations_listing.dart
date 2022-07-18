@@ -1,12 +1,12 @@
 import 'package:basic_template/basic_template.dart';
+import 'package:basic_template/packages/laucher_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:folldy_admin/presentation/screens/presentations_listing/presentation_listing_controller.dart';
 import 'package:folldy_admin/presentation/theme/theme.dart';
-import 'package:folldy_admin/utils/presentation_mode.dart';
-import 'package:folldy_admin/utils/url_launcher_utils.dart';
 import 'package:folldy_utils/data/models/area_list_response.dart';
 import 'package:folldy_utils/data/models/presentation_list_response.dart';
 import 'package:folldy_admin/data/core/api_constants.dart';
+import 'package:folldy_utils/presentation/elements/element_type.dart';
 
 // ignore: must_be_immutable
 class PresentationViewArguments extends Equatable {

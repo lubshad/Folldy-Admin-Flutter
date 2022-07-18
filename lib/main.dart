@@ -9,7 +9,8 @@ void main() {
   runApp(const MyApp());
 }
 
-void setupApp() {
+void setupApp() async {
+  await GetStorage.init();
   setUrlStrategy(PathUrlStrategy());
   DependencyInjection.inject();
   setupLogger();
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
       title: 'Folldy Admin',
       theme: AppTheme.theme,
       initialRoute: AppRoute.initial,
-      onGenerateInitialRoutes: AppRoute.onGenerateInitialRoute,
+      // onGenerateInitialRoutes: AppRoute.onGenerateInitialRoute,
       onGenerateRoute: AppRoute.onGenerateRoute,
     );
   }
