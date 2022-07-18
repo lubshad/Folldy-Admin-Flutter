@@ -55,8 +55,12 @@ class AuthController extends ChangeNotifier {
   }
 
   logout() async {
-    box.write("user", null);
-    await adminLogout(NoParams());
+    final response = await adminLogout(NoParams());
+    response.fold((l) => l.handleError(), (r) {
+      if (r["status"] == 1) {
+        box.write("user", null);
+      }
+    });
   }
 
   bool obscureText = true;
