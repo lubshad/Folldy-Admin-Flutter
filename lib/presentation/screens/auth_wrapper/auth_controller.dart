@@ -75,6 +75,7 @@ class AuthController extends ChangeNotifier {
         box.write("user", jsonEncode(r["user"]));
         usernameController.clear();
         passwordController.clear();
+        obscureText = true;
       } else {
         showErrorMessage(r["message"]);
       }

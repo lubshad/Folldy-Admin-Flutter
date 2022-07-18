@@ -47,6 +47,8 @@ class UserListingController extends ChangeNotifier {
   }
 
   void showAddUserDialog() {
+    usernameController.clear();
+    passwordController.clear();
     Get.dialog(const AddUserDialog());
   }
 
