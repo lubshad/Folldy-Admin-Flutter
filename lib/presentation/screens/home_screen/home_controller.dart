@@ -10,7 +10,7 @@ import '../universities_listing/universities_listing.dart';
 import '../user_listing/user_listing.dart';
 
 class HomeController extends ChangeNotifier {
-  DrawerItem selectedItem = DrawerItem.users;
+  DrawerItem selectedItem = DrawerItem.dashboard;
 
   void selectItem(DrawerItem item) {
     selectedItem = item;
